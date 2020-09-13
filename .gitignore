@@ -1,0 +1,3 @@
+data/*
+django/code/static/*
+django/code/media/*

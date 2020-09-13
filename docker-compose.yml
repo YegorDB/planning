@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:12.4
+    environment:
+      POSTGRES_DB: main_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: qwerty
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./data/postgres/pgdata:/var/lib/postgresql/data/pgdata"
+
+  django:
+    build:
+      context: ./django
+    image: plann/django:dev
+    volumes:
+      - "./data/django/static:/code/static"
+      - "./data/django/media:/code/media"
+      - "./django/code:/code"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
