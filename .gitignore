@@ -1,3 +1,4 @@
 data/*
 django/code/static/*
 django/code/media/*
+**/__pycache__/**

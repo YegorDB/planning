@@ -14,7 +14,7 @@ services:
   django:
     build:
       context: ./django
-    image: plann/django:dev
+    image: planning/django:dev
     volumes:
       - "./data/django/static:/code/static"
       - "./data/django/media:/code/media"
