@@ -1,3 +1,5 @@
+import os
+
 from pathlib import Path
 
 
@@ -5,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'bd94#bw#ugy(0g7@5&xgj6!qfj_c5)-(@hr=vq#q$v=y9w_4qp'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -22,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'plann',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +65,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'main_db',
         'USER': 'root',
-        'PASSWORD': 'qwerty',
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
         'HOST': 'postgres',
         'PORT': '5432',
     }

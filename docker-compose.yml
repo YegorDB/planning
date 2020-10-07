@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: main_db
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: qwerty
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - "./data/postgres/pgdata:/var/lib/postgresql/data/pgdata"
@@ -15,6 +15,9 @@ services:
     build:
       context: ./django
     image: planning/django:dev
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      SECRET_KEY: "${SECRET_KEY}"
     volumes:
       - "./data/django/static:/code/static"
       - "./data/django/media:/code/media"
