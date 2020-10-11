@@ -1,9 +1,6 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
-
-
-class Project(models.Model):
-    name = models.CharField(max_length=100)
 
 
 class Task(models.Model):
@@ -16,13 +13,11 @@ class Task(models.Model):
         CRITICAL = 4, _('Critical')
 
     name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, default='')
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_tasks')
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tasks')
     deadline = models.DateTimeField()
+    duration = models.DurationField()
     priority = models.SmallIntegerField(choices=Priority.choices, default=Priority.NOT_SET)
     depends_on = models.ManyToManyField('self')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-
-
-class Stage(models.Model):
-    name = models.CharField(max_length=100)
-    duration = models.DurationField()
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', blank=True, null=True)
