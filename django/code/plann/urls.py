@@ -1,9 +1,8 @@
 from django.urls import path
 
-from plann.api import CreateTask, UserTasks
+from plann.views import TasksView
 
 
 urlpatterns = [
-    path('tasks/', UserTasks.as_view(), name='api-task'),
-    path('create_task/', CreateTask.as_view(), name='api-create-task'),
+    path('tasks/', TasksView.as_view(), name='tasks'),
 ]
