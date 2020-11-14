@@ -17,3 +17,8 @@
 - Priority.
 - Depends on other tasks
 - Subtasks (children)
+
+
+### Task Creation
+
+> Task creator and task responsible always the same person (for now)

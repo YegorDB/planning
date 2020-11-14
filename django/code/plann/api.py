@@ -23,7 +23,6 @@ class CreateTask(generics.CreateAPIView):
     {
         "name": string (required),
         "description": string,
-        "responsible": integer (required),
         "deadline": ISO 8601 datetime string (required),
         "duration": ISO 8601 duration string (required),
         "priority": integer,
@@ -38,3 +37,8 @@ class CreateTask(generics.CreateAPIView):
     '''
 
     serializer_class = TaskSerializer
+
+    def create(self, request, *args, **kwargs):
+        request.data['creator'] = request.user.id
+        request.data['responsible'] = request.user.id
+        return super().create(request, *args, **kwargs)
