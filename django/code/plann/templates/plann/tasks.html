@@ -1,5 +1,12 @@
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block title %}Tasks{% endblock %}
 
-{% block content %}User Tasks{% endblock %}
+{% block content %}
+  <div id="tasks-box"></div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'plann/js/tasks.js' %}"></script>
+{% endblock %}
