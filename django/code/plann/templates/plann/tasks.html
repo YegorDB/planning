@@ -1,13 +1,26 @@
 {% extends "main/base.html" %}
 {% load static %}
 
+{% block styles %}
+  <style type="text/css">
+    #scale-numbers {
+      margin-bottom: -5px;
+    }
+
+    .scale-numbers-text {
+      font-size: 13px;
+    }
+  </style>
+{% endblock %}
+
 {% block title %}Tasks{% endblock %}
 
 {% block content %}
   <div id="tasks-box"></div>
   <div id="tasks-box2">
     <div>
-      <canvas id="scale" width="1440" height="10"></canvas>
+      <svg id="scale-numbers" width="960" height="10"></svg>
+      <canvas id="scale-linear" width="960" height="10"></canvas>
     </div>
   </div>
 {% endblock %}
