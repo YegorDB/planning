@@ -1,3 +1,17 @@
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 const WEEK_DAYS = [
   'sunday',
   'monday',
@@ -7,6 +21,21 @@ const WEEK_DAYS = [
   'friday',
   'saturday',
 ];
+
+
+/**
+ * Draw tasks diagram scale month.
+ * @param {Date} date - Date instance.
+ */
+function drawScaleMonth(date) {
+  let scaleMonthBox = document.getElementById('scale-month');
+  let monthText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  monthText.setAttribute('x', 0);
+  monthText.setAttribute('y', 10);
+  monthText.classList.add('scale-numbers-text');
+  monthText.textContent = MONTHS[date.getMonth()];
+  scaleMonthBox.appendChild(monthText);
+}
 
 
 /**
@@ -73,6 +102,7 @@ function drawScaleLinear() {
 function drawScale() {
   let date = new Date();
 
+  drawScaleMonth(date);
   drawScaleDay(date);
   drawScaleNumbers();
   drawScaleLinear();

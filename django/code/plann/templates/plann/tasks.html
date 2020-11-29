@@ -3,6 +3,10 @@
 
 {% block styles %}
   <style type="text/css">
+    #scale-month, #scale-day {
+      margin-bottom: -10px;
+    }
+
     #scale-numbers {
       margin-bottom: -5px;
     }
@@ -19,6 +23,7 @@
   <div id="tasks-box"></div>
   <div id="tasks-box2">
     <div>
+      <svg id="scale-month" width="960" height="15"></svg>
       <svg id="scale-day" width="960" height="15"></svg>
       <svg id="scale-numbers" width="960" height="10"></svg>
       <canvas id="scale-linear" width="960" height="10"></canvas>
