@@ -1,3 +1,34 @@
+const WEEK_DAYS = [
+  'sunday',
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+];
+
+
+/**
+ * Draw tasks diagram scale day.
+ * @param {Date} date - Date instance.
+ */
+function drawScaleDay(date) {
+  let scaleDayBox = document.getElementById('scale-day');
+  let dayText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  dayText.setAttribute('x', 0);
+  dayText.setAttribute('y', 10);
+  dayText.classList.add('scale-numbers-text');
+  let weekDay = WEEK_DAYS[date.getDay()];
+  let monthDay = date.getDate().toString();
+  if (monthDay.length == 1) {
+    monthDay = `0${monthDay}`;
+  }
+  dayText.textContent = `${monthDay} (${weekDay})`;
+  scaleDayBox.appendChild(dayText);
+}
+
+
 /** Draw tasks diagram scale numbers. */
 function drawScaleNumbers() {
   let scaleNumbersBox = document.getElementById('scale-numbers');
@@ -40,6 +71,9 @@ function drawScaleLinear() {
 
 /** Draw tasks diagram scale. */
 function drawScale() {
+  let date = new Date();
+
+  drawScaleDay(date);
   drawScaleNumbers();
   drawScaleLinear();
 }
@@ -50,7 +84,7 @@ $(document).ready(function() {
     url: '/api/1.0/user_tasks/',
   })
   .done((data) => {
-    $('#tasks-box').text(JSON.stringify(data));
+    // $('#tasks-box').text(JSON.stringify(data));
   });
 
   drawScale();
