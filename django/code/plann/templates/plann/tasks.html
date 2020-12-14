@@ -21,5 +21,10 @@
 {% endblock %}
 
 {% block scripts %}
+  <script type="text/javascript">
+    {% autoescape off %}
+      const RAW_CHOISES = '{{ choices }}';
+    {% endautoescape %}
+  </script>
   <script src="{% static 'plann/js/tasks.js' %}"></script>
 {% endblock %}

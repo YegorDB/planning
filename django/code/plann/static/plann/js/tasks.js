@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  const CHOISES = JSON.parse(RAW_CHOISES);
+
   $.ajax({
     url: '/api/1.0/user_tasks/',
   })
@@ -19,12 +21,12 @@ $(document).ready(function() {
 
       let taskItemPriority = document.createElement('div');
       $(taskItemPriority).addClass('tasks-box-item-value');
-      $(taskItemPriority).text(task.priority);
+      $(taskItemPriority).text(CHOISES.task.priority[task.priority]);
       $(taskItem).append(taskItemPriority);
 
       let taskItemStatus = document.createElement('div');
       $(taskItemStatus).addClass('tasks-box-item-value');
-      $(taskItemStatus).text(task.status);
+      $(taskItemStatus).text(CHOISES.task.status[task.status]);
       $(taskItem).append(taskItemStatus);
 
       $('#tasks-box').append(taskItem);
