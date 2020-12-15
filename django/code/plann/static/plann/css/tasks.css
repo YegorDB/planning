@@ -1,0 +1,8 @@
+.tasks-stack-item {
+  background-color: #ccc;
+}
+
+.tasks-stack-cell {
+  width: 25%;
+  display: inline-block;
+}

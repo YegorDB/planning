@@ -5,31 +5,41 @@ $(document).ready(function() {
     url: '/api/1.0/user_tasks/',
   })
   .done((data) => {
+    let headerItem = document.createElement('div');
+    let headerNames = ['Name', 'Duration', 'Priority', 'Status'];
+    for (let headerName of headerNames) {
+      let headerItemValue = document.createElement('div');
+      $(headerItemValue).addClass('tasks-stack-cell');
+      $(headerItemValue).text(headerName);
+      $(headerItem).append(headerItemValue);
+    }
+    $('#tasks-stack').append(headerItem);
+
     for (let task of data) {
       let taskItem = document.createElement('div');
-      $(taskItem).addClass('tasks-box-item');
+      $(taskItem).addClass('tasks-stack-item');
 
       let taskItemName = document.createElement('div');
-      $(taskItemName).addClass('tasks-box-item-value');
+      $(taskItemName).addClass('tasks-stack-cell');
       $(taskItemName).text(task.name);
       $(taskItem).append(taskItemName);
 
       let taskItemDuration = document.createElement('div');
-      $(taskItemDuration).addClass('tasks-box-item-value');
+      $(taskItemDuration).addClass('tasks-stack-cell');
       $(taskItemDuration).text(task.duration);
       $(taskItem).append(taskItemDuration);
 
       let taskItemPriority = document.createElement('div');
-      $(taskItemPriority).addClass('tasks-box-item-value');
+      $(taskItemPriority).addClass('tasks-stack-cell');
       $(taskItemPriority).text(CHOISES.task.priority[task.priority]);
       $(taskItem).append(taskItemPriority);
 
       let taskItemStatus = document.createElement('div');
-      $(taskItemStatus).addClass('tasks-box-item-value');
+      $(taskItemStatus).addClass('tasks-stack-cell');
       $(taskItemStatus).text(CHOISES.task.status[task.status]);
       $(taskItem).append(taskItemStatus);
 
-      $('#tasks-box').append(taskItem);
+      $('#tasks-stack').append(taskItem);
     }
   });
 });

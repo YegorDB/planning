@@ -2,22 +2,13 @@
 {% load static %}
 
 {% block styles %}
-  <style type="text/css">
-    .tasks-box-item {
-      background-color: #ccc;
-    }
-
-    .tasks-box-item-value {
-      width: 25%;
-      display: inline-block;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.css' %}">
 {% endblock %}
 
 {% block title %}Tasks{% endblock %}
 
 {% block content %}
-  <div id="tasks-box"></div>
+  <div id="tasks-stack"></div>
 {% endblock %}
 
 {% block scripts %}
