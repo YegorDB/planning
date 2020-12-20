@@ -1,8 +1,34 @@
-.tasks-stack-item {
-  background-color: #ccc;
+body {
+  color: #333;
 }
 
+
 .tasks-stack-cell {
-  width: 25%;
+  width: 33%;
   display: inline-block;
+}
+
+.tasks-stack-item {
+  background-color: #f3ecc2;
+}
+
+.tasks-stack-item-name {
+  position: relative;
+}
+
+.tasks-stack-item-description {
+  width: 15px;
+  height: 15px;
+  background-color: #48d8d3;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  border-radius: 50%;
+  cursor: default;
+}
+.tasks-stack-item-description > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -55%);
 }

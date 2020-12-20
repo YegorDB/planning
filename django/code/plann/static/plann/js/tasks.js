@@ -6,7 +6,7 @@ $(document).ready(function() {
   })
   .done((data) => {
     let headerItem = document.createElement('div');
-    let headerNames = ['Name', 'Duration', 'Priority', 'Status'];
+    let headerNames = ['Name', 'Priority', 'Status'];
     for (let headerName of headerNames) {
       let headerItemValue = document.createElement('div');
       $(headerItemValue).addClass('tasks-stack-cell');
@@ -20,14 +20,16 @@ $(document).ready(function() {
       $(taskItem).addClass('tasks-stack-item');
 
       let taskItemName = document.createElement('div');
-      $(taskItemName).addClass('tasks-stack-cell');
+      $(taskItemName).addClass('tasks-stack-cell tasks-stack-item-name');
       $(taskItemName).text(task.name);
+      if (task.description && task.description != '') {
+        $(taskItemName).append(`
+          <div class="tasks-stack-item-description" title="${task.description}">
+            <div>i</div>
+          </div>
+        `);
+      }
       $(taskItem).append(taskItemName);
-
-      let taskItemDuration = document.createElement('div');
-      $(taskItemDuration).addClass('tasks-stack-cell');
-      $(taskItemDuration).text(task.duration);
-      $(taskItem).append(taskItemDuration);
 
       let taskItemPriority = document.createElement('div');
       $(taskItemPriority).addClass('tasks-stack-cell');
