@@ -7,7 +7,15 @@ $(document).ready(function() {
   .done((data) => {
     for (let task of data) {
       let taskItem = document.createElement('div');
-      $(taskItem).addClass('tasks-stack-item');
+      $(taskItem).addClass('tasks-stack-row');
+
+      let taskItemPriority = document.createElement('div');
+      $(taskItemPriority).addClass('tasks-stack-cell tasks-stack-cell-priority');
+      let taskItemPriorityValue = document.createElement('div');
+      $(taskItemPriorityValue).addClass(`tasks-stack-cell-item-priority tasks-stack-cell-item-priority-${task.priority}`);
+      $(taskItemPriorityValue).attr('title', CHOISES.task.priority[task.priority]);
+      $(taskItemPriority).append(taskItemPriorityValue);
+      $(taskItem).append(taskItemPriority);
 
       let taskItemName = document.createElement('div');
       $(taskItemName).addClass('tasks-stack-cell tasks-stack-cell-name');
@@ -16,18 +24,13 @@ $(document).ready(function() {
       $(taskItemNameText).text(task.name);
       if (task.description && task.description != '') {
         $(taskItemNameText).append(`
-          <div class="tasks-stack-item-description" title="${task.description}">
+          <div class="tasks-stack-cell-item-description" title="${task.description}">
             <div>i</div>
           </div>
         `);
       }
       $(taskItemName).append(taskItemNameText);
       $(taskItem).append(taskItemName);
-
-      let taskItemPriority = document.createElement('div');
-      $(taskItemPriority).addClass('tasks-stack-cell tasks-stack-cell-priority');
-      $(taskItemPriority).text(CHOISES.task.priority[task.priority]);
-      $(taskItem).append(taskItemPriority);
 
       let taskItemStatus = document.createElement('div');
       $(taskItemStatus).addClass('tasks-stack-cell tasks-stack-cell-status');
