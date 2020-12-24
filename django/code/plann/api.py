@@ -11,7 +11,7 @@ class UserTasks(generics.ListAPIView):
     serializer_class = TaskListSerializer
 
     def get_queryset(self):
-        return self.request.user.tasks.all()
+        return self.request.user.tasks.order_by('-priority')
 
 
 class CreateTask(generics.CreateAPIView):
