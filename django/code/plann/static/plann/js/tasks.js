@@ -34,7 +34,10 @@ $(document).ready(function() {
 
       let taskItemStatus = document.createElement('div');
       $(taskItemStatus).addClass('tasks-stack-cell tasks-stack-cell-status');
-      $(taskItemStatus).text(CHOISES.task.status[task.status]);
+      let taskItemStatusValue = document.createElement('div');
+      $(taskItemStatusValue).addClass(`tasks-stack-cell-item-status tasks-stack-cell-item-status-${task.status.toLowerCase()}`);
+      $(taskItemStatusValue).text(CHOISES.task.status[task.status]);
+      $(taskItemStatus).append(taskItemStatusValue);
       $(taskItem).append(taskItemStatus);
 
       $('#tasks-stack-items').append(taskItem);

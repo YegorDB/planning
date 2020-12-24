@@ -47,7 +47,6 @@ body {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #333;
   display: inline-block;
 }
 .tasks-stack-cell-item-priority-0 {
@@ -64,6 +63,27 @@ body {
 }
 .tasks-stack-cell-item-priority-4 {
   background-color: #E8505B;
+}
+
+
+.tasks-stack-cell-item-status {
+  padding: 0px 4px;
+  border-radius: 4px;
+  text-align: center;
+  width: max-content;
+  margin: auto;
+}
+.tasks-stack-cell-item-status-ns {
+  background-color: #ddd;
+}
+.tasks-stack-cell-item-status-ip {
+  background-color: #f9d56e;
+}
+.tasks-stack-cell-item-status-cl {
+  background-color: #F49CA2;
+}
+.tasks-stack-cell-item-status-dn {
+  background-color: #6FD8D4;
 }
 
 
