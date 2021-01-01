@@ -1,5 +1,5 @@
 {% extends "main/base.html" %}
-{% load static %}
+{% load static rest_framework %}
 
 {% block styles %}
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.css' %}">
@@ -16,6 +16,12 @@
     </div>
     <div id="tasks-stack-items"></div>
   </div>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% render_form create_task_serializer %}
+    <input type="submit" value="Create">
+  </form>
 {% endblock %}
 
 {% block scripts %}

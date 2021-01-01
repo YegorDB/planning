@@ -5,6 +5,12 @@ from rest_framework import serializers
 from plann.models import Task
 
 
+class TaskCreationFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ['name', 'description', 'priority']
+
+
 class TaskCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
