@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('description', models.TextField(blank=True, default='')),
+                ('creation_datetime', models.DateTimeField(auto_now_add=True)),
                 ('deadline', models.DateTimeField(blank=True, null=True)),
                 ('duration', models.DurationField(blank=True, null=True)),
                 ('priority', models.SmallIntegerField(choices=[(0, 'Not set'), (1, 'Low'), (2, 'Normal'), (3, 'High'), (4, 'Critical')], default=0)),

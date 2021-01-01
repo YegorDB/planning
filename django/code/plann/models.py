@@ -20,11 +20,16 @@ class Task(models.Model):
 
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, default='')
+
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_tasks')
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tasks')
+
+    creation_datetime = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
+
     priority = models.SmallIntegerField(choices=Priority.choices, default=Priority.NOT_SET)
+    status = models.CharField(max_length=2, choices=Status.choices, default=Status.NOT_SET)
+
     depends_on = models.ManyToManyField('self')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', blank=True, null=True)
-    status = models.CharField(max_length=2, choices=Status.choices, default=Status.NOT_SET)
