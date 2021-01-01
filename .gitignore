@@ -1,4 +1,4 @@
 data/*
-django/code/static/*
-django/code/media/*
+src/django/code/static/*
+src/django/code/media/*
 **/__pycache__/**
