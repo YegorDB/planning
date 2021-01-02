@@ -16,11 +16,15 @@
     </div>
     <div id="tasks-stack-items"></div>
   </div>
-
-  <form id="task-creation-form">
-    {% render_form create_task_serializer %}
-    <input type="submit" value="Create">
-  </form>
+  <div id="tasks-creation">
+    <div id="tasks-creation-header">
+      <div>Create task</div>
+    </div>
+    <form id="task-creation-form">
+      {% render_form create_task_serializer %}
+      <input type="submit" value="Create">
+    </form>
+  </div>
 {% endblock %}
 
 {% block scripts %}

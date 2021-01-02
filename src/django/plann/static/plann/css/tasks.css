@@ -103,3 +103,22 @@ body {
   left: 50%;
   transform: translate(-50%, -51%);
 }
+
+
+
+#tasks-creation {
+  position: fixed;
+  top: 9px;
+  right: 15px;
+}
+
+#tasks-creation-header > div {
+  width: max-content;
+  margin: auto;
+  padding: 5px;
+}
+
+.task-creation-item-label {
+  display: inline-block;
+  min-width: 110px;
+}

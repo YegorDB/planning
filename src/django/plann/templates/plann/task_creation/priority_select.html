@@ -1,0 +1,23 @@
+{% load rest_framework %}
+
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+  <div class="task-creation-item-label">
+    <label>{{ field.label|lower }}</label>
+  </div>
+
+  <select class="form-control" name="{{ field.name }}">
+    {% for select in field.iter_options %}
+      <option value="{{ select.value }}" {% if select.value|as_string == field.value|as_string %}selected{% endif %} {% if select.disabled %}disabled{% endif %}>{{ select.display_text }}</option>
+    {% endfor %}
+  </select>
+
+  {% if field.errors %}
+    {% for error in field.errors %}
+      <span class="help-block">{{ error }}</span>
+    {% endfor %}
+  {% endif %}
+
+  {% if field.help_text %}
+    <span class="help-block">{{ field.help_text|safe }}</span>
+  {% endif %}
+</div>

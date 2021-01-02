@@ -9,6 +9,17 @@ class TaskCreationFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ['name', 'description', 'priority']
+        extra_kwargs = {
+            'name': {
+                'style': {'template': 'plann/task_creation/name_input.html'},
+            },
+            'description': {
+                'style': {'template': 'plann/task_creation/description_textarea.html'},
+            },
+            'priority': {
+                'style': {'template': 'plann/task_creation/priority_select.html'},
+            },
+        }
 
 
 class TaskCreateSerializer(serializers.ModelSerializer):
