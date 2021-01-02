@@ -17,8 +17,7 @@
     <div id="tasks-stack-items"></div>
   </div>
 
-  <form action="" method="POST">
-    {% csrf_token %}
+  <form id="task-creation-form">
     {% render_form create_task_serializer %}
     <input type="submit" value="Create">
   </form>
