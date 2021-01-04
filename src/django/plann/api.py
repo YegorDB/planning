@@ -1,6 +1,6 @@
 from rest_framework import generics
 
-from plann.serializers import TaskCreateSerializer, TaskListSerializer
+from plann.serializers import TaskSerializer, TaskListSerializer
 
 
 class UserTasks(generics.ListAPIView):
@@ -36,9 +36,20 @@ class CreateTask(generics.CreateAPIView):
     ```
     '''
 
-    serializer_class = TaskCreateSerializer
+    serializer_class = TaskSerializer
 
     def create(self, request, *args, **kwargs):
         request.data['creator'] = request.user.id
         request.data['responsible'] = request.user.id
         return super().create(request, *args, **kwargs)
+
+
+class UpdateTask(generics.UpdateAPIView):
+    '''
+    ## Task updation
+    '''
+
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        return self.request.user.tasks
