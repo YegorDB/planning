@@ -5,7 +5,7 @@
     <label>{{ field.label|lower }}</label>
   </div>
 
-  <select class="form-control" name="{{ field.name }}">
+  <select id="task-creation-form-priority" class="form-control" name="{{ field.name }}">
     {% for select in field.iter_options %}
       <option value="{{ select.value }}" {% if select.value|as_string == field.value|as_string %}selected{% endif %} {% if select.disabled %}disabled{% endif %}>{{ select.display_text }}</option>
     {% endfor %}

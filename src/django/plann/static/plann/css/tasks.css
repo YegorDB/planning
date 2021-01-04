@@ -118,7 +118,48 @@ body {
   padding: 5px;
 }
 
+#task-creation-form {
+  background-color: #f9f4d3;
+  padding: 10px;
+  border-radius: 4px;
+}
+
 .task-creation-item-label {
   display: inline-block;
   min-width: 110px;
+}
+
+#task-creation-form-name {
+  width: 190px;
+}
+
+#task-creation-form-description {
+  border-radius: 4px;
+  width: 200px;
+  height: 50px;
+}
+
+#task-creation-form-priority {
+  width: 205px;
+}
+
+#task-creation-form-button-box {
+  width: max-content;
+  margin: auto;
+  padding: 10px 5px 0px;
+}
+
+#task-creation-form-button {
+  background-color: #f9d56e;
+  border-style: unset;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#task-creation-form-button:hover {
+  background-color: #bba66d;
+}
+
+.form-group {
+  padding: 5px 0;
 }

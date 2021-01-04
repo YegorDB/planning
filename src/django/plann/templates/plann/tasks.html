@@ -22,7 +22,9 @@
     </div>
     <form id="task-creation-form">
       {% render_form create_task_serializer %}
-      <input type="submit" value="Create">
+      <div id="task-creation-form-button-box">
+        <input id="task-creation-form-button" type="submit" value="Create">
+      </div>
     </form>
   </div>
 {% endblock %}
