@@ -3,6 +3,7 @@
 
 {% block styles %}
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'plann/css/dialog.css' %}">
 {% endblock %}
 
 {% block title %}Tasks{% endblock %}
@@ -16,6 +17,7 @@
     </div>
     <div id="tasks-stack-items"></div>
   </div>
+
   <div id="tasks-creation">
     <div id="tasks-creation-header">
       <div>Create task</div>
@@ -26,6 +28,10 @@
         <input id="task-creation-form-button" type="submit" value="Create">
       </div>
     </form>
+  </div>
+
+  <div id="change-status-dialog" class="dialog-window dialog-window-open">
+    <div class="dialog-window-content"></div>
   </div>
 {% endblock %}
 

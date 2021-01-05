@@ -10,6 +10,23 @@ $.ajaxSetup({
 });
 
 
+class ChangeStatusDialog {
+
+  constructor() {
+    this._content = $('#change-status-dialog > .dialog-window-content');
+    for (let [value, name] of Object.entries(CHOISES.task.status)) {
+      let status = document.createElement('div');
+      $(status).addClass([
+        'change-status-dialog-item',
+        `change-status-dialog-item-${value.toLowerCase()}`,
+      ].join(' '));
+      $(status).text(name);
+      this._content.append(status);
+    }
+  }
+}
+
+
 /**
  * Draw tasks stack item.
  * @param {Object} task - Task data.
@@ -64,6 +81,8 @@ function drawTask(task) {
 
 
 $(document).ready(function() {
+  let changeStatusDialog = new ChangeStatusDialog;
+
   $.ajax({
     url: '/api/1.0/user_tasks/',
   })
@@ -91,5 +110,12 @@ $(document).ready(function() {
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
     });
+  });
+
+  $('.dialog-window').on('click', function(e) {
+    $(this).removeClass('dialog-window-open');
+  });
+  $('.dialog-window-content').on('click', function(e) {
+    e.stopPropagation();
   });
 });
