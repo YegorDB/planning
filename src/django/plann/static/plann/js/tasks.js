@@ -10,10 +10,13 @@ $.ajaxSetup({
 });
 
 
+/** Change status dialog window logic. */
 class ChangeStatusDialog {
 
+  /** Create. */
   constructor() {
     this._content = $('#change-status-dialog > .dialog-window-content');
+    this._taskId = null;
     for (let [value, name] of Object.entries(CHOISES.task.status)) {
       let status = document.createElement('div');
       $(status).addClass([
@@ -21,8 +24,45 @@ class ChangeStatusDialog {
         `change-status-dialog-item-${value.toLowerCase()}`,
       ].join(' '));
       $(status).text(name);
+      $(status).on('click', (e) => {
+        this._changeValue(value);
+      });
       this._content.append(status);
     }
+
+    $('#change-status-dialog').on('click', (e) => {
+      this._taskId = null;
+    });
+    $('#change-status-dialog').on('changeStatusStart', (e) => {
+      $('#change-status-dialog').addClass('dialog-window-open');
+      this._taskId = e.taskId;
+    });
+  }
+
+  /**
+   * Change status value.
+   * @param {string} value - New status value.
+   */
+  _changeValue(value) {
+    if (!this._taskId) return;
+
+    $.ajax({
+      url: `/api/1.0/update_task/${this._taskId}/`,
+      data: JSON.stringify({
+        'status': value,
+      }),
+      type: 'PATCH',
+      contentType: 'application/json',
+    })
+    .done(function(task) {
+      console.log('task', task);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      console.log('jqXHR', jqXHR);
+    });
+
+    this._taskId = null;
+    $('#change-status-dialog').removeClass('dialog-window-open');
   }
 }
 
@@ -73,6 +113,12 @@ function drawTask(task) {
     `tasks-stack-cell-item-status-${task.status.toLowerCase()}`,
   ].join(' '));
   $(taskItemStatusValue).text(CHOISES.task.status[task.status]);
+  $(taskItemStatusValue).on('click', (e) => {
+    $('#change-status-dialog').trigger({
+      type: 'changeStatusStart',
+      taskId: task.id,
+    });
+  });
   $(taskItemStatus).append(taskItemStatusValue);
   $(taskItem).append(taskItemStatus);
 
