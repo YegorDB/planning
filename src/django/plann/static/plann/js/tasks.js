@@ -54,8 +54,8 @@ class ChangeStatusDialog {
       type: 'PATCH',
       contentType: 'application/json',
     })
-    .done(function(task) {
-      console.log('task', task);
+    .done(function(taskData) {
+      console.log('taskData', taskData);
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
@@ -67,78 +67,131 @@ class ChangeStatusDialog {
 }
 
 
-/**
- * Draw tasks stack item.
- * @param {Object} task - Task data.
- * @param {integer} task.priority - Task priority.
- * @param {string} task.name - Task name.
- * @param {string} task.status - Task status.
- * @param {string} [task.description] - Task description.
- */
-function drawTask(task) {
-  let taskItem = document.createElement('div');
-  $(taskItem).addClass('tasks-stack-row');
+/** Tasks stack item handle logic. */
+class TasksStackItem {
 
-  let taskItemPriority = document.createElement('div');
-  $(taskItemPriority).addClass('tasks-stack-cell tasks-stack-cell-priority');
-  let taskItemPriorityValue = document.createElement('div');
-  $(taskItemPriorityValue).addClass([
-    'tasks-stack-cell-item-priority',
-    `tasks-stack-cell-item-priority-${task.priority}`,
-  ].join(' '));
-  $(taskItemPriorityValue).attr('title', CHOISES.task.priority[task.priority]);
-  $(taskItemPriority).append(taskItemPriorityValue);
-  $(taskItem).append(taskItemPriority);
+  /**
+   * Create.
+   * @param {Object} taskData - Task data.
+   * @param {integer} taskData.id - Task id.
+   * @param {integer} taskData.priority - Task priority.
+   * @param {string} taskData.name - Task name.
+   * @param {string} taskData.status - Task status.
+   * @param {string} [taskData.description] - Task description.
+   */
+  constructor(taskData) {
+    this._id = taskData.id;
+    this._priority = taskData.priority;
+    this._name = taskData.name;
+    this._status = taskData.status;
+    this._description = taskData.description;
 
-  let taskItemName = document.createElement('div');
-  $(taskItemName).addClass('tasks-stack-cell tasks-stack-cell-name');
-  let taskItemNameText = document.createElement('div');
-  $(taskItemNameText).addClass('tasks-stack-cell-name-text');
-  $(taskItemNameText).text(task.name);
-  if (task.description && task.description != '') {
-    $(taskItemNameText).append(`
-      <div class="tasks-stack-cell-item-description" title="${task.description}">
-        <div>i</div>
-      </div>
-    `);
+    this.element = document.createElement('div');
+    $(this.element).addClass('tasks-stack-row');
+    $('#tasks-stack-items').append(this.element);
+
+    this._drawPriority();
+    this._drawName();
+    this._drawStatus();
   }
-  $(taskItemName).append(taskItemNameText);
-  $(taskItem).append(taskItemName);
 
-  let taskItemStatus = document.createElement('div');
-  $(taskItemStatus).addClass('tasks-stack-cell tasks-stack-cell-status');
-  let taskItemStatusValue = document.createElement('div');
-  $(taskItemStatusValue).addClass([
-    'tasks-stack-cell-item-status',
-    `tasks-stack-cell-item-status-${task.status.toLowerCase()}`,
-  ].join(' '));
-  $(taskItemStatusValue).text(CHOISES.task.status[task.status]);
-  $(taskItemStatusValue).on('click', (e) => {
-    $('#change-status-dialog').trigger({
-      type: 'changeStatusStart',
-      taskId: task.id,
+  _drawPriority() {
+    let taskItemPriority = document.createElement('div');
+    $(taskItemPriority).addClass('tasks-stack-cell tasks-stack-cell-priority');
+    let taskItemPriorityValue = document.createElement('div');
+    $(taskItemPriorityValue).addClass([
+      'tasks-stack-cell-item-priority',
+      `tasks-stack-cell-item-priority-${this._priority}`,
+    ].join(' '));
+    $(taskItemPriorityValue).attr('title', CHOISES.task.priority[this._priority]);
+    $(taskItemPriority).append(taskItemPriorityValue);
+    $(this.element).append(taskItemPriority);
+  }
+
+  _drawName() {
+    let taskItemName = document.createElement('div');
+    $(taskItemName).addClass('tasks-stack-cell tasks-stack-cell-name');
+    let taskItemNameText = document.createElement('div');
+    $(taskItemNameText).addClass('tasks-stack-cell-name-text');
+    $(taskItemNameText).text(this._name);
+    if (this._description && this._description != '') {
+      $(taskItemNameText).append(`
+        <div class="tasks-stack-cell-item-description" title="${this._description}">
+          <div>i</div>
+        </div>
+      `);
+    }
+    $(taskItemName).append(taskItemNameText);
+    $(this.element).append(taskItemName);
+  }
+
+  _drawStatus() {
+    let taskItemStatus = document.createElement('div');
+    $(taskItemStatus).addClass('tasks-stack-cell tasks-stack-cell-status');
+    let taskItemStatusValue = document.createElement('div');
+    $(taskItemStatusValue).addClass([
+      'tasks-stack-cell-item-status',
+      `tasks-stack-cell-item-status-${this._status.toLowerCase()}`,
+    ].join(' '));
+    $(taskItemStatusValue).text(CHOISES.task.status[this._status]);
+    $(taskItemStatusValue).on('click', (e) => {
+      $('#change-status-dialog').trigger({
+        type: 'changeStatusStart',
+        taskId: this._id,
+      });
     });
-  });
-  $(taskItemStatus).append(taskItemStatusValue);
-  $(taskItem).append(taskItemStatus);
+    $(taskItemStatus).append(taskItemStatusValue);
+    $(this.element).append(taskItemStatus);
+  }
+}
 
-  $('#tasks-stack-items').append(taskItem);
+
+/** Tasks stack handle logic. */
+class TasksStack {
+
+  /** Create. */
+  constructor() {
+    this._items = {};
+
+    $('#tasks-stack-items').on('addTask', (e) => {
+      this._addTask(e.taskData);
+    });
+
+    this._getTasksData();
+  }
+
+  /**
+   * Add tasks stack item.
+   * @param {Object} taskData - Task data.
+   * @param {integer} taskData.id - Task id.
+   * @param {integer} taskData.priority - Task priority.
+   * @param {string} taskData.name - Task name.
+   * @param {string} taskData.status - Task status.
+   * @param {string} [taskData.description] - Task description.
+   */
+  _addTask(taskData) {
+    this._items[taskData.id] = new TasksStackItem(taskData);
+  }
+
+  _getTasksData() {
+    $.ajax({
+      url: '/api/1.0/user_tasks/',
+    })
+    .done((data) => {
+      for (let taskData of data) {
+        this._addTask(taskData);
+      }
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      console.log('jqXHR', jqXHR);
+    });
+  }
 }
 
 
 $(document).ready(function() {
-  let changeStatusDialog = new ChangeStatusDialog;
-
-  $.ajax({
-    url: '/api/1.0/user_tasks/',
-  })
-  .done((data) => {
-    for (let task of data) {
-      drawTask(task);
-    }
-
-    console.log('data', data);
-  });
+  new TasksStack;
+  new ChangeStatusDialog;
 
   $('#task-creation-form').submit(function(e) {
     e.preventDefault();
@@ -150,8 +203,11 @@ $(document).ready(function() {
       type: 'POST',
       contentType: 'application/json',
     })
-    .done(function(task) {
-      drawTask(task);
+    .done(function(taskData) {
+      $('#tasks-stack-items').trigger({
+        type: 'addTask',
+        taskData: taskData,
+      });
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
