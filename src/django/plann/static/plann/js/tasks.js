@@ -54,7 +54,7 @@ class ChangeStatusDialog {
       contentType: 'application/json',
     })
     .done((taskData) => {
-      this._taskItem.status = value;
+      this._taskItem.status.value = value;
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
@@ -64,6 +64,58 @@ class ChangeStatusDialog {
     });
 
     $('#change-status-dialog').removeClass('dialog-window-open');
+  }
+}
+
+
+/** Tasks stack item priority handle logic. */
+class TasksStackItemPriority {
+
+  /**
+   * Create.
+   * @param {Object} item - Tasks stack item.
+   * @param {integer} value - Task priority value.
+   */
+  constructor(item, value) {
+    this._item = item;
+    this._value = null;
+
+    let cellElement = document.createElement('div');
+    $(cellElement).addClass('tasks-stack-cell tasks-stack-cell-priority');
+    $(this._item.element).append(cellElement);
+
+    this._valueElement = document.createElement('div');
+    $(cellElement).append(this._valueElement);
+
+    this.value = value;
+  }
+
+  /**
+   * Task priority value.
+   * @return {integer} Value.
+   */
+  get value() {
+    return this._value;
+  }
+
+  /**
+   * Set task priority value.
+   * @param {integer} value - Value.
+   */
+  set value(value) {
+    if (!Object.keys(CHOISES.task.priority).includes(value.toString())) {
+      throw Error(`Wrong task priority value "${value}".`);
+    }
+
+    this._value = value;
+
+    $(this._valueElement)
+    .attr('title', CHOISES.task.priority[value])
+    .removeClass()
+    .addClass([
+      'tasks-stack-cell-item-priority',
+      `tasks-stack-cell-item-priority-${value}`,
+    ].join(' '));
   }
 }
 
@@ -144,33 +196,27 @@ class TasksStackItem {
     $('#tasks-stack-items').append(this.element);
 
     this.id = taskData.id;
-    this._priority = taskData.priority;
-    this._drawPriority();
+    this._priority = new TasksStackItemPriority(this, taskData.priority);
     this._name = taskData.name;
     this._description = taskData.description;
     this._drawName();
     this._status = new TasksStackItemStatus(this, taskData.status);
   }
 
+  /**
+   * Task priority handler.
+   * @return {Object} Handler.
+   */
+  get priority() {
+    return this._priority;
+  }
+
+  /**
+   * Task status handler.
+   * @return {Object} Handler.
+   */
   get status() {
-    return this._status.value;
-  }
-
-  set status(value) {
-    this._status.value = value;
-  }
-
-  _drawPriority() {
-    let taskItemPriority = document.createElement('div');
-    $(taskItemPriority).addClass('tasks-stack-cell tasks-stack-cell-priority');
-    let taskItemPriorityValue = document.createElement('div');
-    $(taskItemPriorityValue).addClass([
-      'tasks-stack-cell-item-priority',
-      `tasks-stack-cell-item-priority-${this._priority}`,
-    ].join(' '));
-    $(taskItemPriorityValue).attr('title', CHOISES.task.priority[this._priority]);
-    $(taskItemPriority).append(taskItemPriorityValue);
-    $(this.element).append(taskItemPriority);
+    return this._status;
   }
 
   _drawName() {
