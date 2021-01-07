@@ -15,8 +15,7 @@ class ChangeStatusDialog {
 
   /** Create. */
   constructor() {
-    this._content = $('#change-status-dialog > .dialog-window-content');
-    this._taskId = null;
+    this._taskItem = null;
     for (let [value, name] of Object.entries(CHOISES.task.status)) {
       let status = document.createElement('div');
       $(status).addClass([
@@ -27,15 +26,15 @@ class ChangeStatusDialog {
       $(status).on('click', (e) => {
         this._changeValue(value);
       });
-      this._content.append(status);
+      $('#change-status-dialog > .dialog-window-content').append(status);
     }
 
     $('#change-status-dialog').on('click', (e) => {
-      this._taskId = null;
+      this._taskItem = null;
     });
     $('#change-status-dialog').on('changeStatusStart', (e) => {
       $('#change-status-dialog').addClass('dialog-window-open');
-      this._taskId = e.taskId;
+      this._taskItem = e.taskItem;
     });
   }
 
@@ -44,25 +43,85 @@ class ChangeStatusDialog {
    * @param {string} value - New status value.
    */
   _changeValue(value) {
-    if (!this._taskId) return;
+    if (!this._taskItem) return;
 
     $.ajax({
-      url: `/api/1.0/update_task/${this._taskId}/`,
+      url: `/api/1.0/update_task/${this._taskItem.id}/`,
       data: JSON.stringify({
         'status': value,
       }),
       type: 'PATCH',
       contentType: 'application/json',
     })
-    .done(function(taskData) {
-      console.log('taskData', taskData);
+    .done((taskData) => {
+      this._taskItem.status = value;
     })
-    .fail(function(jqXHR, textStatus, errorThrown) {
+    .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
+    })
+    .always(() => {
+      this._taskItem = null;
     });
 
-    this._taskId = null;
     $('#change-status-dialog').removeClass('dialog-window-open');
+  }
+}
+
+
+/** Tasks stack item status handle logic. */
+class TasksStackItemStatus {
+
+  /**
+   * Create.
+   * @param {Object} item - Tasks stack item.
+   * @param {string} value - Task status value.
+   */
+  constructor(item, value) {
+    this._item = item;
+    this._value = null;
+
+    let cellElement = document.createElement('div');
+    $(cellElement).addClass('tasks-stack-cell tasks-stack-cell-status');
+    $(this._item.element).append(cellElement);
+
+    this._valueElement = document.createElement('div');
+    $(this._valueElement).on('click', (e) => {
+      $('#change-status-dialog').trigger({
+        type: 'changeStatusStart',
+        taskItem: this._item,
+      });
+    });
+    $(cellElement).append(this._valueElement);
+
+    this.value = value;
+  }
+
+  /**
+   * Task status value.
+   * @return {string} Value.
+   */
+  get value() {
+    return this._value;
+  }
+
+  /**
+   * Set task status value.
+   * @param {string} value - Value.
+   */
+  set value(value) {
+    if (!Object.keys(CHOISES.task.status).includes(value)) {
+      throw Error(`Wrong task status value "${value}".`);
+    }
+
+    this._value = value;
+
+    $(this._valueElement)
+    .text(CHOISES.task.status[value])
+    .removeClass()
+    .addClass([
+      'tasks-stack-cell-item-status',
+      `tasks-stack-cell-item-status-${value.toLowerCase()}`,
+    ].join(' '));
   }
 }
 
@@ -80,19 +139,25 @@ class TasksStackItem {
    * @param {string} [taskData.description] - Task description.
    */
   constructor(taskData) {
-    this._id = taskData.id;
-    this._priority = taskData.priority;
-    this._name = taskData.name;
-    this._status = taskData.status;
-    this._description = taskData.description;
-
     this.element = document.createElement('div');
     $(this.element).addClass('tasks-stack-row');
     $('#tasks-stack-items').append(this.element);
 
+    this.id = taskData.id;
+    this._priority = taskData.priority;
     this._drawPriority();
+    this._name = taskData.name;
+    this._description = taskData.description;
     this._drawName();
-    this._drawStatus();
+    this._status = new TasksStackItemStatus(this, taskData.status);
+  }
+
+  get status() {
+    return this._status.value;
+  }
+
+  set status(value) {
+    this._status.value = value;
   }
 
   _drawPriority() {
@@ -123,25 +188,6 @@ class TasksStackItem {
     }
     $(taskItemName).append(taskItemNameText);
     $(this.element).append(taskItemName);
-  }
-
-  _drawStatus() {
-    let taskItemStatus = document.createElement('div');
-    $(taskItemStatus).addClass('tasks-stack-cell tasks-stack-cell-status');
-    let taskItemStatusValue = document.createElement('div');
-    $(taskItemStatusValue).addClass([
-      'tasks-stack-cell-item-status',
-      `tasks-stack-cell-item-status-${this._status.toLowerCase()}`,
-    ].join(' '));
-    $(taskItemStatusValue).text(CHOISES.task.status[this._status]);
-    $(taskItemStatusValue).on('click', (e) => {
-      $('#change-status-dialog').trigger({
-        type: 'changeStatusStart',
-        taskId: this._id,
-      });
-    });
-    $(taskItemStatus).append(taskItemStatusValue);
-    $(this.element).append(taskItemStatus);
   }
 }
 
