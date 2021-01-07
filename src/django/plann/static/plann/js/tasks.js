@@ -120,6 +120,131 @@ class TasksStackItemPriority {
 }
 
 
+/** Tasks stack item meaning name handle logic. */
+class TasksStackItemMeaningName {
+
+  /**
+   * Create.
+   * @param {Object} wrapper - Tasks stack item meaning wrapper.
+   * @param {string} value - Task name value.
+   */
+  constructor(wrapper, value) {
+    this._wrapper = wrapper;
+    this._value = null;
+
+    this._valueElement = document.createElement('div');
+    $(this._valueElement).addClass('tasks-stack-cell-meaning-name');
+    $(this._wrapper.element).append(this._valueElement);
+
+    this.value = value;
+  }
+
+  /**
+   * Task name value.
+   * @return {string} Value.
+   */
+  get value() {
+    return this._value;
+  }
+
+  /**
+   * Set task name value.
+   * @param {string} value - Value.
+   */
+  set value(value) {
+    this._value = value;
+    $(this._valueElement).text(value);
+  }
+}
+
+
+/** Tasks stack item meaning description handle logic. */
+class TasksStackItemMeaningDecsription {
+
+  /**
+   * Create.
+   * @param {Object} wrapper - Tasks stack item meaning wrapper.
+   * @param {string} value - Task description value.
+   */
+  constructor(wrapper, value) {
+    this._wrapper = wrapper;
+    this._value = null;
+
+    this._valueElement = document.createElement('div');
+    $(this._valueElement).addClass('tasks-stack-cell-meaning-description');
+    $(this._valueElement).append('<div>i</div>');
+    $(this._wrapper.element).append(this._valueElement);
+
+    this.value = value;
+  }
+
+  /**
+   * Task description value.
+   * @return {string} Value.
+   */
+  get value() {
+    return this._value;
+  }
+
+  /**
+   * Set task description value.
+   * @param {string} value - Value.
+   */
+  set value(value) {
+    this._value = value;
+    if (value && value != '') {
+      $(this._valueElement).addClass('tasks-stack-cell-meaning-description-show');
+      $(this._valueElement).attr('title', value);
+    } else {
+      $(this._valueElement).removeClass('tasks-stack-cell-meaning-description-show');
+      $(this._valueElement).attr('title', '');
+    }
+  }
+}
+
+
+/** Tasks stack item meaning handle logic. */
+class TasksStackItemMeaning {
+
+  /**
+   * Create.
+   * @param {Object} item - Tasks stack item.
+   * @param {string} name - Task name value.
+   * @param {string} [decsription] - Task decsription value.
+   */
+  constructor(item, name, decsription) {
+    this._item = item;
+
+    let cellElement = document.createElement('div');
+    $(cellElement).addClass('tasks-stack-cell tasks-stack-cell-meaning');
+    $(this._item.element).append(cellElement);
+
+    this.element = document.createElement('div');
+    $(this.element).addClass('tasks-stack-cell-meaning-wrapper');
+    $(cellElement).append(this.element);
+
+    this._name = new TasksStackItemMeaningName(this, name);
+    this._decsription = new TasksStackItemMeaningDecsription(this, decsription);
+  }
+
+  /**
+   * Task name handler.
+   * @return {Object} Handler.
+   */
+  get name() {
+    return this._name;
+  }
+
+  /**
+   * Task decsription handler.
+   * @return {Object} Handler.
+   */
+  get decsription() {
+    return this._decsription;
+  }
+}
+
+
 /** Tasks stack item status handle logic. */
 class TasksStackItemStatus {
 
@@ -197,9 +322,7 @@ class TasksStackItem {
 
     this.id = taskData.id;
     this._priority = new TasksStackItemPriority(this, taskData.priority);
-    this._name = taskData.name;
-    this._description = taskData.description;
-    this._drawName();
+    this._meaning = new TasksStackItemMeaning(this, taskData.name, taskData.description);
     this._status = new TasksStackItemStatus(this, taskData.status);
   }
 
@@ -212,28 +335,19 @@ class TasksStackItem {
   }
 
   /**
+   * Task meaning handler.
+   * @return {Object} Handler.
+   */
+  get meaning() {
+    return this._meaning;
+  }
+
+  /**
    * Task status handler.
    * @return {Object} Handler.
    */
   get status() {
     return this._status;
-  }
-
-  _drawName() {
-    let taskItemName = document.createElement('div');
-    $(taskItemName).addClass('tasks-stack-cell tasks-stack-cell-name');
-    let taskItemNameText = document.createElement('div');
-    $(taskItemNameText).addClass('tasks-stack-cell-name-text');
-    $(taskItemNameText).text(this._name);
-    if (this._description && this._description != '') {
-      $(taskItemNameText).append(`
-        <div class="tasks-stack-cell-item-description" title="${this._description}">
-          <div>i</div>
-        </div>
-      `);
-    }
-    $(taskItemName).append(taskItemNameText);
-    $(this.element).append(taskItemName);
   }
 }
 

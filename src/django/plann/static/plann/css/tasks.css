@@ -26,12 +26,35 @@ body {
   border: solid 0.5px #fff;
 }
 
-.tasks-stack-cell-name {
+.tasks-stack-cell-meaning {
   width: 30%;
 }
-.tasks-stack-cell-name-text {
+.tasks-stack-cell-meaning-wrapper {
   position: relative;
   width: max-content;
+}
+.tasks-stack-cell-meaning-name {
+  width: max-content;
+}
+.tasks-stack-cell-meaning-description {
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  position: absolute;
+  top: -2px;
+  right: -18px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+}
+.tasks-stack-cell-meaning-description.tasks-stack-cell-meaning-description-show {
+  display: block;
+}
+.tasks-stack-cell-meaning-description > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -51%);
 }
 
 .tasks-stack-cell-priority {
@@ -89,25 +112,6 @@ body {
 .tasks-stack-cell-item-status-dn, .change-status-dialog-item-dn {
   background-color: #6FD8D4;
 }
-
-
-.tasks-stack-cell-item-description {
-  width: 15px;
-  height: 15px;
-  background-color: #fff;
-  position: absolute;
-  top: -2px;
-  right: -18px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.tasks-stack-cell-item-description > div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -51%);
-}
-
 
 
 #tasks-creation {
