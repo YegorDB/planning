@@ -71,27 +71,7 @@ class ChangeStatusDialog {
 $(document).ready(function() {
   new TasksStack;
   new ChangeStatusDialog;
-
-  $('#task-creation-form').submit(function(e) {
-    e.preventDefault();
-
-    let formData = new FormData(this);
-    $.ajax({
-      url: '/api/1.0/create_task/',
-      data: JSON.stringify(Object.fromEntries(formData.entries())),
-      type: 'POST',
-      contentType: 'application/json',
-    })
-    .done(function(taskData) {
-      $('#tasks-stack-items').trigger({
-        type: 'addTask',
-        taskData: taskData,
-      });
-    })
-    .fail(function(jqXHR, textStatus, errorThrown) {
-      console.log('jqXHR', jqXHR);
-    });
-  });
+  new TasksCreation;
 
   $('.dialog-window').on('click', function(e) {
     $(this).removeClass('dialog-window-open');
