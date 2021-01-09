@@ -248,7 +248,6 @@ class TasksStackItem {
   constructor(taskData) {
     this.element = document.createElement('div');
     $(this.element).addClass('tasks-stack-row');
-    $('#tasks-stack-items').append(this.element);
 
     this.id = taskData.id;
     this._priority = new TasksStackItemPriority(this, taskData.priority);
@@ -291,6 +290,7 @@ class TasksStack {
 
     $('#tasks-stack-items').on('addTask', (e) => {
       this._addTask(e.taskData);
+      this._sort();
     });
 
     this._getTasksData();
@@ -307,6 +307,20 @@ class TasksStack {
    */
   _addTask(taskData) {
     this._items[taskData.id] = new TasksStackItem(taskData);
+    $('#tasks-stack-items').append(this._items[taskData.id].element);
+  }
+
+  /** Sort tasks stack items. */
+  _sort() {
+    $('#tasks-stack-items').empty();
+    let items = Object.values(this._items).sort((a, b) => {
+      if (a.priority.value > b.priority.value) return -1;
+      if (a.priority.value < b.priority.value) return 1;
+      return 0;
+    });
+    for (let item of items) {
+      $('#tasks-stack-items').append(item.element);
+    }
   }
 
   _getTasksData() {
