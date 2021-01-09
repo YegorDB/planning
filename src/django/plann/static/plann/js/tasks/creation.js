@@ -11,6 +11,7 @@ class TasksCreation {
 
   /** Add task. */
   _addTask() {
+    WAIT_SCREEN.enable();
     let formData = new FormData($('#task-creation-form')[0]);
     $.ajax({
       url: '/api/1.0/create_task/',
@@ -26,6 +27,9 @@ class TasksCreation {
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
+    })
+    .always(() => {
+      WAIT_SCREEN.disable();
     });
   }
 }

@@ -33,6 +33,7 @@ class TasksDialogStatusChanging {
   _changeValue(value) {
     if (!this._taskItem) return;
 
+    WAIT_SCREEN.enable();
     $.ajax({
       url: `/api/1.0/update_task/${this._taskItem.id}/`,
       data: JSON.stringify({
@@ -49,6 +50,7 @@ class TasksDialogStatusChanging {
     })
     .always(() => {
       this._taskItem = null;
+      WAIT_SCREEN.disable();
     });
 
     $('#change-status-dialog').removeClass('dialog-window-open');

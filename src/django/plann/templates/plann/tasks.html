@@ -2,6 +2,7 @@
 {% load static rest_framework %}
 
 {% block styles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'plann/css/base.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/dialog.css' %}">
 {% endblock %}
@@ -33,6 +34,8 @@
   <div id="change-status-dialog" class="dialog-window">
     <div class="dialog-window-content"></div>
   </div>
+
+  <div id="wait-screen"></div>
 {% endblock %}
 
 {% block scripts %}

@@ -1,4 +1,15 @@
 const CHOISES = JSON.parse(RAW_CHOISES);
+const WAIT_SCREEN = {
+  enabled: false,
+  enable() {
+    $('#wait-screen').addClass('wait-screen-enabled');
+    this.enabled = true;
+  },
+  disable() {
+    $('#wait-screen').removeClass('wait-screen-enabled');
+    this.enabled = false;
+  },
+};
 
 
 $.ajaxSetup({
