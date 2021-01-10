@@ -294,7 +294,7 @@ class TasksStack {
 
     $('#tasks-stack-items').on('addTask', (e) => {
       this._addTask(e.taskData);
-      this._sort();
+      this._draw();
     });
 
     this._getTasksData();
@@ -347,18 +347,12 @@ class TasksStack {
    */
   _addTask(taskData) {
     this._items[taskData.id] = new TasksStackItem(taskData);
-    $('#tasks-stack-items').append(this._items[taskData.id].element);
   }
 
-  /** Sort tasks stack items. */
-  _sort() {
+  /** Draw tasks stack items. */
+  _draw() {
     $('#tasks-stack-items').empty();
-    let items = Object.values(this._items).sort((a, b) => {
-      if (a.priority.value > b.priority.value) return -1;
-      if (a.priority.value < b.priority.value) return 1;
-      return 0;
-    });
-    for (let item of items) {
+    for (let item of this) {
       $('#tasks-stack-items').append(item.element);
     }
   }
@@ -371,6 +365,7 @@ class TasksStack {
       for (let taskData of data) {
         this._addTask(taskData);
       }
+      this._draw();
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
