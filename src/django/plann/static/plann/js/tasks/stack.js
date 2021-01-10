@@ -287,6 +287,10 @@ class TasksStack {
   /** Create. */
   constructor() {
     this._items = {};
+    this._filter = {
+      priority: Object.keys(CHOISES.task.priority).map(p => parseInt(p)),
+      status: Object.keys(CHOISES.task.status),
+    };
 
     $('#tasks-stack-items').on('addTask', (e) => {
       this._addTask(e.taskData);
@@ -294,6 +298,42 @@ class TasksStack {
     });
 
     this._getTasksData();
+  }
+
+  /**
+   * Filtered and sorted stack items.
+   * @yield {Object} Tacks stack item.
+   */
+  *[Symbol.iterator]() {
+    let items = this._sortItems(this._filterItems(Object.values(this._items)));
+    for (let item of items) {
+      yield item;
+    }
+  }
+
+  /**
+   * Filter stack items.
+   * @param {Array} items - Tasks stack items array.
+   * @return {Array} Filtered stack items.
+   */
+  _filterItems(items) {
+    for (let key of Object.keys(this._filter)) {
+      items = items.filter(item => this._filter[key].includes(item[key].value));
+    }
+    return items;
+  }
+
+  /**
+   * Sort stack items.
+   * @param {Array} items - Tasks stack items array.
+   * @return {Array} Sorted stack items.
+   */
+  _sortItems(items) {
+    return items.sort((a, b) => {
+      if (a.priority.value > b.priority.value) return -1;
+      if (a.priority.value < b.priority.value) return 1;
+      return 0;
+    });
   }
 
   /**
