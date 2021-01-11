@@ -236,6 +236,8 @@ class TasksStackItemStatus {
 /** Tasks stack item handle logic. */
 class TasksStackItem {
 
+  static FILTERED_DATA_NAMES = ['priority', 'status'];
+
   /**
    * Create.
    * @param {Object} taskData - Task data.
@@ -264,11 +266,19 @@ class TasksStackItem {
   }
 
   /**
-   * Task meaning handler.
+   * Task name handler.
    * @return {Object} Handler.
    */
-  get meaning() {
-    return this._meaning;
+  get name() {
+    return this._meaning.name;
+  }
+
+  /**
+   * Task decsription handler.
+   * @return {Object} Handler.
+   */
+  get decsription() {
+    return this._meaning.decsription;
   }
 
   /**
@@ -357,6 +367,7 @@ class TasksStack {
     }
   }
 
+  /** Get tasks data. */
   _getTasksData() {
     $.ajax({
       url: '/api/1.0/user_tasks/',
@@ -370,5 +381,21 @@ class TasksStack {
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
     });
+  }
+
+  /**
+   * Set filter values by specific stack item data name.
+   * @param {string} name - Stack item data name.
+   * @param {Array} values - Possible stack item data values.
+   */
+  _setFilter(name, value) {
+    if (!TasksStackItem.FILTERED_DATA_NAMES.includes(name)) {
+      throw Error(`Wrong stack item data name "${name}".`);
+    }
+    if (!Array.isArray(value)) {
+      throw Error('Values argument has to be an array.');
+    }
+    this._filter[name] = value;
+    this._draw();
   }
 }
