@@ -23,7 +23,8 @@ $.ajaxSetup({
 
 $(document).ready(function() {
   new TasksStack;
-  new TasksDialogStatusChanging;
+  new TasksStatusChangingDialog;
+  new TasksStatusFilterDialog;
   new TasksCreation;
 
   $('.dialog-window').on('click', function(e) {

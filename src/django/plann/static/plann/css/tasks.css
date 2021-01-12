@@ -118,7 +118,7 @@ body {
 }
 
 
-.tasks-stack-cell-item-status, .change-status-dialog-item {
+.tasks-stack-item-status {
   padding: 0px 4px;
   border-radius: 4px;
   text-align: center;
@@ -126,20 +126,24 @@ body {
   margin: auto;
   cursor: pointer;
 }
+.tasks-stack-item-status-ns {
+  background-color: #ddd;
+}
+.tasks-stack-item-status-ip {
+  background-color: #f9d56e;
+}
+.tasks-stack-item-status-cl {
+  background-color: #F49CA2;
+}
+.tasks-stack-item-status-dn {
+  background-color: #6FD8D4;
+}
 .change-status-dialog-item {
   margin: 10px auto;
 }
-.tasks-stack-cell-item-status-ns, .change-status-dialog-item-ns {
-  background-color: #ddd;
-}
-.tasks-stack-cell-item-status-ip, .change-status-dialog-item-ip {
-  background-color: #f9d56e;
-}
-.tasks-stack-cell-item-status-cl, .change-status-dialog-item-cl {
-  background-color: #F49CA2;
-}
-.tasks-stack-cell-item-status-dn, .change-status-dialog-item-dn {
-  background-color: #6FD8D4;
+.filter-status-dialog-item {
+  margin: 10px auto;
+  display: inline-block;
 }
 
 

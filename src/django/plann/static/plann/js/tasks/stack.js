@@ -226,8 +226,8 @@ class TasksStackItemStatus {
     .text(CHOISES.task.status[value])
     .removeClass()
     .addClass([
-      'tasks-stack-cell-item-status',
-      `tasks-stack-cell-item-status-${value.toLowerCase()}`,
+      'tasks-stack-item-status',
+      `tasks-stack-item-status-${value.toLowerCase()}`,
     ].join(' '));
   }
 }
@@ -305,6 +305,16 @@ class TasksStack {
     $('#tasks-stack-items').on('addTask', (e) => {
       this._addTask(e.taskData);
       this._draw();
+    });
+    $('#tasks-stack-items').on('setStatusFilter', (e) => {
+      this._setFilter('status', e.values);
+    });
+
+    $('#tasks-stack-filter-status').on('click', (e) => {
+      $('#filter-status-dialog').trigger({
+        type: 'filterStatusStart',
+        activeValues: this._filter.status,
+      });
     });
 
     this._getTasksData();

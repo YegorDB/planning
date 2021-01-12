@@ -1,5 +1,5 @@
-/** Change status dialog window logic. */
-class TasksDialogStatusChanging {
+/** Tasks status changing dialog window logic. */
+class TasksStatusChangingDialog {
 
   /** Create. */
   constructor() {
@@ -8,7 +8,8 @@ class TasksDialogStatusChanging {
       let status = document.createElement('div');
       $(status).addClass([
         'change-status-dialog-item',
-        `change-status-dialog-item-${value.toLowerCase()}`,
+        'tasks-stack-item-status',
+        `tasks-stack-item-status-${value.toLowerCase()}`,
       ].join(' '));
       $(status).text(name);
       $(status).on('click', (e) => {
@@ -54,5 +55,55 @@ class TasksDialogStatusChanging {
     });
 
     $('#change-status-dialog').removeClass('dialog-window-open');
+  }
+}
+
+
+/** Tasks status filter dialog window logic. */
+class TasksStatusFilterDialog {
+
+  /** Create. */
+  constructor() {
+    this._activeValues = [];
+    for (let [value, name] of Object.entries(CHOISES.task.status)) {
+      let wrapper = document.createElement('div');
+      $('#filter-status-dialog > .dialog-window-content').append(wrapper);
+
+      let input = document.createElement('input');
+      $(input).attr('type', 'checkbox');
+      $(input).attr('value', value);
+      $(input).on('change', (e) => {
+        if (!$(input).prop('checked')) {
+          this._activeValues = this._activeValues.filter(v => v != value);
+        } else if (!this._activeValues.includes(value)) {
+          this._activeValues.push(value);
+        }
+        $('#tasks-stack-items').trigger({
+          type: 'setStatusFilter',
+          values: this._activeValues,
+        })
+      });
+      $('#filter-status-dialog').on('filterStatusStart', (e) => {
+        $(input).prop('checked', e.activeValues.includes(value));
+      });
+      $(wrapper).append(input);
+
+      let status = document.createElement('div');
+      $(status).addClass([
+        'filter-status-dialog-item',
+        'tasks-stack-item-status',
+        `tasks-stack-item-status-${value.toLowerCase()}`,
+      ].join(' '));
+      $(status).text(name);
+      $(status).on('click', (e) => {
+        $(input).click();
+      });
+      $(wrapper).append(status);
+    }
+
+    $('#filter-status-dialog').on('filterStatusStart', (e) => {
+      $('#filter-status-dialog').addClass('dialog-window-open');
+      this._activeValues = e.activeValues;
+    });
   }
 }
