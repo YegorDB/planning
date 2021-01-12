@@ -13,6 +13,35 @@ body {
   background-color: #fff;
 }
 
+.tasks-stack-header-name {
+  width: max-content;
+  position: relative;
+  margin: auto;
+}
+
+.tasks-stack-header-filter {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 0px;
+  right: -12px;
+  cursor: pointer;
+  border-radius: 1px;
+}
+.tasks-stack-header-filter:hover {
+  background-color: #f9d56e;
+}
+.tasks-stack-header-filter:after{
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  clip-path: polygon(10% 5%, 90% 5%, 55% 50%, 55% 90%, 45% 90%, 45% 50%);
+  background-color: black;
+}
+
 
 .tasks-stack-row {
   box-sizing: border-box;
