@@ -43,8 +43,8 @@ class TasksStackItemPriority {
     .attr('title', CHOISES.task.priority[value])
     .removeClass()
     .addClass([
-      'tasks-stack-cell-item-priority',
-      `tasks-stack-cell-item-priority-${value}`,
+      'tasks-stack-item-priority',
+      `tasks-stack-item-priority-${value}`,
     ].join(' '));
   }
 }
@@ -306,14 +306,20 @@ class TasksStack {
       this._addTask(e.taskData);
       this._draw();
     });
-    $('#tasks-stack-items').on('setStatusFilter', (e) => {
-      this._setFilter('status', e.values);
+    $('#tasks-stack-items').on('setFilter', (e) => {
+      this._setFilter(e.name, e.values);
     });
 
     $('#tasks-stack-filter-status').on('click', (e) => {
       $('#filter-status-dialog').trigger({
         type: 'filterStatusStart',
         activeValues: this._filter.status,
+      });
+    });
+    $('#tasks-stack-filter-priority').on('click', (e) => {
+      $('#filter-priority-dialog').trigger({
+        type: 'filterPriorityStart',
+        activeValues: this._filter.priority,
       });
     });
 

@@ -25,6 +25,7 @@ $(document).ready(function() {
   new TasksStack;
   new TasksStatusChangingDialog;
   new TasksStatusFilterDialog;
+  new TasksPriorityFilterDialog;
   new TasksCreation;
 
   $('.dialog-window').on('click', function(e) {

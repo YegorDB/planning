@@ -26,7 +26,7 @@ body {
   top: 0px;
   right: -12px;
   cursor: pointer;
-  border-radius: 1px;
+  border-radius: 50%;
 }
 .tasks-stack-header-filter:hover {
   background-color: #f9d56e;
@@ -95,27 +95,37 @@ body {
 }
 
 
-.tasks-stack-cell-item-priority {
+.tasks-stack-item-priority {
   width: 15px;
   height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
-.tasks-stack-cell-item-priority-0 {
+.tasks-stack-item-priority-0 {
   background-color: #ccc;
 }
-.tasks-stack-cell-item-priority-1 {
+.tasks-stack-item-priority-1 {
   background-color: #14b1ab;
 }
-.tasks-stack-cell-item-priority-2 {
+.tasks-stack-item-priority-2 {
   background-color: #f9d56e;
 }
-.tasks-stack-cell-item-priority-3 {
+.tasks-stack-item-priority-3 {
   background-color: #F49CA2;
 }
-.tasks-stack-cell-item-priority-4 {
+.tasks-stack-item-priority-4 {
   background-color: #E8505B;
 }
+.filter-priority-dialog-item {
+  width: max-content;
+  height: max-content;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 0px 5px;
+  margin: 6px auto;
+  cursor: pointer;
+}
+
 
 
 .tasks-stack-item-status {
@@ -142,7 +152,7 @@ body {
   margin: 10px auto;
 }
 .filter-status-dialog-item {
-  margin: 10px auto;
+  margin: 6px auto;
   display: inline-block;
 }
 

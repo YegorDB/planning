@@ -79,7 +79,8 @@ class TasksStatusFilterDialog {
           this._activeValues.push(value);
         }
         $('#tasks-stack-items').trigger({
-          type: 'setStatusFilter',
+          type: 'setFilter',
+          name: 'status',
           values: this._activeValues,
         })
       });
@@ -103,6 +104,57 @@ class TasksStatusFilterDialog {
 
     $('#filter-status-dialog').on('filterStatusStart', (e) => {
       $('#filter-status-dialog').addClass('dialog-window-open');
+      this._activeValues = e.activeValues;
+    });
+  }
+}
+
+
+/** Tasks priority filter dialog window logic. */
+class TasksPriorityFilterDialog {
+
+  /** Create. */
+  constructor() {
+    this._activeValues = [];
+    for (let [value, name] of Object.entries(CHOISES.task.priority).reverse().map(([v, n]) => [parseInt(v), n])) {
+      value = parseInt(value);
+      let wrapper = document.createElement('div');
+      $('#filter-priority-dialog > .dialog-window-content').append(wrapper);
+
+      let input = document.createElement('input');
+      $(input).attr('type', 'checkbox');
+      $(input).attr('value', value);
+      $(input).on('change', (e) => {
+        if (!$(input).prop('checked')) {
+          this._activeValues = this._activeValues.filter(v => v != value);
+        } else if (!this._activeValues.includes(value)) {
+          this._activeValues.push(value);
+        }
+        $('#tasks-stack-items').trigger({
+          type: 'setFilter',
+          name: 'priority',
+          values: this._activeValues,
+        })
+      });
+      $('#filter-priority-dialog').on('filterPriorityStart', (e) => {
+        $(input).prop('checked', e.activeValues.includes(value));
+      });
+      $(wrapper).append(input);
+
+      let priority = document.createElement('div');
+      $(priority).addClass([
+        'filter-priority-dialog-item',
+        `tasks-stack-item-priority-${value}`,
+      ].join(' '));
+      $(priority).text(name);
+      $(priority).on('click', (e) => {
+        $(input).click();
+      });
+      $(wrapper).append(priority);
+    }
+
+    $('#filter-priority-dialog').on('filterPriorityStart', (e) => {
+      $('#filter-priority-dialog').addClass('dialog-window-open');
       this._activeValues = e.activeValues;
     });
   }
