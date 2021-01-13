@@ -59,15 +59,24 @@ class TasksStatusChangingDialog {
 }
 
 
-/** Tasks status filter dialog window logic. */
-class TasksStatusFilterDialog {
+/** Base tasks filter dialog window logic. */
+class BaseTasksFilterDialog {
 
-  /** Create. */
-  constructor() {
+  /**
+   * Create.
+   * @param {Object} options - Options.
+   * @param {Array} options.entries - Data choices ([value, name]).
+   * @param {string} options.dialogWindowId - Dom dialog window id.
+   * @param {string} options.filterName - Filter name.
+   * @param {string} options.filterEventName - Filter event name.
+   * @param {string} options.itemsClasses - Choices items classes.
+   */
+  constructor(options) {
     this._activeValues = [];
-    for (let [value, name] of Object.entries(CHOISES.task.status)) {
+
+    for (let [value, name] of options.entries) {
       let wrapper = document.createElement('div');
-      $('#filter-status-dialog > .dialog-window-content').append(wrapper);
+      $(`${options.dialogWindowId} > .dialog-window-content`).append(wrapper);
 
       let input = document.createElement('input');
       $(input).attr('type', 'checkbox');
@@ -80,82 +89,90 @@ class TasksStatusFilterDialog {
         }
         $('#tasks-stack-items').trigger({
           type: 'setFilter',
-          name: 'status',
+          name: options.filterName,
           values: this._activeValues,
         })
       });
-      $('#filter-status-dialog').on('filterStatusStart', (e) => {
+      $(options.dialogWindowId).on(options.filterEventName, (e) => {
         $(input).prop('checked', e.activeValues.includes(value));
       });
       $(wrapper).append(input);
 
-      let status = document.createElement('div');
-      $(status).addClass([
-        'filter-status-dialog-item',
-        'tasks-stack-item-status',
-        `tasks-stack-item-status-${value.toLowerCase()}`,
-      ].join(' '));
-      $(status).text(name);
-      $(status).on('click', (e) => {
+      let item = document.createElement('div');
+      $(item).addClass(this._getItemClasses(value));
+      $(item).text(name);
+      $(item).on('click', (e) => {
         $(input).click();
       });
-      $(wrapper).append(status);
+      $(wrapper).append(item);
     }
 
-    $('#filter-status-dialog').on('filterStatusStart', (e) => {
-      $('#filter-status-dialog').addClass('dialog-window-open');
+    $(options.dialogWindowId).on(options.filterEventName, (e) => {
+      $(options.dialogWindowId).addClass('dialog-window-open');
       this._activeValues = e.activeValues;
     });
+  }
+
+  /**
+   * Get item classes.
+   * @abstract
+   * @param {Object} value - Choice value;
+   * @return {string[]} Classes names;
+   */
+  _getItemClasses(value) {}
+}
+
+
+/** Tasks status filter dialog window logic. */
+class TasksStatusFilterDialog extends BaseTasksFilterDialog {
+
+  /** Create. */
+  constructor() {
+    super({
+      entries: Object.entries(CHOISES.task.status),
+      dialogWindowId: '#filter-status-dialog',
+      filterName: 'status',
+      filterEventName: 'filterStatusStart',
+    });
+  }
+
+  /**
+   * Get item classes.
+   * @param {Object} value - Choice value;
+   * @return {string[]} Classes names;
+   */
+  _getItemClasses(value) {
+    return [
+      'filter-status-dialog-item',
+      'tasks-stack-item-status',
+      `tasks-stack-item-status-${value.toLowerCase()}`,
+    ].join(' ');
   }
 }
 
 
 /** Tasks priority filter dialog window logic. */
-class TasksPriorityFilterDialog {
+class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
 
   /** Create. */
   constructor() {
-    this._activeValues = [];
-    for (let [value, name] of Object.entries(CHOISES.task.priority).reverse().map(([v, n]) => [parseInt(v), n])) {
-      value = parseInt(value);
-      let wrapper = document.createElement('div');
-      $('#filter-priority-dialog > .dialog-window-content').append(wrapper);
-
-      let input = document.createElement('input');
-      $(input).attr('type', 'checkbox');
-      $(input).attr('value', value);
-      $(input).on('change', (e) => {
-        if (!$(input).prop('checked')) {
-          this._activeValues = this._activeValues.filter(v => v != value);
-        } else if (!this._activeValues.includes(value)) {
-          this._activeValues.push(value);
-        }
-        $('#tasks-stack-items').trigger({
-          type: 'setFilter',
-          name: 'priority',
-          values: this._activeValues,
-        })
-      });
-      $('#filter-priority-dialog').on('filterPriorityStart', (e) => {
-        $(input).prop('checked', e.activeValues.includes(value));
-      });
-      $(wrapper).append(input);
-
-      let priority = document.createElement('div');
-      $(priority).addClass([
-        'filter-priority-dialog-item',
-        `tasks-stack-item-priority-${value}`,
-      ].join(' '));
-      $(priority).text(name);
-      $(priority).on('click', (e) => {
-        $(input).click();
-      });
-      $(wrapper).append(priority);
-    }
-
-    $('#filter-priority-dialog').on('filterPriorityStart', (e) => {
-      $('#filter-priority-dialog').addClass('dialog-window-open');
-      this._activeValues = e.activeValues;
+    super({
+      entries: Object.entries(CHOISES.task.priority).reverse().map(([v, n]) => [parseInt(v), n]),
+      dialogWindowId: '#filter-priority-dialog',
+      filterName: 'priority',
+      filterEventName: 'filterPriorityStart',
     });
+  }
+
+  /**
+   * Get item classes.
+   * @param {Object} value - Choice value;
+   * @return {string[]} Classes names;
+   */
+  _getItemClasses(value) {
+    return [
+      'filter-priority-dialog-item',
+      `tasks-stack-item-priority-${value}`,
+    ].join(' ');
   }
 }
