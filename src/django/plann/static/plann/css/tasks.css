@@ -107,6 +107,9 @@ body {
 .tasks-stack-item-priority-1 {
   background-color: #14b1ab;
 }
+.tasks-stack-item-priority-1.filter-priority-dialog-item {
+  background-color: #6FD8D4;
+}
 .tasks-stack-item-priority-2 {
   background-color: #f9d56e;
 }
@@ -115,6 +118,9 @@ body {
 }
 .tasks-stack-item-priority-4 {
   background-color: #E8505B;
+}
+.tasks-stack-item-priority-4.filter-priority-dialog-item {
+  background-color: #F47C85;
 }
 .filter-priority-dialog-item {
   width: max-content;
@@ -125,7 +131,6 @@ body {
   margin: 6px auto;
   cursor: pointer;
 }
-
 
 
 .tasks-stack-item-status {

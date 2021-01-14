@@ -78,9 +78,12 @@ class BaseTasksFilterDialog {
       let wrapper = document.createElement('div');
       $(`${options.dialogWindowId} > .dialog-window-content`).append(wrapper);
 
+      let inputId = `filter-checkbox-${options.filterName}-${value}`.toLowerCase();
       let input = document.createElement('input');
       $(input).attr('type', 'checkbox');
+      $(input).attr('id', inputId);
       $(input).attr('value', value);
+      $(input).addClass('styled-checkbox');
       $(input).on('change', (e) => {
         if (!$(input).prop('checked')) {
           this._activeValues = this._activeValues.filter(v => v != value);
@@ -97,6 +100,10 @@ class BaseTasksFilterDialog {
         $(input).prop('checked', e.activeValues.includes(value));
       });
       $(wrapper).append(input);
+
+      let label = document.createElement('label');
+      $(label).attr('for', inputId);
+      $(wrapper).append(label);
 
       let item = document.createElement('div');
       $(item).addClass(this._getItemClasses(value));
