@@ -252,9 +252,25 @@ class TasksStackItem {
     $(this.element).addClass('tasks-stack-row');
 
     this.id = taskData.id;
-    this._priority = new TasksStackItemPriority(this, taskData.priority);
-    this._meaning = new TasksStackItemMeaning(this, taskData.name, taskData.description);
-    this._status = new TasksStackItemStatus(this, taskData.status);
+    this._taskData = taskData;
+    this._priority = null;
+    this._meaning = null;
+    this._status = null;
+
+    this._fillContent();
+  }
+
+  /** Fill content. */
+  _fillContent() {
+    this._priority = new TasksStackItemPriority(this, this._taskData.priority);
+    this._meaning = new TasksStackItemMeaning(this, this._taskData.name, this._taskData.description);
+    this._status = new TasksStackItemStatus(this, this._taskData.status);
+  }
+
+  /** Refresh content. */
+  refreshContent() {
+    $(this.element).empty();
+    this._fillContent();
   }
 
   /**
@@ -380,6 +396,7 @@ class TasksStack {
     $('#tasks-stack-items').empty();
     for (let item of this) {
       $('#tasks-stack-items').append(item.element);
+      item.refreshContent()
     }
   }
 
