@@ -403,7 +403,7 @@ class TasksStack {
   /** Get tasks data. */
   _getTasksData() {
     $.ajax({
-      url: '/api/1.0/user_tasks/',
+      url: URLS.user_tasks,
     })
     .done((data) => {
       for (let taskData of data) {

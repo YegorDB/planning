@@ -1,4 +1,5 @@
 const CHOISES = JSON.parse(RAW_CHOISES);
+const URLS = JSON.parse(RAW_URLS);
 const WAIT_SCREEN = {
   enabled: false,
   enable() {

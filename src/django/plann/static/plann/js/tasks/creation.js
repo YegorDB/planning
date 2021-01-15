@@ -14,7 +14,7 @@ class TasksCreation {
     WAIT_SCREEN.enable();
     let formData = new FormData($('#task-creation-form')[0]);
     $.ajax({
-      url: '/api/1.0/create_task/',
+      url: URLS.create_task,
       data: JSON.stringify(Object.fromEntries(formData.entries())),
       type: 'POST',
       contentType: 'application/json',

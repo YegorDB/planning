@@ -36,7 +36,7 @@ class TasksStatusChangingDialog {
 
     WAIT_SCREEN.enable();
     $.ajax({
-      url: `/api/1.0/update_task/${this._taskItem.id}/`,
+      url: URLS.update_task.replace(/\d+\/$/, `${this._taskItem.id}/`),
       data: JSON.stringify({
         'status': value,
       }),
