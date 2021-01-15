@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  django:
+    build:
+      context: ./env/django
+    image: planning/django:dev
+    environment:
+      DEVELOPMENT: "1"

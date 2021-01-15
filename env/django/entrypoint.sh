@@ -8,4 +8,8 @@ done
 
 python manage.py migrate
 python manage.py collectstatic --noinput
-python manage.py runserver 0.0.0.0:8000
+if [ "${DEVELOPMENT}" ]; then
+	python manage.py runserver 0.0.0.0:8000;
+else
+	gunicorn -b 0.0.0.0:8000 main.wsgi:application;
+fi
