@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  node:
+    build:
+      context: ./env/node
+    image: planning/node:dev
+
   django:
     build:
       context: ./env/django
