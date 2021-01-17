@@ -5,6 +5,8 @@ services:
     build:
       context: ./env/node
     image: planning/node:dev
+    volumes:
+      - "./src/node:/code"
 
   django:
     build:
