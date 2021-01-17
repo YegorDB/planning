@@ -1,6 +1,11 @@
-const CHOISES = JSON.parse(RAW_CHOISES);
-const URLS = JSON.parse(RAW_URLS);
-const WAIT_SCREEN = {
+const { TasksStack } = require('./stack');
+const { TasksStatusChangingDialog, TasksStatusFilterDialog, TasksPriorityFilterDialog } = require('./dialog');
+const { TasksCreation } = require('./creation');
+
+
+window.CHOISES = JSON.parse(RAW_CHOISES);
+window.URLS = JSON.parse(RAW_URLS);
+window.WAIT_SCREEN = {
   enabled: false,
   enable() {
     $('#wait-screen').addClass('wait-screen-enabled');

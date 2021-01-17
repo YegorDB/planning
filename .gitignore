@@ -1,4 +1,5 @@
 data/*
-src/django/code/static/*
-src/django/code/media/*
+src/django/static/*
+src/django/media/*
+src/node/node_modules/*
 **/__pycache__/**

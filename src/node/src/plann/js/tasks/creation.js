@@ -33,3 +33,8 @@ class TasksCreation {
     });
   }
 }
+
+
+module.exports = {
+  TasksCreation: TasksCreation,
+};

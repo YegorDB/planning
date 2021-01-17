@@ -183,3 +183,10 @@ class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
     ].join(' ');
   }
 }
+
+
+module.exports = {
+  TasksStatusChangingDialog: TasksStatusChangingDialog,
+  TasksStatusFilterDialog: TasksStatusFilterDialog,
+  TasksPriorityFilterDialog: TasksPriorityFilterDialog,
+};

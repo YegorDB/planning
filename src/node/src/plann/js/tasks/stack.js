@@ -432,3 +432,8 @@ class TasksStack {
     this._draw();
   }
 }
+
+
+module.exports = {
+  TasksStack: TasksStack,
+};

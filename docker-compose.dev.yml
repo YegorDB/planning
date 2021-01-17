@@ -7,6 +7,7 @@ services:
     image: planning/node:dev
     volumes:
       - "./src/node:/code"
+      - "./src/django/plann/static/plann:/code/output/plann"
 
   django:
     build:
