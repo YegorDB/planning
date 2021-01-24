@@ -1,0 +1,55 @@
+#tasks-creation {
+  position: fixed;
+  top: 9px;
+  right: 15px;
+
+  &-header > div {
+    width: max-content;
+    margin: auto;
+    padding: 5px;
+  }
+
+  &-form {
+    background-color: #f9f4d3;
+    padding: 10px;
+    border-radius: 4px;
+
+    &-name {
+      width: 190px;
+    }
+
+    &-description {
+      border-radius: 4px;
+      width: 200px;
+      height: 50px;
+    }
+
+    &-priority {
+      width: 205px;
+    }
+
+    &-button {
+      background-color: #f9d56e;
+      border-style: unset;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #bba66d;
+      }
+
+      &-box {
+        width: max-content;
+        margin: auto;
+        padding: 10px 5px 0px;
+      }
+    }
+  }
+}
+
+
+.task-creation-item-label {
+  display: inline-block;
+  min-width: 110px;
+}
