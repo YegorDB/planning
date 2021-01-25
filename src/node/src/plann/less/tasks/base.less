@@ -1,5 +1,41 @@
+#colors() {
+  primary-black: #000000;
+  primary-white: #ffffff;
+
+  secondary-darker: #a29443;
+  secondary-dark: #b9b59c;
+  secondary: #f3ecc2;
+  secondary-light: #f9f4d3;
+  secondary-lighter: #f9f5dd;
+
+  accent-red-darker: #9a1c25;
+  accent-red-dark: #b0595f;
+  accent-red: #e8505b;
+  accent-red-light: #f47c85;
+  accent-red-lighter: #f49ca2;
+
+  accent-yellow-darker: #a68426;
+  accent-yellow-dark: #bda86d;
+  accent-yellow: #f9d56e;
+  accent-yellow-light: #dce093;
+  accent-yellow-lighter: #fce8af;
+
+  accent-green-darker: #077672;
+  accent-green-dark: #2c8783;
+  accent-green: #14b1ab;
+  accent-green-light: #48d8d3;
+  accent-green-lighter: #6fd8d4;
+
+  accent-grey-darker: #333333;
+  accent-grey-dark: #555555;
+  accent-grey: #888888;
+  accent-grey-light: #bbbbbb;
+  accent-grey-lighter: #dddddd;
+}
+
+
 body {
-  color: #333;
+  color: #colors[accent-grey-darker];
 }
 
 
@@ -30,10 +66,10 @@ body {
     display: inline-block;
     margin-right: 10px;
     transform: translate(0, 15%);
-    background-color: #ddd;
+    background-color: #colors[accent-grey-lighter];
   }
 
   &:checked + label {
-    background-color: #14b1ab;
+    background-color: #colors[accent-green];
   }
 }

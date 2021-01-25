@@ -1,5 +1,5 @@
 body {
-  color: #333;
+  color: #333333;
 }
 #wait-screen {
   display: none;
@@ -25,7 +25,7 @@ body {
   display: inline-block;
   margin-right: 10px;
   transform: translate(0, 15%);
-  background-color: #ddd;
+  background-color: #dddddd;
 }
 .styled-checkbox:checked + label {
   background-color: #14b1ab;
@@ -57,6 +57,51 @@ body {
   border-radius: 4px;
   cursor: default;
 }
+#tasks-creation {
+  position: fixed;
+  top: 9px;
+  right: 15px;
+}
+#tasks-creation-header > div {
+  width: max-content;
+  margin: auto;
+  padding: 5px;
+}
+#tasks-creation-form {
+  background-color: #f9f4d3;
+  padding: 10px;
+  border-radius: 4px;
+}
+#tasks-creation-form-name {
+  width: 190px;
+}
+#tasks-creation-form-description {
+  border-radius: 4px;
+  width: 200px;
+  height: 50px;
+}
+#tasks-creation-form-priority {
+  width: 205px;
+}
+#tasks-creation-form-button {
+  background-color: #f9d56e;
+  border-style: unset;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#tasks-creation-form-button:hover {
+  background-color: #bda86d;
+}
+#tasks-creation-form-button-box {
+  width: max-content;
+  margin: auto;
+  padding: 10px 5px 0px;
+}
+.tasks-creation-item-label {
+  display: inline-block;
+  min-width: 110px;
+}
 #tasks-stack-header {
   display: flex;
   box-sizing: border-box;
@@ -64,7 +109,7 @@ body {
 #tasks-stack-header > .tasks-stack-cell {
   padding: 5px 0px;
   text-align: center;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 .tasks-stack-header-name {
   width: max-content;
@@ -99,9 +144,9 @@ body {
 .tasks-stack-cell {
   padding: 5px;
   display: inline-block;
-  background-color: #F9F4D3;
+  background-color: #f9f4d3;
   box-sizing: border-box;
-  border: solid 0.5px #fff;
+  border: solid 0.5px #ffffff;
 }
 .tasks-stack-cell-meaning {
   width: 30%;
@@ -116,7 +161,7 @@ body {
 .tasks-stack-cell-meaning-description {
   width: 15px;
   height: 15px;
-  background-color: #fff;
+  background-color: #ffffff;
   position: absolute;
   top: -2px;
   right: -18px;
@@ -146,25 +191,25 @@ body {
   display: inline-block;
 }
 .tasks-stack-item-priority-0 {
-  background-color: #ccc;
+  background-color: #dddddd;
 }
 .tasks-stack-item-priority-1 {
   background-color: #14b1ab;
 }
 .tasks-stack-item-priority-1.filter-priority-dialog-item {
-  background-color: #6FD8D4;
+  background-color: #6fd8d4;
 }
 .tasks-stack-item-priority-2 {
   background-color: #f9d56e;
 }
 .tasks-stack-item-priority-3 {
-  background-color: #F49CA2;
+  background-color: #f49ca2;
 }
 .tasks-stack-item-priority-4 {
-  background-color: #E8505B;
+  background-color: #e8505b;
 }
 .tasks-stack-item-priority-4.filter-priority-dialog-item {
-  background-color: #F47C85;
+  background-color: #f47c85;
 }
 .filter-priority-dialog-item {
   width: max-content;
@@ -184,16 +229,16 @@ body {
   cursor: pointer;
 }
 .tasks-stack-item-status-ns {
-  background-color: #ddd;
+  background-color: #dddddd;
 }
 .tasks-stack-item-status-ip {
   background-color: #f9d56e;
 }
 .tasks-stack-item-status-cl {
-  background-color: #F49CA2;
+  background-color: #f49ca2;
 }
 .tasks-stack-item-status-dn {
-  background-color: #6FD8D4;
+  background-color: #6fd8d4;
 }
 .change-status-dialog-item {
   margin: 10px auto;
@@ -201,51 +246,6 @@ body {
 .filter-status-dialog-item {
   margin: 6px auto;
   display: inline-block;
-}
-#tasks-creation {
-  position: fixed;
-  top: 9px;
-  right: 15px;
-}
-#tasks-creation-header > div {
-  width: max-content;
-  margin: auto;
-  padding: 5px;
-}
-#task-creation-form {
-  background-color: #f9f4d3;
-  padding: 10px;
-  border-radius: 4px;
-}
-.task-creation-item-label {
-  display: inline-block;
-  min-width: 110px;
-}
-#task-creation-form-name {
-  width: 190px;
-}
-#task-creation-form-description {
-  border-radius: 4px;
-  width: 200px;
-  height: 50px;
-}
-#task-creation-form-priority {
-  width: 205px;
-}
-#task-creation-form-button-box {
-  width: max-content;
-  margin: auto;
-  padding: 10px 5px 0px;
-}
-#task-creation-form-button {
-  background-color: #f9d56e;
-  border-style: unset;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-#task-creation-form-button:hover {
-  background-color: #bba66d;
 }
 .form-group {
   padding: 5px 0;

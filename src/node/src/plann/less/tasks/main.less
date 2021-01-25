@@ -1,5 +1,6 @@
 @import "base";
 @import "dialog";
+@import "creation";
 
 
 #tasks-stack-header {
@@ -9,7 +10,7 @@
 #tasks-stack-header > .tasks-stack-cell {
   padding: 5px 0px;
   text-align: center;
-  background-color: #fff;
+  background-color: #colors[primary-white];
 }
 
 .tasks-stack-header-name {
@@ -28,7 +29,7 @@
   border-radius: 50%;
 }
 .tasks-stack-header-filter:hover {
-  background-color: #f9d56e;
+  background-color: #colors[accent-yellow];
 }
 .tasks-stack-header-filter:after{
   content: "";
@@ -49,9 +50,9 @@
 .tasks-stack-cell {
   padding: 5px;
   display: inline-block;
-  background-color: #F9F4D3;
+  background-color: #colors[secondary-light];
   box-sizing: border-box;
-  border: solid 0.5px #fff;
+  border: solid 0.5px #colors[primary-white];
 }
 
 .tasks-stack-cell-meaning {
@@ -67,7 +68,7 @@
 .tasks-stack-cell-meaning-description {
   width: 15px;
   height: 15px;
-  background-color: #fff;
+  background-color: #colors[primary-white];
   position: absolute;
   top: -2px;
   right: -18px;
@@ -101,25 +102,25 @@
   display: inline-block;
 }
 .tasks-stack-item-priority-0 {
-  background-color: #ccc;
+  background-color: #colors[accent-grey-lighter];
 }
 .tasks-stack-item-priority-1 {
-  background-color: #14b1ab;
+  background-color: #colors[accent-green];
 }
 .tasks-stack-item-priority-1.filter-priority-dialog-item {
-  background-color: #6FD8D4;
+  background-color: #colors[accent-green-lighter];
 }
 .tasks-stack-item-priority-2 {
-  background-color: #f9d56e;
+  background-color: #colors[accent-yellow];
 }
 .tasks-stack-item-priority-3 {
-  background-color: #F49CA2;
+  background-color: #colors[accent-red-lighter];
 }
 .tasks-stack-item-priority-4 {
-  background-color: #E8505B;
+  background-color: #colors[accent-red];
 }
 .tasks-stack-item-priority-4.filter-priority-dialog-item {
-  background-color: #F47C85;
+  background-color: #colors[accent-red-light];
 }
 .filter-priority-dialog-item {
   width: max-content;
@@ -141,16 +142,16 @@
   cursor: pointer;
 }
 .tasks-stack-item-status-ns {
-  background-color: #ddd;
+  background-color: #colors[accent-grey-lighter];
 }
 .tasks-stack-item-status-ip {
-  background-color: #f9d56e;
+  background-color: #colors[accent-yellow];
 }
 .tasks-stack-item-status-cl {
-  background-color: #F49CA2;
+  background-color: #colors[accent-red-lighter];
 }
 .tasks-stack-item-status-dn {
-  background-color: #6FD8D4;
+  background-color: #colors[accent-green-lighter];;
 }
 .change-status-dialog-item {
   margin: 10px auto;
