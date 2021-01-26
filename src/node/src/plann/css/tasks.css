@@ -102,6 +102,9 @@ body {
   display: inline-block;
   min-width: 110px;
 }
+.form-group {
+  padding: 5px 0;
+}
 #tasks-stack-header {
   display: flex;
   box-sizing: border-box;
@@ -123,9 +126,23 @@ body {
   top: 0px;
   right: -12px;
   cursor: pointer;
-  border-radius: 50%;
 }
-.tasks-stack-header-filter:hover {
+.tasks-stack-header-filter .pseudo {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.tasks-stack-header-filter:hover:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 10%, 70% 50%, 70% 85%, 40% 100%, 30% 100%, 30% 50%, 0% 10%);
   background-color: #f9d56e;
 }
 .tasks-stack-header-filter:after {
@@ -135,8 +152,8 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
-  clip-path: polygon(10% 5%, 90% 5%, 55% 50%, 55% 90%, 45% 90%, 45% 50%);
-  background-color: black;
+  clip-path: polygon(10% 10%, 90% 10%, 60% 50%, 60% 80%, 40% 90%, 40% 50%);
+  background-color: #000000;
 }
 .tasks-stack-row {
   box-sizing: border-box;
@@ -196,7 +213,7 @@ body {
 .tasks-stack-item-priority-1 {
   background-color: #14b1ab;
 }
-.tasks-stack-item-priority-1.filter-priority-dialog-item {
+.tasks-stack-item-priority-1.tasks-stack-filter-priority-dialog-item {
   background-color: #6fd8d4;
 }
 .tasks-stack-item-priority-2 {
@@ -208,10 +225,10 @@ body {
 .tasks-stack-item-priority-4 {
   background-color: #e8505b;
 }
-.tasks-stack-item-priority-4.filter-priority-dialog-item {
+.tasks-stack-item-priority-4.tasks-stack-filter-priority-dialog-item {
   background-color: #f47c85;
 }
-.filter-priority-dialog-item {
+.tasks-stack-filter-priority-dialog-item {
   width: max-content;
   height: max-content;
   border-radius: 4px;
@@ -240,13 +257,10 @@ body {
 .tasks-stack-item-status-dn {
   background-color: #6fd8d4;
 }
-.change-status-dialog-item {
+.tasks-stack-change-status-dialog-item {
   margin: 10px auto;
 }
-.filter-status-dialog-item {
+.tasks-stack-filter-status-dialog-item {
   margin: 6px auto;
   display: inline-block;
-}
-.form-group {
-  padding: 5px 0;
 }

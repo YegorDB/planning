@@ -7,7 +7,7 @@ class TasksStatusChangingDialog {
     for (let [value, name] of Object.entries(CHOISES.task.status)) {
       let status = document.createElement('div');
       $(status).addClass([
-        'change-status-dialog-item',
+        'tasks-stack-change-status-dialog-item',
         'tasks-stack-item-status',
         `tasks-stack-item-status-${value.toLowerCase()}`,
       ].join(' '));
@@ -150,7 +150,7 @@ class TasksStatusFilterDialog extends BaseTasksFilterDialog {
    */
   _getItemClasses(value) {
     return [
-      'filter-status-dialog-item',
+      'tasks-stack-filter-status-dialog-item',
       'tasks-stack-item-status',
       `tasks-stack-item-status-${value.toLowerCase()}`,
     ].join(' ');
@@ -178,7 +178,7 @@ class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
    */
   _getItemClasses(value) {
     return [
-      'filter-priority-dialog-item',
+      'tasks-stack-filter-priority-dialog-item',
       `tasks-stack-item-priority-${value}`,
     ].join(' ');
   }
