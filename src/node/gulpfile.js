@@ -1,4 +1,4 @@
-const { dest, parallel, src } = require('gulp');
+const { dest, parallel, src, watch } = require('gulp');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
 const csso = require('gulp-csso');
@@ -28,6 +28,12 @@ function tasksCSS() {
     .pipe(dest('output/plann/css/'))
     .pipe(touch());
 }
+
+
+exports.default = function() {
+  watch('src/plann/js/tasks/**.js', tasksJS);
+  watch('src/plann/less/tasks/**.less', tasksCSS);
+};
 
 
 exports.tasks = parallel(tasksJS, tasksCSS);

@@ -2,6 +2,4 @@
 
 npm install
 
-while true; do
-	sleep 60
-done
+gulp
