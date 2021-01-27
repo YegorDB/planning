@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  node:
+  gulp:
     build:
-      context: ./env/node
-    image: planning/node:dev
+      context: ./env/gulp
+    image: planning/gulp:dev
     volumes:
-      - "./src/node:/code"
+      - "./src/gulp:/code"
       - "./src/django/plann/static/plann:/code/output/plann"
 
   django:
