@@ -63,3 +63,17 @@ class TasksTests(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(set(task_ids) - set(map(lambda t: t['id'], json.loads(response.content))))
+
+    def test_update_task(self):
+        task = Task.objects.create(
+            name='test update task',
+            priority=Task.Priority.NORMAL,
+            creator=self.user,
+            responsible=self.user,
+        )
+        url = reverse('api:update-task', kwargs={'pk': task.id})
+        data = {'priority': Task.Priority.LOW}
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        task.refresh_from_db()
+        self.assertEqual(task.priority, Task.Priority.LOW)
