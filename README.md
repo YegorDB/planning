@@ -7,7 +7,7 @@
 - Nginx
 - Django, Django Rest Framework
 - Postgesql
-- Gupl
+- Gulp
 - jQuery
 - Less
 
