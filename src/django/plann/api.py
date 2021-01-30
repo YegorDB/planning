@@ -5,7 +5,40 @@ from plann.serializers import TaskSerializer, TaskListSerializer
 
 class UserTasks(generics.ListAPIView):
     '''
-    ## Represent tasks of particular user
+    > User tasks list
+
+    ### Method
+    GET
+
+    ### Response json data
+    ```
+    [
+        {
+            "id": integer,
+            "creator": {
+                "id": integer,
+                "username": string,
+                "first_name": string,
+                "last_name": string,
+            },
+            "responsible": {
+                "id": integer,
+                "username": string,
+                "first_name": string,
+                "last_name": string,
+            },
+            "name": string,
+            "description": string,
+            "priority": integer,
+            "status": string,
+            "creation_datetime": ISO 8601 datetime string
+        }
+        ...
+    ]
+    ```
+
+    ### Authorization header
+    `Authorization: Token ${api_token_value}`
     '''
 
     serializer_class = TaskListSerializer
@@ -16,24 +49,37 @@ class UserTasks(generics.ListAPIView):
 
 class CreateTask(generics.CreateAPIView):
     '''
-    ## Task creation
+    > Task creation
 
-    ### JSON data
+    ### Method
+    POST
+
+    ### Request json data
     ```
     {
-        "name": string (required),
-        "description": string,
-        "deadline": ISO 8601 datetime string (required),
-        "duration": ISO 8601 duration string (required),
-        "priority": integer,
-        "depends_on": [
-            integer,
-            ...
-        ],
-        "parent": integer,
-        "status": string
+        "name": string,
+        "description": string (not required),
+        "priority": integer (not required),
+        "status": string (not required)
     }
     ```
+
+    ### Response json data
+    ```
+    {
+        "id": integer,
+        "creator": integer,
+        "responsible": integer,
+        "name": string,
+        "description": string,
+        "priority": integer,
+        "status": string,
+        "creation_datetime": ISO 8601 datetime string
+    }
+    ```
+
+    ### Authorization header
+    `Authorization: Token ${api_token_value}`
     '''
 
     serializer_class = TaskSerializer
@@ -46,7 +92,37 @@ class CreateTask(generics.CreateAPIView):
 
 class UpdateTask(generics.UpdateAPIView):
     '''
-    ## Task updation
+    > User task updation
+
+    ### Method
+    PATCH
+
+    ### Request json data
+    ```
+    {
+        "name": string (not required),
+        "description": string (not required),
+        "priority": integer (not required),
+        "status": string (not required)
+    }
+    ```
+
+    ### Response json data
+    ```
+    {
+        "id": integer,
+        "creator": integer,
+        "responsible": integer,
+        "name": string,
+        "description": string,
+        "priority": integer,
+        "status": string,
+        "creation_datetime": ISO 8601 datetime string
+    }
+    ```
+
+    ### Authorization header
+    `Authorization: Token ${api_token_value}`
     '''
 
     serializer_class = TaskSerializer
