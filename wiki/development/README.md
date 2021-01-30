@@ -16,3 +16,7 @@
 - #f9d56e
 - #f3ecc2
 - #14b1ab
+
+
+## Generate API documentation
+`$ docker-compose exec django python manage.py generate_api_docs`

@@ -21,4 +21,4 @@ class DocsCreator:
             )
             for urlpattern in get_resolver().namespace_dict['api'][1].url_patterns
         )
-        return '\n\n'.join((title, *content))
+        return '\n\n'.join((title, *content)) + '\n'
