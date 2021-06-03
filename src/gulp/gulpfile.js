@@ -10,7 +10,10 @@ const uglify = require('gulp-uglify-es').default;
 
 
 function tasksJS() {
-  return browserify('src/plann/js/tasks/main.js')
+  return browserify('src/plann/js/tasks/main.jsx')
+    .transform('babelify', {
+      plugins: ['transform-react-jsx']
+    })
     .bundle()
     .pipe(source('tasks.js'))
     .pipe(buffer())
@@ -31,7 +34,7 @@ function tasksCSS() {
 
 
 exports.default = function() {
-  watch('src/plann/js/tasks/**.js', tasksJS);
+  watch('src/plann/js/tasks/**.(js|jsx)', tasksJS);
   watch('src/plann/less/tasks/**.less', tasksCSS);
 };
 
