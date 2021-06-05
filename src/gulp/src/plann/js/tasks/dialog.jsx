@@ -1,30 +1,129 @@
-/** Tasks status changing dialog window logic. */
-class TasksStatusChangingDialog {
+/** Base dialog logic. */
+class BaseDialogComponent extends React.Component {
 
-  /** Create. */
-  constructor() {
+  /** Creation. */
+  constructor(props) {
+    super(props);
+
+    this.state = { opened: false };
+  }
+
+  /**
+   * Dialog items.
+   * @returns {React.Element[]}
+   */
+  get items() {
+    return [];
+  }
+
+  /**
+   * Open function.
+   * @returns {function}
+   */
+  get openFunction() {
+    return (e) => {
+      this.setState({ opened: true });
+      (this.openAdditionalFunction)(e)
+    }
+  }
+
+  /**
+   * Open additional function.
+   * @returns {function}
+   */
+  get openAdditionalFunction() {
+    return (e) => {};
+  }
+
+  /**
+   * Close function.
+   * @returns {function}
+   */
+  get closeFunction() {
+    return (e) => {
+      this.setState({ opened: false });
+      (this.closeAdditionalFunction)(e)
+    }
+  }
+
+  /**
+   * Close additional function.
+   * @returns {function}
+   */
+  get closeAdditionalFunction() {
+    return (e) => {};
+  }
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    let classes = [
+      'dialog-window',
+      (this.state.opened ? 'dialog-window-open' : ''),
+    ].join(' ').trim();
+
+    return (
+      <div className={classes} onClick={this.closeFunction} >
+        <div className="dialog-window-content" >
+          {this.items}
+        </div>
+      </div>
+    );
+  }
+}
+
+
+/** Tasks status changing dialog window logic. */
+class TasksStatusChangingDialogComponent extends BaseDialogComponent {
+
+  /** Creation. */
+  constructor(props) {
+    super(props);
     this._taskItem = null;
-    for (let [value, name] of Object.entries(CHOISES.task.status)) {
-      let status = document.createElement('div');
-      $(status).addClass([
+
+    $('#change-status-dialog').on('changeStatusStart', this.openFunction);
+  }
+
+  /**
+   * Dialog items.
+   * @returns {React.Element[]}
+   */
+  get items() {
+    return Object.entries(CHOISES.task.status).map((data) => {
+      let [value, name] = data;
+      let classes = [
         'tasks-stack-change-status-dialog-item',
         'tasks-stack-item-status',
         `tasks-stack-item-status-${value.toLowerCase()}`,
-      ].join(' '));
-      $(status).text(name);
-      $(status).on('click', (e) => {
+      ].join(' ');
+      let onClick = (e) => {
+        e.stopPropagation();
         this._changeValue(value);
-      });
-      $('#change-status-dialog > .dialog-window-content').append(status);
-    }
+      };
+      return <div className={classes} onClick={onClick} key={value} >{name}</div>;
+    });
+  }
 
-    $('#change-status-dialog').on('click', (e) => {
-      this._taskItem = null;
-    });
-    $('#change-status-dialog').on('changeStatusStart', (e) => {
-      $('#change-status-dialog').addClass('dialog-window-open');
+  /**
+   * Open additional function.
+   * @returns {function}
+   */
+  get openAdditionalFunction() {
+    return (e) => {
       this._taskItem = e.taskItem;
-    });
+    };
+  }
+
+  /**
+   * Close additional function.
+   * @returns {function}
+   */
+  get closeAdditionalFunction() {
+    return (e) => {
+      this._taskItem = null;
+    };
   }
 
   /**
@@ -54,7 +153,7 @@ class TasksStatusChangingDialog {
       WAIT_SCREEN.disable();
     });
 
-    $('#change-status-dialog').removeClass('dialog-window-open');
+    this.setState({ opened: false });
   }
 }
 
@@ -186,7 +285,7 @@ class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
 
 
 module.exports = {
-  TasksStatusChangingDialog: TasksStatusChangingDialog,
+  TasksStatusChangingDialogComponent: TasksStatusChangingDialogComponent,
   TasksStatusFilterDialog: TasksStatusFilterDialog,
   TasksPriorityFilterDialog: TasksPriorityFilterDialog,
 };
