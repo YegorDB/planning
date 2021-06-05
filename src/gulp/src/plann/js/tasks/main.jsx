@@ -8,17 +8,17 @@ class TasksStatusChangingDialogComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      taskItem: null,
-    };
+    this._taskItem = null;
+
+    this.state = { opened: false };
 
     this._click = (e) => {
-      this.setState({ taskItem: null });
+      this._taskItem = null;
     };
 
     this._changeStatusStart = (e) => {
-      $('#change-status-dialog').addClass('dialog-window-open');
-      this.setState({ taskItem: e.taskItem });
+      this.setState({ opened: true });
+      this._taskItem = e.taskItem;
     };
   }
 
@@ -33,14 +33,29 @@ class TasksStatusChangingDialogComponent extends React.Component {
   }
 
   render() {
-    return Object.entries(CHOISES.task.status).map((s) =>
-      <div className={`
-             tasks-stack-change-status-dialog-item
-             tasks-stack-item-status
-             tasks-stack-item-status-${s[0].toLowerCase()}
-           `}
-           onClick={(e) => { this._changeValue(s[0]); }}>
-        {s[1]}
+    let items = Object.entries(CHOISES.task.status).map((data) => {
+      let [value, name] = data;
+      let classes = [
+        'tasks-stack-change-status-dialog-item',
+        'tasks-stack-item-status',
+        `tasks-stack-item-status-${value.toLowerCase()}`,
+      ].join(' ');
+      let onClick = (e) => {
+        this._changeValue(value);
+      };
+      return <div className={classes} onClick={onClick} key={value}>{name}</div>;
+    });
+
+    let classes = [
+      'dialog-window',
+      (this.state.opened ? 'dialog-window-open' : ''),
+    ].join(' ').trim();
+
+    return (
+      <div className={classes}>
+        <div className="dialog-window-content">
+          {items}
+        </div>
       </div>
     );
   }
@@ -72,7 +87,7 @@ class TasksStatusChangingDialogComponent extends React.Component {
       WAIT_SCREEN.disable();
     });
 
-    $('#change-status-dialog').removeClass('dialog-window-open');
+    this.setState({ opened: false });
   }
 }
 
@@ -104,10 +119,15 @@ $.ajaxSetup({
 
 $(document).ready(function() {
   new TasksStack;
-  new TasksStatusChangingDialog;
+  // new TasksStatusChangingDialog;
   new TasksStatusFilterDialog;
   new TasksPriorityFilterDialog;
   new TasksCreation;
+
+  ReactDOM.render(
+    <TasksStatusChangingDialogComponent />,
+    document.getElementById('change-status-dialog')
+  );
 
   $('.dialog-window').on('click', function(e) {
     $(this).removeClass('dialog-window-open');
