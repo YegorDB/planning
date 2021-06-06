@@ -158,6 +158,104 @@ class TasksStatusChangingDialogComponent extends BaseDialogComponent {
 }
 
 
+/** Tasks status changing dialog window logic. */
+class BaseTasksFilterDialogComponent extends BaseDialogComponent {
+
+  static ROOT_ELEMENT_ID = null;
+  static FILTER_NAME = null;
+  static FILTER_EVENT_NAME = null;
+
+  /**
+   * Creation.
+   * @param {Object} props.choices - Data choices (value - name pairs).
+   */
+  constructor(props) {
+    super(props);
+    this._entries = Object.entries(props.choices);
+    this.state = { activeValues: Object.keys(props.choices) };
+
+    $(`#${this.constructor.ROOT_ELEMENT_ID}`)
+    .on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
+  }
+
+  /**
+   * Dialog items.
+   * @returns {React.Element[]}
+   */
+  get items() {
+    return this._entries.map((data) => {
+      let [value, name] = data;
+      let inputId = `filter-checkbox-${this.constructor.FILTER_NAME}-${value.toLowerCase()}`;
+
+      return (
+        <div key={value}>
+          <input type="checkbox"
+                 id={inputId}
+                 value={value}
+                 onChange={this._getItemChangeHandler(inputId, value)}
+                 checked={this.state.activeValues.includes(value)}
+                 className="styled-checkbox" />
+          <label for={inputId} />
+          <div className={this._getItemClasses(value)}
+               onClick={this._getItemClickHandler(inputId)} >
+            {name}
+          </div>
+        </div>
+      );
+    });
+  }
+
+  /**
+   * Get item classes.
+   * @abstract
+   * @param {string} value - Choice value;
+   * @return {string} Classes names;
+   */
+  _getItemClasses(value) {}
+
+  /**
+   * Get item click handler.
+   * @abstract
+   * @param {string} inputId - Item input id;
+   * @return {function} Click handler;
+   */
+  _getItemClickHandler(inputId) {
+    return (e) => {
+      $(`#${inputId}`).click();
+    };
+  }
+
+  /**
+   * Get item change handler.
+   * @abstract
+   * @param {string} inputId - Item input id;
+   * @param {string} value - Choice value;
+   * @return {function} Change handler;
+   */
+  _getItemChangeHandler(inputId, value) {
+    return (e) => {
+      if (!$(`#${inputId}`).prop('checked')) {
+        this.setState((state, props) => ({
+          activeValues: state.activeValues.filter(v => v != value),
+        }));
+      } else if (!this.state.activeValues.includes(value)) {
+        this.setState((state, props) => ({
+          activeValues: [
+            ...state.activeValues,
+            value,
+          ]
+        }));
+      }
+      $('#tasks-stack-items').trigger({
+        type: 'setFilter',
+        name: this.constructor.FILTER_NAME,
+        values: this.state.activeValues,
+      })
+    };
+  }
+}
+
+
 /** Base tasks filter dialog window logic. */
 class BaseTasksFilterDialog {
 
@@ -168,7 +266,6 @@ class BaseTasksFilterDialog {
    * @param {string} options.dialogWindowId - Dom dialog window id.
    * @param {string} options.filterName - Filter name.
    * @param {string} options.filterEventName - Filter event name.
-   * @param {string} options.itemsClasses - Choices items classes.
    */
   constructor(options) {
     this._activeValues = [];
@@ -223,7 +320,7 @@ class BaseTasksFilterDialog {
    * Get item classes.
    * @abstract
    * @param {Object} value - Choice value;
-   * @return {string[]} Classes names;
+   * @return {string} Classes names;
    */
   _getItemClasses(value) {}
 }
@@ -245,7 +342,7 @@ class TasksStatusFilterDialog extends BaseTasksFilterDialog {
   /**
    * Get item classes.
    * @param {Object} value - Choice value;
-   * @return {string[]} Classes names;
+   * @return {string} Classes names;
    */
   _getItemClasses(value) {
     return [
@@ -273,7 +370,7 @@ class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
   /**
    * Get item classes.
    * @param {Object} value - Choice value;
-   * @return {string[]} Classes names;
+   * @return {string} Classes names;
    */
   _getItemClasses(value) {
     return [
