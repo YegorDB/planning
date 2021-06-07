@@ -1,7 +1,7 @@
 const { TasksStack } = require('./stack');
 const {
-  TasksStatusChangingDialogComponent,
-  TasksStatusFilterDialog, TasksPriorityFilterDialog,
+  TaskStatusChangingDialogComponent, TaskStatusFilterDialogComponent,
+  TaskPriorityFilterDialogComponent,
 } = require('./dialog.jsx');
 const { TasksCreation } = require('./creation');
 
@@ -32,12 +32,18 @@ $.ajaxSetup({
 
 $(document).ready(function() {
   new TasksStack;
-  new TasksStatusFilterDialog;
-  new TasksPriorityFilterDialog;
   new TasksCreation;
 
   ReactDOM.render(
-    <TasksStatusChangingDialogComponent />,
+    <TaskStatusChangingDialogComponent />,
     document.getElementById('change-status-dialog')
+  );
+  ReactDOM.render(
+    <TaskStatusFilterDialogComponent choices={CHOISES.task.status} />,
+    document.getElementById('filter-status-dialog')
+  );
+  ReactDOM.render(
+    <TaskPriorityFilterDialogComponent choices={CHOISES.task.priority} />,
+    document.getElementById('filter-priority-dialog')
   );
 });

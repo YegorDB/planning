@@ -75,8 +75,8 @@ class BaseDialogComponent extends React.Component {
 }
 
 
-/** Tasks status changing dialog window logic. */
-class TasksStatusChangingDialogComponent extends BaseDialogComponent {
+/** Task status changing dialog window logic. */
+class TaskStatusChangingDialogComponent extends BaseDialogComponent {
 
   /** Creation. */
   constructor(props) {
@@ -158,8 +158,8 @@ class TasksStatusChangingDialogComponent extends BaseDialogComponent {
 }
 
 
-/** Tasks status changing dialog window logic. */
-class BaseTasksFilterDialogComponent extends BaseDialogComponent {
+/** Task status changing dialog window logic. */
+class BaseTaskFilterDialogComponent extends BaseDialogComponent {
 
   static ROOT_ELEMENT_ID = null;
   static FILTER_NAME = null;
@@ -171,11 +171,15 @@ class BaseTasksFilterDialogComponent extends BaseDialogComponent {
    */
   constructor(props) {
     super(props);
-    this._entries = Object.entries(props.choices);
+    this._entries = this._getEntries(props.choices);
     this.state = { activeValues: Object.keys(props.choices) };
 
     $(`#${this.constructor.ROOT_ELEMENT_ID}`)
     .on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
+  }
+
+  _getEntries(choices) {
+    return Object.entries(choices);
   }
 
   /**
@@ -207,6 +211,7 @@ class BaseTasksFilterDialogComponent extends BaseDialogComponent {
 
   /**
    * Get item classes.
+   * @private
    * @abstract
    * @param {string} value - Choice value;
    * @return {string} Classes names;
@@ -215,7 +220,7 @@ class BaseTasksFilterDialogComponent extends BaseDialogComponent {
 
   /**
    * Get item click handler.
-   * @abstract
+   * @private
    * @param {string} inputId - Item input id;
    * @return {function} Click handler;
    */
@@ -227,7 +232,7 @@ class BaseTasksFilterDialogComponent extends BaseDialogComponent {
 
   /**
    * Get item change handler.
-   * @abstract
+   * @private
    * @param {string} inputId - Item input id;
    * @param {string} value - Choice value;
    * @return {function} Change handler;
@@ -256,91 +261,16 @@ class BaseTasksFilterDialogComponent extends BaseDialogComponent {
 }
 
 
-/** Base tasks filter dialog window logic. */
-class BaseTasksFilterDialog {
+/** Task status filter dialog window logic. */
+class TaskStatusFilterDialogComponent extends BaseTaskFilterDialogComponent {
 
-  /**
-   * Create.
-   * @param {Object} options - Options.
-   * @param {Array} options.entries - Data choices ([value, name]).
-   * @param {string} options.dialogWindowId - Dom dialog window id.
-   * @param {string} options.filterName - Filter name.
-   * @param {string} options.filterEventName - Filter event name.
-   */
-  constructor(options) {
-    this._activeValues = [];
-
-    for (let [value, name] of options.entries) {
-      let wrapper = document.createElement('div');
-      $(`${options.dialogWindowId} > .dialog-window-content`).append(wrapper);
-
-      let inputId = `filter-checkbox-${options.filterName}-${value}`.toLowerCase();
-      let input = document.createElement('input');
-      $(input).attr('type', 'checkbox');
-      $(input).attr('id', inputId);
-      $(input).attr('value', value);
-      $(input).addClass('styled-checkbox');
-      $(input).on('change', (e) => {
-        if (!$(input).prop('checked')) {
-          this._activeValues = this._activeValues.filter(v => v != value);
-        } else if (!this._activeValues.includes(value)) {
-          this._activeValues.push(value);
-        }
-        $('#tasks-stack-items').trigger({
-          type: 'setFilter',
-          name: options.filterName,
-          values: this._activeValues,
-        })
-      });
-      $(options.dialogWindowId).on(options.filterEventName, (e) => {
-        $(input).prop('checked', e.activeValues.includes(value));
-      });
-      $(wrapper).append(input);
-
-      let label = document.createElement('label');
-      $(label).attr('for', inputId);
-      $(wrapper).append(label);
-
-      let item = document.createElement('div');
-      $(item).addClass(this._getItemClasses(value));
-      $(item).text(name);
-      $(item).on('click', (e) => {
-        $(input).click();
-      });
-      $(wrapper).append(item);
-    }
-
-    $(options.dialogWindowId).on(options.filterEventName, (e) => {
-      $(options.dialogWindowId).addClass('dialog-window-open');
-      this._activeValues = e.activeValues;
-    });
-  }
+  static ROOT_ELEMENT_ID = 'filter-status-dialog';
+  static FILTER_NAME = 'status';
+  static FILTER_EVENT_NAME = 'filterStatusStart';
 
   /**
    * Get item classes.
-   * @abstract
-   * @param {Object} value - Choice value;
-   * @return {string} Classes names;
-   */
-  _getItemClasses(value) {}
-}
-
-
-/** Tasks status filter dialog window logic. */
-class TasksStatusFilterDialog extends BaseTasksFilterDialog {
-
-  /** Create. */
-  constructor() {
-    super({
-      entries: Object.entries(CHOISES.task.status),
-      dialogWindowId: '#filter-status-dialog',
-      filterName: 'status',
-      filterEventName: 'filterStatusStart',
-    });
-  }
-
-  /**
-   * Get item classes.
+   * @private
    * @param {Object} value - Choice value;
    * @return {string} Classes names;
    */
@@ -354,21 +284,20 @@ class TasksStatusFilterDialog extends BaseTasksFilterDialog {
 }
 
 
-/** Tasks priority filter dialog window logic. */
-class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
+/** Task priority filter dialog window logic. */
+class TaskPriorityFilterDialogComponent extends BaseTaskFilterDialogComponent {
 
-  /** Create. */
-  constructor() {
-    super({
-      entries: Object.entries(CHOISES.task.priority).reverse().map(([v, n]) => [parseInt(v), n]),
-      dialogWindowId: '#filter-priority-dialog',
-      filterName: 'priority',
-      filterEventName: 'filterPriorityStart',
-    });
+  static ROOT_ELEMENT_ID = 'filter-priority-dialog';
+  static FILTER_NAME = 'priority';
+  static FILTER_EVENT_NAME = 'filterPriorityStart';
+
+  _getEntries(choices) {
+    return Object.entries(choices).reverse().map(([v, n]) => [parseInt(v), n]);
   }
 
   /**
    * Get item classes.
+   * @private
    * @param {Object} value - Choice value;
    * @return {string} Classes names;
    */
@@ -382,7 +311,7 @@ class TasksPriorityFilterDialog extends BaseTasksFilterDialog {
 
 
 module.exports = {
-  TasksStatusChangingDialogComponent: TasksStatusChangingDialogComponent,
-  TasksStatusFilterDialog: TasksStatusFilterDialog,
-  TasksPriorityFilterDialog: TasksPriorityFilterDialog,
+  TaskStatusChangingDialogComponent: TaskStatusChangingDialogComponent,
+  TaskStatusFilterDialogComponent: TaskStatusFilterDialogComponent,
+  TaskPriorityFilterDialogComponent: TaskPriorityFilterDialogComponent,
 };
