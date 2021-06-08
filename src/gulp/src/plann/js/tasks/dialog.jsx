@@ -91,8 +91,7 @@ class TaskStatusChangingDialogComponent extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    return Object.entries(CHOISES.task.status).map((data) => {
-      let [value, name] = data;
+    return Object.entries(CHOISES.task.status).map(([value, name]) => {
       let classes = [
         'tasks-stack-change-status-dialog-item',
         'tasks-stack-item-status',
@@ -187,9 +186,8 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    return this._entries.map((data) => {
-      let [value, name] = data;
-      let inputId = `filter-checkbox-${this.constructor.FILTER_NAME}-${value.toLowerCase()}`;
+    return this._entries.map(([value, name]) => {
+      let inputId = `filter-checkbox-${this.constructor.FILTER_NAME}-${value.toString().toLowerCase()}`;
 
       return (
         <div key={value}>
@@ -199,7 +197,7 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
                  onChange={this._getItemChangeHandler(inputId, value)}
                  checked={this.state.activeValues.includes(value)}
                  className="styled-checkbox" />
-          <label for={inputId} />
+          <label htmlFor={inputId} />
           <div className={this._getItemClasses(value)}
                onClick={this._getItemClickHandler(inputId)} >
             {name}
