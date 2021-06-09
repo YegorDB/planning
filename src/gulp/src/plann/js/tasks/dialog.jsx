@@ -65,8 +65,10 @@ class BaseDialogComponent extends React.Component {
     ].join(' ').trim();
 
     return (
-      <div className={classes} onClick={this.closeFunction} >
-        <div className="dialog-window-content" >
+      <div className={classes}
+           onClick={this.closeFunction} >
+        <div className="dialog-window-content"
+             onClick={(e) => { e.stopPropagation(); }} >
           {this.items}
         </div>
       </div>
@@ -98,7 +100,6 @@ class TaskStatusChangingDialogComponent extends BaseDialogComponent {
         `tasks-stack-item-status-${value.toLowerCase()}`,
       ].join(' ');
       let onClick = (e) => {
-        e.stopPropagation();
         this._changeValue(value);
       };
       return <div className={classes} onClick={onClick} key={value} >{name}</div>;
@@ -171,14 +172,25 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
   constructor(props) {
     super(props);
     this._entries = this._getEntries(props.choices);
-    this.state = { activeValues: Object.keys(props.choices) };
+    this.state = {
+      ...this.state,
+      activeValues: Object.keys(props.choices),
+    };
 
     $(`#${this.constructor.ROOT_ELEMENT_ID}`)
     .on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
   }
 
-  _getEntries(choices) {
-    return Object.entries(choices);
+  /**
+   * Open additional function.
+   * @returns {function}
+   */
+  get openAdditionalFunction() {
+    return (e) => {
+      this.setState({
+        activeValues: e.activeValues,
+      });
+    };
   }
 
   /**
@@ -208,6 +220,16 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
   }
 
   /**
+   * Get entries.
+   * @private
+   * @param {Object} choices - Value - name pairs;
+   * @return {Object[][]} Array of value - name pairs;
+   */
+  _getEntries(choices) {
+    return Object.entries(choices);
+  }
+
+  /**
    * Get item classes.
    * @private
    * @abstract
@@ -224,7 +246,7 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
    */
   _getItemClickHandler(inputId) {
     return (e) => {
-      $(`#${inputId}`).click();
+      $(`#${inputId} + label`).click();
     };
   }
 
@@ -237,24 +259,33 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
    */
   _getItemChangeHandler(inputId, value) {
     return (e) => {
-      if (!$(`#${inputId}`).prop('checked')) {
-        this.setState((state, props) => ({
-          activeValues: state.activeValues.filter(v => v != value),
-        }));
+      if (!e.target.checked) {
+        this.setState((state, props) => {
+          let activeValues = state.activeValues.filter(v => v != value);
+          this._trigerSetFilterEvent(activeValues);
+          return {activeValues: activeValues};
+        });
       } else if (!this.state.activeValues.includes(value)) {
-        this.setState((state, props) => ({
-          activeValues: [
-            ...state.activeValues,
-            value,
-          ]
-        }));
+        this.setState((state, props) => {
+          let activeValues = [...state.activeValues, value];
+          this._trigerSetFilterEvent(activeValues);
+          return {activeValues: activeValues};
+        });
       }
-      $('#tasks-stack-items').trigger({
-        type: 'setFilter',
-        name: this.constructor.FILTER_NAME,
-        values: this.state.activeValues,
-      })
     };
+  }
+
+  /**
+   * Trigger set filter event.
+   * @private
+   * @param {Object[]} activeValues - Active values;
+   */
+  _trigerSetFilterEvent(activeValues) {
+    $('#tasks-stack-items').trigger({
+      type: 'setFilter',
+      name: this.constructor.FILTER_NAME,
+      values: activeValues,
+    });
   }
 }
 
@@ -289,6 +320,12 @@ class TaskPriorityFilterDialogComponent extends BaseTaskFilterDialogComponent {
   static FILTER_NAME = 'priority';
   static FILTER_EVENT_NAME = 'filterPriorityStart';
 
+  /**
+   * Get entries.
+   * @private
+   * @param {Object} choices - Value - name pairs;
+   * @return {Object[][]} Array of value - name pairs;
+   */
   _getEntries(choices) {
     return Object.entries(choices).reverse().map(([v, n]) => [parseInt(v), n]);
   }
