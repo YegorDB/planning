@@ -1,4 +1,68 @@
 /** Tasks stack item priority handle logic. */
+class TasksStackItemPriorityComponent extends React.Component {
+
+  /**
+   * Creation.
+   * @param {Object} props.item - Tasks stack item.
+   * @param {integer} props.value - Task priority value.
+   */
+  constructor(props) {
+    super(props);
+    this._item = props.item;
+    this.state = {
+      value: props.value,
+    };
+  }
+
+  /**
+   * Task priority value.
+   * @return {integer} Value.
+   */
+  get value() {
+    return this.state.value;
+  }
+
+  /**
+   * Set task priority value.
+   * @param {integer} value - Value.
+   */
+  set value(value) {
+    if (!Object.keys(CHOISES.task.priority).includes(value.toString())) {
+      throw Error(`Wrong task priority value "${value}".`);
+    }
+
+    this.setState({
+      value: value,
+    });
+  }
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    let classes = [
+      'tasks-stack-cell',
+      'tasks-stack-cell-priority',
+    ].join(' ');
+    let valueClasses = [
+      'tasks-stack-item-priority',
+      `tasks-stack-item-priority-${this.state.value}`,
+    ].join(' ');
+
+    return (
+      <div className={classes} >
+        <div className={valueClasses}
+             title={ CHOISES.task.priority[this.state.value] } >
+          {this.items}
+        </div>
+      </div>
+    );
+  }
+}
+
+
+/** Tasks stack item priority handle logic. */
 class TasksStackItemPriority {
 
   /**
@@ -193,7 +257,7 @@ class TasksStackItemStatus {
 
     this._valueElement = document.createElement('div');
     $(this._valueElement).on('click', (e) => {
-      $('#change-status-dialog').trigger({
+      $(document).trigger({
         type: 'changeStatusStart',
         taskItem: this._item,
       });
@@ -327,13 +391,13 @@ class TasksStack {
     });
 
     $('#tasks-stack-filter-status').on('click', (e) => {
-      $('#filter-status-dialog').trigger({
+      $(document).trigger({
         type: 'filterStatusStart',
         activeValues: this._filter.status,
       });
     });
     $('#tasks-stack-filter-priority').on('click', (e) => {
-      $('#filter-priority-dialog').trigger({
+      $(document).trigger({
         type: 'filterPriorityStart',
         activeValues: this._filter.priority,
       });

@@ -85,7 +85,7 @@ class TaskStatusChangingDialogComponent extends BaseDialogComponent {
     super(props);
     this._taskItem = null;
 
-    $('#change-status-dialog').on('changeStatusStart', this.openFunction);
+    $(document).on('changeStatusStart', this.openFunction);
   }
 
   /**
@@ -161,7 +161,6 @@ class TaskStatusChangingDialogComponent extends BaseDialogComponent {
 /** Task status changing dialog window logic. */
 class BaseTaskFilterDialogComponent extends BaseDialogComponent {
 
-  static ROOT_ELEMENT_ID = null;
   static FILTER_NAME = null;
   static FILTER_EVENT_NAME = null;
 
@@ -177,8 +176,7 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
       activeValues: Object.keys(props.choices),
     };
 
-    $(`#${this.constructor.ROOT_ELEMENT_ID}`)
-    .on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
+    $(document).on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
   }
 
   /**
@@ -293,7 +291,6 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
 /** Task status filter dialog window logic. */
 class TaskStatusFilterDialogComponent extends BaseTaskFilterDialogComponent {
 
-  static ROOT_ELEMENT_ID = 'filter-status-dialog';
   static FILTER_NAME = 'status';
   static FILTER_EVENT_NAME = 'filterStatusStart';
 
@@ -316,7 +313,6 @@ class TaskStatusFilterDialogComponent extends BaseTaskFilterDialogComponent {
 /** Task priority filter dialog window logic. */
 class TaskPriorityFilterDialogComponent extends BaseTaskFilterDialogComponent {
 
-  static ROOT_ELEMENT_ID = 'filter-priority-dialog';
   static FILTER_NAME = 'priority';
   static FILTER_EVENT_NAME = 'filterPriorityStart';
 
