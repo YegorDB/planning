@@ -62,6 +62,52 @@ class TasksStackItemPriorityComponent extends React.Component {
 }
 
 
+/** Tasks stack item meaning name handle logic. */
+class TasksStackItemMeaningNameComponent extends React.Component {
+
+  /**
+   * Creation.
+   * @param {integer} props.value - Task priority value.
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
+    };
+  }
+
+  /**
+   * Task name value.
+   * @return {string} Value.
+   */
+  get value() {
+    return this.state.value;
+  }
+
+  /**
+   * Set task name value.
+   * @param {string} value - Value.
+   */
+  set value(value) {
+    this.setState({
+      value: value,
+    });
+  }
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div className="tasks-stack-cell-meaning-name" >
+        this.state.value
+      </div>
+    );
+  }
+}
+
+
 /** Tasks stack item priority handle logic. */
 class TasksStackItemPriority {
 
