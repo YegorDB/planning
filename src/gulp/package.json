@@ -3,6 +3,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
+    "classnames": "^2.3.1",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
     "gulp-less": "^4.0.1",

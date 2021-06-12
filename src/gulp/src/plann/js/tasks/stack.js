@@ -1,3 +1,6 @@
+const classNames = require('classnames');
+
+
 /** Tasks stack item priority handle logic. */
 class TasksStackItemPriorityComponent extends React.Component {
 
@@ -41,14 +44,14 @@ class TasksStackItemPriorityComponent extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    let classes = [
+    let classes = classNames(
       'tasks-stack-cell',
       'tasks-stack-cell-priority',
-    ].join(' ');
-    let valueClasses = [
+    );
+    let valueClasses = classNames(
       'tasks-stack-item-priority',
       `tasks-stack-item-priority-${this.state.value}`,
-    ].join(' ');
+    );
 
     return (
       <div className={classes} >
@@ -67,7 +70,7 @@ class TasksStackItemMeaningNameComponent extends React.Component {
 
   /**
    * Creation.
-   * @param {integer} props.value - Task priority value.
+   * @param {integer} props.value - Task name value.
    */
   constructor(props) {
     super(props);

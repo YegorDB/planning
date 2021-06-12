@@ -1,3 +1,6 @@
+const classNames = require('classnames');
+
+
 /** Base dialog logic. */
 class BaseDialogComponent extends React.Component {
 
@@ -59,10 +62,9 @@ class BaseDialogComponent extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    let classes = [
-      'dialog-window',
-      (this.state.opened ? 'dialog-window-open' : ''),
-    ].join(' ').trim();
+    let classes = classNames('dialog-window', {
+      'dialog-window-open': this.state.opened,
+    });
 
     return (
       <div className={classes}
@@ -94,11 +96,11 @@ class TaskStatusChangingDialogComponent extends BaseDialogComponent {
    */
   get items() {
     return Object.entries(CHOISES.task.status).map(([value, name]) => {
-      let classes = [
+      let classes = classNames(
         'tasks-stack-change-status-dialog-item',
         'tasks-stack-item-status',
         `tasks-stack-item-status-${value.toLowerCase()}`,
-      ].join(' ');
+      );
       let onClick = (e) => {
         this._changeValue(value);
       };
@@ -301,11 +303,11 @@ class TaskStatusFilterDialogComponent extends BaseTaskFilterDialogComponent {
    * @return {string} Classes names;
    */
   _getItemClasses(value) {
-    return [
+    return classNames(
       'tasks-stack-filter-status-dialog-item',
       'tasks-stack-item-status',
       `tasks-stack-item-status-${value.toLowerCase()}`,
-    ].join(' ');
+    );
   }
 }
 
@@ -333,10 +335,10 @@ class TaskPriorityFilterDialogComponent extends BaseTaskFilterDialogComponent {
    * @return {string} Classes names;
    */
   _getItemClasses(value) {
-    return [
+    return classNames(
       'tasks-stack-filter-priority-dialog-item',
       `tasks-stack-item-priority-${value}`,
-    ].join(' ');
+    );
   }
 }
 
