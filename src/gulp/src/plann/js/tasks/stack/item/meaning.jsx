@@ -64,3 +64,41 @@ class Decsription extends React.Component {
     );
   }
 }
+
+
+/** Tasks stack item meaning. */
+class Meaning extends React.Component {
+
+  /**
+   * Creation.
+   * @param {string} props.name - Task name value.
+   * @param {string} [props.decsription] - Task decsription value.
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: props.name,
+      decsription: props.decsription,
+    };
+  }
+
+  /**
+   * Render stack item meaning.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div className="tasks-stack-cell tasks-stack-cell-meaning" >
+        <div className="tasks-stack-cell-meaning-wrapper" >
+          <Name value={ this.state.name } />
+          <Decsription value={ this.state.decsription } />
+        </div>
+      </div>
+    );
+  }
+}
+
+
+module.exports = {
+  Meaning: Meaning,
+};

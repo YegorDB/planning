@@ -1,5 +1,5 @@
 const { Priority } = require('./priority.jsx');
-// const { Meaning } = require('./meaning.jsx');
+const { Meaning } = require('./meaning.jsx');
 // const { Status } = require('./status.jsx');
 
 
@@ -28,8 +28,8 @@ class Item extends React.Component {
     return (
       <div className="tasks-stack-row" >
         <Priority value={ this._data.priority } />
-        // <Meaning name={ this._data.name }
-        //          description={ this._data.description } />
+        <Meaning name={ this._data.name }
+                 description={ this._data.description } />
         // <Status value={ this._data.status } />
       </div>
     );
