@@ -1,6 +1,6 @@
 const { Priority } = require('./priority.jsx');
 const { Meaning } = require('./meaning.jsx');
-// const { Status } = require('./status.jsx');
+const { Status } = require('./status.jsx');
 
 
 /** Tasks stack item. */
@@ -17,7 +17,13 @@ class Item extends React.Component {
    */
   constructor(props) {
     super(props);
-    this._data = props.taskData;
+    this.id = props.taskData.id;
+    this.state = {
+      priority: props.priority,
+      name: props.name,
+      description: props.description,
+      status: props.status,
+    };
   }
 
   /**
@@ -27,10 +33,11 @@ class Item extends React.Component {
   render() {
     return (
       <div className="tasks-stack-row" >
-        <Priority value={ this._data.priority } />
-        <Meaning name={ this._data.name }
-                 description={ this._data.description } />
-        // <Status value={ this._data.status } />
+        <Priority value={ this.state.priority } />
+        <Meaning name={ this.state.name }
+                 description={ this.state.description } />
+        <Status value={ this.state.status }
+                taskItem={ this } />
       </div>
     );
   }

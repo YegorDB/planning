@@ -145,7 +145,9 @@ class TaskStatusChangingDialogComponent extends BaseDialogComponent {
       contentType: 'application/json',
     })
     .done((taskData) => {
-      this._taskItem.status.value = value;
+      this._taskItem.setState({
+        status: value,
+      });
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
