@@ -18,7 +18,7 @@ class Status extends React.Component {
   }
 
   /**
-   * Render stack item meaning name.
+   * Render stack item status.
    * @returns {React.Element}
    */
   render() {

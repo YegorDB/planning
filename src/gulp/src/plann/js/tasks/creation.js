@@ -20,7 +20,7 @@ class TasksCreation {
       contentType: 'application/json',
     })
     .done((taskData) => {
-      $('#tasks-stack-items').trigger({
+      $(document).trigger({
         type: 'addTask',
         taskData: taskData,
       });

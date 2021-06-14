@@ -283,7 +283,7 @@ class BaseTaskFilterDialogComponent extends BaseDialogComponent {
    * @param {Object[]} activeValues - Active values;
    */
   _trigerSetFilterEvent(activeValues) {
-    $('#tasks-stack-items').trigger({
+    $(document).trigger({
       type: 'setFilter',
       name: this.constructor.FILTER_NAME,
       values: activeValues,

@@ -34,8 +34,8 @@ function tasksCSS() {
 
 
 exports.default = function() {
-  watch('src/plann/js/tasks/**.(js|jsx)', tasksJS);
-  watch('src/plann/less/tasks/**.less', tasksCSS);
+  watch('src/plann/js/tasks/**/*.(js|jsx)', tasksJS);
+  watch('src/plann/less/tasks/**/*.less', tasksCSS);
 };
 
 

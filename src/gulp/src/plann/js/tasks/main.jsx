@@ -1,4 +1,4 @@
-const { TasksStack } = require('./stack');
+const { Stack } = require('./stack/main.jsx');
 const {
   TaskStatusChangingDialogComponent, TaskStatusFilterDialogComponent,
   TaskPriorityFilterDialogComponent,
@@ -31,8 +31,12 @@ $.ajaxSetup({
 
 
 $(document).ready(function() {
-  new TasksStack;
   new TasksCreation;
+
+  ReactDOM.render(
+    <Stack />,
+    document.getElementById('tasks-stack-items')
+  );
 
   ReactDOM.render(
     <TaskStatusChangingDialogComponent />,
