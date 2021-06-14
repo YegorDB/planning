@@ -1,8 +1,7 @@
 const { Stack } = require('./stack/main.jsx');
-const {
-  TaskStatusChangingDialogComponent, TaskStatusFilterDialogComponent,
-  TaskPriorityFilterDialogComponent,
-} = require('./dialog.jsx');
+const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
+const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
+const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
 const { TasksCreation } = require('./creation');
 
 
@@ -39,15 +38,15 @@ $(document).ready(function() {
   );
 
   ReactDOM.render(
-    <TaskStatusChangingDialogComponent />,
+    <StatusChangingDialog />,
     document.getElementById('change-status-dialog')
   );
   ReactDOM.render(
-    <TaskStatusFilterDialogComponent choices={CHOISES.task.status} />,
+    <StatusFilterDialog choices={CHOISES.task.status} />,
     document.getElementById('filter-status-dialog')
   );
   ReactDOM.render(
-    <TaskPriorityFilterDialogComponent choices={CHOISES.task.priority} />,
+    <PriorityFilterDialog choices={CHOISES.task.priority} />,
     document.getElementById('filter-priority-dialog')
   );
 });
