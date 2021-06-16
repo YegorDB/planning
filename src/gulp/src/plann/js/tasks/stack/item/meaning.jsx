@@ -5,24 +5,13 @@ const classNames = require('classnames');
 class Name extends React.Component {
 
   /**
-   * Creation.
-   * @param {integer} props.value - Task name value.
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value,
-    };
-  }
-
-  /**
    * Render stack item meaning name.
    * @returns {React.Element}
    */
   render() {
     return (
       <div className="tasks-stack-cell-meaning-name" >
-        { this.state.value }
+        { this.props.value }
       </div>
     );
   }
@@ -33,18 +22,11 @@ class Name extends React.Component {
 class Decsription extends React.Component {
 
   /**
-   * Creation.
-   * @param {integer} props.value - Task description value.
+   * Whether show component or not.
+   * @returns {boolean}
    */
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value,
-    };
-  }
-
   get showed() {
-    return this.state.value && this.state.value != '';
+    return this.props.value && this.props.value != '';
   }
 
   /**
@@ -58,7 +40,7 @@ class Decsription extends React.Component {
 
     return (
       <div className={classes}
-           title={ this.showed ? this.state.value : '' } >
+           title={ this.showed ? this.props.value : '' } >
         <div>i</div>
       </div>
     );
@@ -70,19 +52,6 @@ class Decsription extends React.Component {
 class Meaning extends React.Component {
 
   /**
-   * Creation.
-   * @param {string} props.name - Task name value.
-   * @param {string} [props.decsription] - Task decsription value.
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: props.name,
-      decsription: props.decsription,
-    };
-  }
-
-  /**
    * Render stack item meaning.
    * @returns {React.Element}
    */
@@ -90,8 +59,8 @@ class Meaning extends React.Component {
     return (
       <div className="tasks-stack-cell tasks-stack-cell-meaning" >
         <div className="tasks-stack-cell-meaning-wrapper" >
-          <Name value={ this.state.name } />
-          <Decsription value={ this.state.decsription } />
+          <Name value={ this.props.name } />
+          <Decsription value={ this.props.decsription } />
         </div>
       </div>
     );

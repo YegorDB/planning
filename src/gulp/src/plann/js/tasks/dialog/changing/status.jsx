@@ -69,7 +69,7 @@ class StatusChangingDialog extends BaseDialogComponent {
     })
     .done((taskData) => {
       this._taskItem.setState({
-        status: value,
+        status: taskData.status,
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {

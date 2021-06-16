@@ -12,9 +12,6 @@ class Status extends React.Component {
   constructor(props) {
     super(props);
     this._taskItem = props.taskItem;
-    this.state = {
-      value: props.value,
-    };
   }
 
   /**
@@ -24,7 +21,7 @@ class Status extends React.Component {
   render() {
     let valueClasses = classNames(
       'tasks-stack-item-status',
-      `tasks-stack-item-status-${this.state.value.toLowerCase()}`,
+      `tasks-stack-item-status-${this.props.value.toLowerCase()}`,
     );
     let valueOnClick = (e) => {
       $(document).trigger({
@@ -37,7 +34,7 @@ class Status extends React.Component {
       <div className="tasks-stack-cell tasks-stack-cell-status" >
         <div className={valueClasses}
              onClick={valueOnClick} >
-          { CHOISES.task.status[this.state.value] }
+          { CHOISES.task.status[this.props.value] }
         </div>
       </div>
     );

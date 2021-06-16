@@ -8,7 +8,7 @@ class Stack extends React.Component {
   static FILTER_STATUS = 'status';
   static ALL_FILTERS = [
     Stack.FILTER_PRIORITY,
-    Stack.ALL_FILTERS,
+    Stack.FILTER_STATUS,
   ];
 
   /** Creation. */
@@ -138,9 +138,12 @@ class Stack extends React.Component {
     if (!Array.isArray(value)) {
       throw Error('Values argument has to be an array.');
     }
-    this.setState({
-      filters: value,
-    });
+    this.setState(state => ({
+      filters: {
+        ...state.filters,
+        [name]: value,
+      },
+    }));
   }
 }
 
