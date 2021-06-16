@@ -19,10 +19,10 @@ class Item extends React.Component {
     super(props);
     this.id = props.taskData.id;
     this.state = {
-      priority: props.priority,
-      name: props.name,
-      description: props.description,
-      status: props.status,
+      priority: props.taskData.priority,
+      name: props.taskData.name,
+      description: props.taskData.description,
+      status: props.taskData.status,
     };
   }
 

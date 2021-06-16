@@ -24,7 +24,7 @@ class Status extends React.Component {
   render() {
     let valueClasses = classNames(
       'tasks-stack-item-status',
-      `tasks-stack-item-status-${value.toLowerCase()}`,
+      `tasks-stack-item-status-${this.state.value.toLowerCase()}`,
     );
     let valueOnClick = (e) => {
       $(document).trigger({

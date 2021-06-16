@@ -22,7 +22,7 @@ class Name extends React.Component {
   render() {
     return (
       <div className="tasks-stack-cell-meaning-name" >
-        this.state.value
+        { this.state.value }
       </div>
     );
   }
