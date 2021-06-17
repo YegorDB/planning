@@ -2,6 +2,7 @@ const { Stack } = require('./stack/main.jsx');
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
 const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
+const { CreationForm } = require('./creation.jsx');
 const { TasksCreation } = require('./creation');
 
 
@@ -48,5 +49,10 @@ $(document).ready(function() {
   ReactDOM.render(
     <PriorityFilterDialog choices={CHOISES.task.priority} />,
     document.getElementById('filter-priority-dialog')
+  );
+
+  ReactDOM.render(
+    <CreationForm />,
+    document.getElementById('tasks-creation')
   );
 });

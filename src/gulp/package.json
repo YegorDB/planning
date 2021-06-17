@@ -10,6 +10,7 @@
     "gulp-rename": "^2.0.0",
     "gulp-touch-custom": "^1.0.3",
     "gulp-uglify-es": "^2.0.0",
+    "html-to-react": "^1.4.5",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   }
