@@ -16,7 +16,7 @@ class Stack extends React.Component {
     super(props);
 
     this.state = {
-      items: [],
+      items: {},
       filters: {
         [Stack.FILTER_PRIORITY]: (
           Object.keys(CHOISES.task.priority).map(p => parseInt(p))
@@ -27,17 +27,19 @@ class Stack extends React.Component {
 
     this._changeTaskHandler = (e) => {
       this.setState(state => {
-        for (let item of state.items) {
-          if (item.id != e.id) continue;
+        let item = state.items[e.id];
+        if (item) {
           item[e.name] = e.value;
-          break
         }
         return {items: state.items};
       });
     };
     this._addTaskHandler = (e) => {
       this.setState(state => ({
-        items: [...state.items, e.taskData],
+        items: {
+          ...state.items,
+          [e.taskData.id]: e.taskData,
+        },
       }));
     };
     this._setFilterHandler = (e) => {
@@ -65,7 +67,7 @@ class Stack extends React.Component {
    * @returns {Object[]} Stack items data.
    */
   get items() {
-    return this._sort(this._filter(this.state.items));
+    return this._sort(this._filter(Object.values(this.state.items)));
   }
 
   /** Component did mount logic. */
@@ -129,8 +131,12 @@ class Stack extends React.Component {
       url: URLS.user_tasks,
     })
     .done((data) => {
+      let items = {};
+      for (let item of data) {
+        items[item.id] = item;
+      }
       this.setState({
-        items: data,
+        items: items,
       });
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
