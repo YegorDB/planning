@@ -6,12 +6,12 @@ class Status extends React.Component {
 
   /**
    * Creation.
-   * @param {number} props.taskItem - Task item.
+   * @param {number} props.id - Task item id.
    * @param {string} props.value - Task status value.
    */
   constructor(props) {
     super(props);
-    this._taskItem = props.taskItem;
+    this._id = props.id;
   }
 
   /**
@@ -26,7 +26,7 @@ class Status extends React.Component {
     let valueOnClick = (e) => {
       $(document).trigger({
         type: 'changeStatusStart',
-        taskItem: this._taskItem,
+        id: this._id,
       });
     };
 

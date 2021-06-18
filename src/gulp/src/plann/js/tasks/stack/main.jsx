@@ -25,8 +25,18 @@ class Stack extends React.Component {
       }
     };
 
+    this._changeTaskHandler = (e) => {
+      this.setState(state => {
+        for (let item of state.items) {
+          if (item.id != e.id) continue;
+          item[e.name] = e.value;
+          break
+        }
+        return {items: state.items};
+      });
+    };
     this._addTaskHandler = (e) => {
-      this.setState((state, props) => ({
+      this.setState(state => ({
         items: [...state.items, e.taskData],
       }));
     };
@@ -60,6 +70,7 @@ class Stack extends React.Component {
 
   /** Component did mount logic. */
   componentDidMount() {
+    $(document).on('changeTask', this._changeTaskHandler);
     $(document).on('addTask', this._addTaskHandler);
     $(document).on('setFilter', this._setFilterHandler);
     $('#tasks-stack-filter-status').on('click', this._statusFilterHandler);
@@ -68,6 +79,7 @@ class Stack extends React.Component {
 
   /** Component will unmount logic. */
   componentWillUnmount() {
+    $(document).off('changeTask', this._changeTaskHandler);
     $(document).off('addTask', this._addTaskHandler);
     $(document).off('setFilter', this._setFilterHandler);
     $('#tasks-stack-filter-status').off('click', this._statusFilterHandler);

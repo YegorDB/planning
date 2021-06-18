@@ -8,7 +8,7 @@ class StatusChangingDialog extends BaseDialogComponent {
   /** Creation. */
   constructor(props) {
     super(props);
-    this._taskItem = null;
+    this._taskId = null;
 
     $(document).on('changeStatusStart', this.openFunction);
   }
@@ -37,7 +37,7 @@ class StatusChangingDialog extends BaseDialogComponent {
    */
   get openAdditionalFunction() {
     return (e) => {
-      this._taskItem = e.taskItem;
+      this._taskId = e.id;
     };
   }
 
@@ -47,7 +47,7 @@ class StatusChangingDialog extends BaseDialogComponent {
    */
   get closeAdditionalFunction() {
     return (e) => {
-      this._taskItem = null;
+      this._taskId = null;
     };
   }
 
@@ -56,11 +56,11 @@ class StatusChangingDialog extends BaseDialogComponent {
    * @param {string} value - New status value.
    */
   _changeValue(value) {
-    if (!this._taskItem) return;
+    if (!this._taskId) return;
 
     WAIT_SCREEN.enable();
     $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${this._taskItem.id}/`),
+      url: URLS.update_task.replace(/\d+\/$/, `${this._taskId}/`),
       data: JSON.stringify({
         'status': value,
       }),
@@ -68,15 +68,18 @@ class StatusChangingDialog extends BaseDialogComponent {
       contentType: 'application/json',
     })
     .done((taskData) => {
-      this._taskItem.setState({
-        status: taskData.status,
+      $(document).trigger({
+        type: 'changeTask',
+        id: this._taskId,
+        name: 'status',
+        value: taskData.status,
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
     })
     .always(() => {
-      this._taskItem = null;
+      this._taskId = null;
       WAIT_SCREEN.disable();
     });
 
