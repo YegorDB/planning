@@ -1,24 +1,9 @@
-const { Stack } = require('./stack/main.jsx');
+const { CreationForm } = require('./creation.jsx');
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
 const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
-const { CreationForm } = require('./creation.jsx');
-const { TasksCreation } = require('./creation');
-
-
-window.CHOISES = JSON.parse(RAW_CHOISES);
-window.URLS = JSON.parse(RAW_URLS);
-window.WAIT_SCREEN = {
-  enabled: false,
-  enable() {
-    $('#wait-screen').addClass('wait-screen-enabled');
-    this.enabled = true;
-  },
-  disable() {
-    $('#wait-screen').removeClass('wait-screen-enabled');
-    this.enabled = false;
-  },
-};
+const { Stack } = require('./stack/main.jsx');
+const { WaitScreen } = require('./wait_screen.jsx');
 
 
 $.ajaxSetup({
@@ -31,7 +16,10 @@ $.ajaxSetup({
 
 
 $(document).ready(function() {
-  new TasksCreation;
+  window.WAIT_SCREEN = ReactDOM.render(
+    <WaitScreen />,
+    document.getElementById('wait-screen')
+  );
 
   ReactDOM.render(
     <Stack />,

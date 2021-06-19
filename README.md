@@ -8,6 +8,7 @@
 - Django, Django Rest Framework
 - Postgesql
 - Gulp
+- React
 - jQuery
 - Less
 
