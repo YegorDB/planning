@@ -1,14 +1,15 @@
-var HtmlToReactParser = require('html-to-react').Parser;
+const { Parser: HtmlToReactParser } = require('html-to-react');
+const { BaseDialogComponent } = require('./base.jsx');
 
 
-/** Creation form. */
-class CreationForm extends React.Component {
+/** Creation form dialog. */
+class CreationFormDialog extends BaseDialogComponent {
 
   /**
-   * Render form.
-   * @returns {React.Element}
+   * Dialog items.
+   * @returns {React.Element[]}
    */
-  render() {
+  get items() {
     let formFields = (new HtmlToReactParser).parse(
       CREATE_TASK_RAW_FORM.replaceAll(/(<input.*?)value=""/g, '$1')
     );
@@ -33,5 +34,5 @@ class CreationForm extends React.Component {
 
 
 module.exports = {
-  CreationForm: CreationForm,
+  CreationFormDialog: CreationFormDialog,
 };

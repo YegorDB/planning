@@ -1,7 +1,7 @@
-const { CreationForm } = require('./creation.jsx');
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
-const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
+const { CreationFormDialog } = require('./dialog/creation.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
+const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
 const { Stack } = require('./stack/main.jsx');
 const { WaitScreen } = require('./wait_screen.jsx');
 
@@ -40,7 +40,7 @@ $(document).ready(function() {
   );
 
   ReactDOM.render(
-    <CreationForm />,
-    document.getElementById('tasks-creation')
+    <CreationFormDialog />,
+    document.getElementById('creation-dialog')
   );
 });
