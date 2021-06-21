@@ -5,6 +5,25 @@ const { BaseDialogComponent } = require('./base.jsx');
 /** Creation form dialog. */
 class CreationFormDialog extends BaseDialogComponent {
 
+  /** Creation. */
+  constructor(props) {
+    super(props);
+
+    this._openCreationDialogHandler = (e) => {
+      this.setState({ opened: true });
+    };
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('openCreationDialog', this._openCreationDialogHandler);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('openCreationDialog', this._openCreationDialogHandler);
+  }
+
   /**
    * Dialog items.
    * @returns {React.Element[]}

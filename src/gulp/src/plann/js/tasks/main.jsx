@@ -1,3 +1,4 @@
+const { CreationButton } = require('./creation_button.jsx');
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
 const { CreationFormDialog } = require('./dialog/creation.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
@@ -39,6 +40,10 @@ $(document).ready(function() {
     document.getElementById('filter-priority-dialog')
   );
 
+  ReactDOM.render(
+    <CreationButton />,
+    document.getElementById('creation-button')
+  );
   ReactDOM.render(
     <CreationFormDialog />,
     document.getElementById('creation-dialog')
