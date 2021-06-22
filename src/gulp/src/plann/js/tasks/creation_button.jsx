@@ -11,7 +11,10 @@ class CreationButton extends React.Component {
         type: 'openCreationDialog',
       });
     };
-    return <div onClick={ onClickHandler } >Add task</div>;
+    return <div onClick={ onClickHandler }
+                className="button-default" >
+             Add task
+           </div>;
   }
 }
 
