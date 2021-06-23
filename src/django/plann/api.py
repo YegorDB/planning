@@ -31,7 +31,14 @@ class UserTasks(generics.ListAPIView):
             "description": string,
             "priority": integer,
             "status": string,
-            "creation_datetime": ISO 8601 datetime string
+            "creation_datetime": ISO 8601 datetime string,
+            "tags": [
+                {
+                    "id": integer,
+                    "name": string
+                },
+                ...
+            ]
         }
         ...
     ]

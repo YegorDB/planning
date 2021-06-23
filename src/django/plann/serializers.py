@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
-from plann.models import Task
+from plann.models import Tag, Task
 
 
 class TaskCreationFormSerializer(serializers.ModelSerializer):
@@ -22,6 +22,12 @@ class TaskCreationFormSerializer(serializers.ModelSerializer):
         }
 
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
@@ -36,6 +42,7 @@ class TaskRelatedUserSerializer(serializers.ModelSerializer):
 
 
 class TaskListSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(many=True)
     creator = TaskRelatedUserSerializer()
     responsible = TaskRelatedUserSerializer()
 
