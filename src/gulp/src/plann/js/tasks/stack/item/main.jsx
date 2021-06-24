@@ -1,6 +1,7 @@
 const { Priority } = require('./priority.jsx');
 const { Meaning } = require('./meaning.jsx');
 const { Status } = require('./status.jsx');
+const { Tags } = require('./tags.jsx');
 
 
 /** Tasks stack item. */
@@ -18,6 +19,7 @@ class Item extends React.Component {
                  description={ this.props.taskData.description } />
         <Status value={ this.props.taskData.status }
                 id={ this.props.taskData.id } />
+        <Tags values={ this.props.taskData.tags } />
       </div>
     );
   }
