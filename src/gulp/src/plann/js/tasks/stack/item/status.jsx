@@ -32,9 +32,11 @@ class Status extends React.Component {
 
     return (
       <div className="tasks-stack-cell tasks-stack-cell-status" >
-        <div className={valueClasses}
-             onClick={valueOnClick} >
-          { CHOISES.task.status[this.props.value] }
+        <div className="tasks-stack-cell-data" >
+          <div className={valueClasses}
+               onClick={valueOnClick} >
+            { CHOISES.task.status[this.props.value] }
+          </div>
         </div>
       </div>
     );

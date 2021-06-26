@@ -24,7 +24,9 @@ class Tags extends React.Component {
     ));
     return (
       <div className="tasks-stack-cell tasks-stack-cell-tags" >
-        { items }
+        <div className="tasks-stack-cell-data" >
+          { items }
+        </div>
       </div>
     );
   }

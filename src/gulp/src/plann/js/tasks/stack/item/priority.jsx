@@ -20,9 +20,11 @@ class Priority extends React.Component {
 
     return (
       <div className={classes} >
-        <div className={valueClasses}
-             title={ CHOISES.task.priority[this.props.value] } >
-          {this.items}
+        <div className="tasks-stack-cell-data" >
+          <div className={valueClasses}
+               title={ CHOISES.task.priority[this.props.value] } >
+            {this.items}
+          </div>
         </div>
       </div>
     );

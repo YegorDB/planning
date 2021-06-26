@@ -58,9 +58,11 @@ class Meaning extends React.Component {
   render() {
     return (
       <div className="tasks-stack-cell tasks-stack-cell-meaning" >
-        <div className="tasks-stack-cell-meaning-wrapper" >
-          <Name value={ this.props.name } />
-          <Decsription value={ this.props.decsription } />
+        <div className="tasks-stack-cell-data" >
+          <div className="tasks-stack-cell-meaning-wrapper" >
+            <Name value={ this.props.name } />
+            <Decsription value={ this.props.description } />
+          </div>
         </div>
       </div>
     );

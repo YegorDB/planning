@@ -55,10 +55,15 @@
 
 .tasks-stack-cell {
   padding: 5px;
-  display: inline-block;
+  display: table;
   background-color: #colors[secondary-light];
   box-sizing: border-box;
   border: solid 0.5px #colors[primary-white];
+
+  &-data {
+    display: table-cell;
+    vertical-align: middle;
+  }
 
   &-meaning {
     width: 30%;
