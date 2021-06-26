@@ -6,7 +6,7 @@ class Tag extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    return <div>{ this.props.value }</div>;
+    return <div className="task-tag">{ this.props.value }</div>;
   }
 }
 
