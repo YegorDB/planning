@@ -29,9 +29,7 @@ class CreationFormDialog extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    let formFields = (new HtmlToReactParser).parse(
-      CREATE_TASK_RAW_FORM.replaceAll(/(<input.*?)value=""/g, '$1')
-    );
+    let formFields = (new HtmlToReactParser).parse(CREATE_TASK_RAW_FORM);
 
     return (
       <div>

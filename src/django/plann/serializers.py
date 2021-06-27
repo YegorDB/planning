@@ -11,13 +11,13 @@ class TaskCreationFormSerializer(serializers.ModelSerializer):
         fields = ['name', 'description', 'priority']
         extra_kwargs = {
             'name': {
-                'style': {'template': 'plann/task_creation/name_input.html'},
+                'style': {'template': 'plann/task_creation/name.html'},
             },
             'description': {
-                'style': {'template': 'plann/task_creation/description_textarea.html'},
+                'style': {'template': 'plann/task_creation/description.html'},
             },
             'priority': {
-                'style': {'template': 'plann/task_creation/priority_select.html'},
+                'style': {'template': 'plann/task_creation/priority.html'},
             },
         }
 
