@@ -8,7 +8,7 @@ from plann.models import Tag, Task
 class TaskCreationFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['name', 'description', 'priority']
+        fields = ['name', 'description', 'priority', 'tags']
         extra_kwargs = {
             'name': {
                 'style': {'template': 'plann/task_creation/name.html'},
@@ -18,6 +18,9 @@ class TaskCreationFormSerializer(serializers.ModelSerializer):
             },
             'priority': {
                 'style': {'template': 'plann/task_creation/priority.html'},
+            },
+            'tags': {
+                'style': {'template': 'plann/task_creation/tags.html'},
             },
         }
 
