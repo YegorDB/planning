@@ -1,5 +1,6 @@
 const { CreationButton } = require('./creation_button.jsx');
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
+const { TagsChangingDialog } = require('./dialog/changing/tags.jsx');
 const { CreationFormDialog } = require('./dialog/creation.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
 const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
@@ -30,6 +31,10 @@ $(document).ready(function() {
   ReactDOM.render(
     <StatusChangingDialog />,
     document.getElementById('change-status-dialog')
+  );
+  ReactDOM.render(
+    <TagsChangingDialog />,
+    document.getElementById('change-tags-dialog')
   );
   ReactDOM.render(
     <StatusFilterDialog choices={CHOISES.task.status} />,

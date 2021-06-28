@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import TemplateView
 
-from plann.models import Task
+from plann.models import Tag, Task
 from plann.serializers import TaskCreationFormSerializer
 
 
@@ -27,4 +27,5 @@ class TasksView(LoginRequiredMixin, TemplateView):
                 'update_task': reverse('api:update-task', kwargs={'pk': 1}),
                 'user_tasks': reverse('api:user-tasks'),
             }),
+            'tags': json.dumps(list(Tag.objects.values('id', 'name'))),
         }

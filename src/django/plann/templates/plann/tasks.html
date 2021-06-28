@@ -31,6 +31,7 @@
   </div>
 
   <div id="change-status-dialog"></div>
+  <div id="change-tags-dialog"></div>
   <div id="filter-status-dialog"></div>
   <div id="filter-priority-dialog"></div>
   <div id="creation-dialog"></div>
@@ -44,6 +45,7 @@
       const CHOISES = JSON.parse('{{ choices }}');
       const URLS = JSON.parse('{{ urls }}');
       const CREATE_TASK_RAW_FORM = `{% render_form create_task_serializer %}`;
+      const TAGS = '{{ tags }}';
     {% endautoescape %}
   </script>
   <script src="{% static 'plann/js/tasks.min.js' %}"></script>
