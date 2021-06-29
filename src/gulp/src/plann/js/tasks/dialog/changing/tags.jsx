@@ -12,12 +12,14 @@ class TagsChangingDialog extends BaseDialogComponent {
     this.state = {
       ...this.state,
       activeTags: {},
+      taskId: null,
     };
 
     this._opendialogHandler = (e) => {
       this.setState({
         opened: true,
         activeTags: e.activeTags,
+        taskId: e.id,
       });
     };
   }
@@ -37,11 +39,14 @@ class TagsChangingDialog extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    let options = Object.entries(this._allTags).map((id, name) => {
-      if (this.state.activeTags[id]) {
-        return <option value={ id } key={ id } selected >{ name }</option>
-      }
-      return <option value={ id } key={ id } >{ name }</option>
+    let options = this._allTags.map(tag => {
+      return (
+        <option value={ tag.id }
+                key={ tag.id }
+                selected={ this.state.activeTags[tag.id] } >
+          { tag.name }
+        </option>
+      );
     })
 
     return (

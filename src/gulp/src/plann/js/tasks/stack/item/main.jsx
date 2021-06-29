@@ -19,7 +19,8 @@ class Item extends React.Component {
                  description={ this.props.taskData.description } />
         <Status value={ this.props.taskData.status }
                 id={ this.props.taskData.id } />
-        <Tags values={ this.props.taskData.tags } />
+        <Tags values={ this.props.taskData.tags }
+              id={ this.props.taskData.id } />
       </div>
     );
   }
