@@ -42,8 +42,8 @@ class Tags extends React.Component {
           { items }
         </div>
         <div className="tasks-stack-cell-tags-change"
-             title="Edit"
              onClick={ onClick } >
+          edit
         </div>
       </div>
     );

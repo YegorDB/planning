@@ -35,7 +35,14 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
-        extra_kwargs = {'depends_on': {'required': False}}
+        extra_kwargs = {
+            'depends_on': {
+                'required': False
+            },
+            'tags': {
+                'allow_empty': True,
+            },
+        }
 
 
 class TaskRelatedUserSerializer(serializers.ModelSerializer):

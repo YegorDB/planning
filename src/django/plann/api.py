@@ -67,7 +67,11 @@ class CreateTask(generics.CreateAPIView):
         "name": string,
         "description": string (not required),
         "priority": integer (not required),
-        "status": string (not required)
+        "status": string (not required),
+        "tags": [
+            integer
+            ...
+        ] (not required)
     }
     ```
 
@@ -110,7 +114,11 @@ class UpdateTask(generics.UpdateAPIView):
         "name": string (not required),
         "description": string (not required),
         "priority": integer (not required),
-        "status": string (not required)
+        "status": string (not required),
+        "tags": [
+            integer
+            ...
+        ] (not required)
     }
     ```
 

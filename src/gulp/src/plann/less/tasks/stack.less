@@ -106,18 +106,13 @@
       top: .5em;
       right: .5em;
       position: absolute;
-      width: 1.5em;
-      height: 1.5em;
+      width: max-content;
+      height: max-content;
       background-color: #colors[accent-yellow];
       border-radius: 4px;
       cursor: pointer;
       display: none;
-
-      &:after {
-        .pseudo();
-        clip-path: polygon(10% 90%,10% 70%,70% 10%,90% 30%,30% 90%);
-        background-color: #colors[primary-black];
-      }
+      padding: 0px 2px;
     }
 
     &:hover > &-change {

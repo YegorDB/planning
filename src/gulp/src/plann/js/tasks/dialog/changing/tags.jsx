@@ -8,30 +8,17 @@ class TagsChangingDialog extends BaseDialogComponent {
   constructor(props) {
     super(props);
     this._allTags = JSON.parse(TAGS);
-
-    this.state = {
-      ...this.state,
+    this._initialState = {
       activeTags: {},
       taskId: null,
     };
 
-    this._opendialogHandler = (e) => {
-      this.setState({
-        opened: true,
-        activeTags: e.activeTags,
-        taskId: e.id,
-      });
+    this.state = {
+      ...this.state,
+      ...this._initialState,
     };
-  }
 
-  /** Component did mount logic. */
-  componentDidMount() {
-    $(document).on('openTasksChangingDialog', this._opendialogHandler);
-  }
-
-  /** Component will unmount logic. */
-  componentWillUnmount() {
-    $(document).off('openTasksChangingDialog', this._opendialogHandler);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   /**
@@ -50,7 +37,7 @@ class TagsChangingDialog extends BaseDialogComponent {
     })
 
     return (
-      <form>
+      <form onSubmit={ this._handleSubmit } >
         <div>
           <select name="tags" multiple >
             { options }
@@ -63,6 +50,72 @@ class TagsChangingDialog extends BaseDialogComponent {
         </div>
       </form>
     );
+  }
+
+  /**
+   * Open additional function.
+   * @returns {function}
+   */
+  get openAdditionalFunction() {
+    return (e) => {
+      this.setState({
+        activeTags: e.activeTags,
+        taskId: e.id,
+      });
+    };
+  }
+
+  /**
+   * Close additional function.
+   * @returns {function}
+   */
+  get closeAdditionalFunction() {
+    return (e) => {
+      this.setState(this._initialState);
+    };
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('openTasksChangingDialog', this.openFunction);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('openTasksChangingDialog', this.openFunction);
+  }
+
+  /** Submit handler. */
+  _handleSubmit(event) {
+    event.preventDefault();
+    WAIT_SCREEN.enable();
+    let tagsValues = (new FormData(event.target).getAll('tags'));
+    $.ajax({
+      url: URLS.update_task.replace(/\d+\/$/, `${this.state.taskId}/`),
+      type: 'PATCH',
+      data: JSON.stringify({
+        'tags': tagsValues,
+      }),
+      contentType: 'application/json',
+    })
+    .done((taskData) => {
+      $(document).trigger({
+        type: 'changeTask',
+        id: this.state.taskId,
+        name: 'tags',
+        value: this._allTags.filter(tag => tagsValues.includes(tag.id.toString())),
+      });
+    })
+    .fail((jqXHR, textStatus, errorThrown) => {
+      console.log('jqXHR', jqXHR);
+    })
+    .always(() => {
+      this.setState({
+        opened: false,
+        ...this._initialState,
+      });
+      WAIT_SCREEN.disable();
+    });
   }
 }
 
