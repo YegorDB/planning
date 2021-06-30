@@ -8,9 +8,14 @@ class StatusChangingDialog extends BaseDialogComponent {
   /** Creation. */
   constructor(props) {
     super(props);
-    this._taskId = null;
+    this._initialState = {
+      taskId: null,
+    };
 
-    $(document).on('changeStatusStart', this.openFunction);
+    this.state = {
+      ...this.state,
+      ...this._initialState,
+    };
   }
 
   /**
@@ -37,7 +42,9 @@ class StatusChangingDialog extends BaseDialogComponent {
    */
   get openAdditionalFunction() {
     return (e) => {
-      this._taskId = e.id;
+      this.setState({
+        taskId: e.id,
+      });
     };
   }
 
@@ -47,8 +54,18 @@ class StatusChangingDialog extends BaseDialogComponent {
    */
   get closeAdditionalFunction() {
     return (e) => {
-      this._taskId = null;
+      this.setState(this._initialState);
     };
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('changeStatusStart', this.openFunction);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('changeStatusStart', this.openFunction);
   }
 
   /**
@@ -56,11 +73,11 @@ class StatusChangingDialog extends BaseDialogComponent {
    * @param {string} value - New status value.
    */
   _changeValue(value) {
-    if (!this._taskId) return;
+    if (!this.state.taskId) return;
 
     WAIT_SCREEN.enable();
     $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${this._taskId}/`),
+      url: URLS.update_task.replace(/\d+\/$/, `${this.state.taskId}/`),
       data: JSON.stringify({
         'status': value,
       }),
@@ -70,20 +87,21 @@ class StatusChangingDialog extends BaseDialogComponent {
     .done((taskData) => {
       $(document).trigger({
         type: 'changeTask',
-        id: this._taskId,
+        id: this.state.taskId,
         name: 'status',
-        value: taskData.status,
+        value: value,
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
     })
     .always(() => {
-      this._taskId = null;
+      this.setState({
+        opened: false,
+        ...this._initialState,
+      });
       WAIT_SCREEN.disable();
     });
-
-    this.setState({ opened: false });
   }
 }
 
