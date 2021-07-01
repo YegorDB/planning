@@ -37,13 +37,14 @@ class TagsChangingDialog extends BaseDialogComponent {
     })
 
     return (
-      <form onSubmit={ this._handleSubmit } >
+      <form id="change-tags-form"
+            onSubmit={ this._handleSubmit } >
         <div>
           <select name="tags" multiple >
             { options }
           </select>
         </div>
-        <div>
+        <div className="form-submit-button-box">
           <input className="button-default"
                  type="submit"
                  value="Change" />

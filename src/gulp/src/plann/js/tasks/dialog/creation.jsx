@@ -38,7 +38,7 @@ class CreationFormDialog extends BaseDialogComponent {
         </div>
         <form id="tasks-creation-form">
           { formFields }
-          <div id="tasks-creation-form-button-box">
+          <div className="form-submit-button-box">
             <input id="tasks-creation-form-button"
                    className="button-default"
                    type="submit"
