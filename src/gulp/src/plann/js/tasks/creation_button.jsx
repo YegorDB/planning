@@ -1,3 +1,6 @@
+const $ = require('jquery-browserify');
+
+
 /** Creation button. */
 class CreationButton extends React.Component {
 

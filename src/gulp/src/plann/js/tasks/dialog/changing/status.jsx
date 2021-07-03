@@ -1,4 +1,5 @@
 const classNames = require('classnames');
+const $ = require('jquery-browserify');
 const { BaseDialogComponent } = require('../base.jsx');
 
 

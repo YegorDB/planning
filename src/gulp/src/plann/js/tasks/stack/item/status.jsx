@@ -1,4 +1,5 @@
 const classNames = require('classnames');
+const $ = require('jquery-browserify');
 
 
 /** Tasks stack item status. */

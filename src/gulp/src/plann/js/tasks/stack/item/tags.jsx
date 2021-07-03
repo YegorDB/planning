@@ -1,3 +1,6 @@
+const $ = require('jquery-browserify');
+
+
 /** Tasks stack item tag. */
 class Tag extends React.Component {
 

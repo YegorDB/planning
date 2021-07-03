@@ -1,3 +1,4 @@
+const $ = require('jquery-browserify');
 const { Item } = require('./item/main.jsx');
 
 

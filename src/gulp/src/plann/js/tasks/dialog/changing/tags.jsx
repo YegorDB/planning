@@ -1,3 +1,4 @@
+const $ = require('jquery-browserify');
 const { BaseDialogComponent } = require('../base.jsx');
 
 
