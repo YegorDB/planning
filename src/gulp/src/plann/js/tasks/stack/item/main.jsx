@@ -1,3 +1,4 @@
+const React = require('react');
 const { Priority } = require('./priority.jsx');
 const { Meaning } = require('./meaning.jsx');
 const { Status } = require('./status.jsx');

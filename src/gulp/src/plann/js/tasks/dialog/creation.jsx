@@ -1,5 +1,6 @@
 const { Parser: HtmlToReactParser } = require('html-to-react');
 const $ = require('jquery-browserify');
+const React = require('react');
 const { BaseDialogComponent } = require('./base.jsx');
 
 

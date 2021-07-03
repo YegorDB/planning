@@ -1,4 +1,5 @@
 const classNames = require('classnames');
+const React = require('react');
 
 
 /** Wait screen. */

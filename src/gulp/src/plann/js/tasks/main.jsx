@@ -1,4 +1,6 @@
 const $ = require('jquery-browserify');
+const React = require('react');
+const ReactDOM = require('react-dom');
 const { CreationButton } = require('./creation_button.jsx');
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
 const { TagsChangingDialog } = require('./dialog/changing/tags.jsx');
