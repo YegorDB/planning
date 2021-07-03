@@ -7,7 +7,6 @@ class TagsChangingDialog extends BaseDialogComponent {
   /** Creation. */
   constructor(props) {
     super(props);
-    this._allTags = JSON.parse(TAGS);
     this._initialState = {
       activeTags: {},
       taskId: null,
@@ -26,7 +25,7 @@ class TagsChangingDialog extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    let options = this._allTags.map(tag => {
+    let options = TAGS.map(tag => {
       return (
         <option value={ tag.id }
                 key={ tag.id }
@@ -104,7 +103,7 @@ class TagsChangingDialog extends BaseDialogComponent {
         type: 'changeTask',
         id: this.state.taskId,
         name: 'tags',
-        value: this._allTags.filter(tag => tagsValues.includes(tag.id.toString())),
+        value: TAGS.filter(tag => tagsValues.includes(tag.id.toString())),
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {

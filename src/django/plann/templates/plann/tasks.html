@@ -45,7 +45,7 @@
       const CHOISES = JSON.parse('{{ choices }}');
       const URLS = JSON.parse('{{ urls }}');
       const CREATE_TASK_RAW_FORM = `{% render_form create_task_serializer %}`;
-      const TAGS = '{{ tags }}';
+      const TAGS = JSON.parse('{{ tags }}');
     {% endautoescape %}
   </script>
   <script src="{% static 'plann/js/tasks.min.js' %}"></script>

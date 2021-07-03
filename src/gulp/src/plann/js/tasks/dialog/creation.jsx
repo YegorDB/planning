@@ -9,19 +9,7 @@ class CreationFormDialog extends BaseDialogComponent {
   constructor(props) {
     super(props);
 
-    this._openCreationDialogHandler = (e) => {
-      this.setState({ opened: true });
-    };
-  }
-
-  /** Component did mount logic. */
-  componentDidMount() {
-    $(document).on('openCreationDialog', this._openCreationDialogHandler);
-  }
-
-  /** Component will unmount logic. */
-  componentWillUnmount() {
-    $(document).off('openCreationDialog', this._openCreationDialogHandler);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   /**
@@ -29,15 +17,16 @@ class CreationFormDialog extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    let formFields = (new HtmlToReactParser).parse(CREATE_TASK_RAW_FORM);
+    let parser = new HtmlToReactParser;
 
     return (
       <div>
-        <div id="tasks-creation-header">
+        <div id="tasks-creation-header" >
           <div>Create task</div>
         </div>
-        <form id="tasks-creation-form">
-          { formFields }
+        <form id="tasks-creation-form"
+              onSubmit={ this._handleSubmit } >
+          { parser.parse(CREATE_TASK_RAW_FORM) }
           <div className="form-submit-button-box">
             <input id="tasks-creation-form-button"
                    className="button-default"
@@ -47,6 +36,51 @@ class CreationFormDialog extends BaseDialogComponent {
         </form>
       </div>
     );
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('openCreationDialog', this.openFunction);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('openCreationDialog', this.openFunction);
+  }
+
+  /** Submit handler. */
+  _handleSubmit(event) {
+    event.preventDefault();
+    WAIT_SCREEN.enable();
+    let formData = new FormData(event.target);
+    let tagsValues = formData.getAll('tags');
+    $.ajax({
+      url: URLS.create_task,
+      data: JSON.stringify({
+        ...Object.fromEntries(formData.entries()),
+        tags: tagsValues,
+      }),
+      type: 'POST',
+      contentType: 'application/json',
+    })
+    .done((taskData) => {
+      $(document).trigger({
+        type: 'addTask',
+        taskData: {
+          ...taskData,
+          tags: TAGS.filter(tag => tagsValues.includes(tag.id.toString())),
+        },
+      });
+    })
+    .fail((jqXHR, textStatus, errorThrown) => {
+      console.log('jqXHR', jqXHR);
+    })
+    .always(() => {
+      this.setState({
+        opened: false,
+      });
+      WAIT_SCREEN.disable();
+    });
   }
 }
 
