@@ -18,22 +18,10 @@ class BaseFilterDialog extends BaseDialogComponent {
     this._entries = this._getEntries(props.choices);
     this.state = {
       ...this.state,
-      activeValues: Object.keys(props.choices),
+      activeValues: this._getValues(props.choices),
     };
 
     $(document).on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
-  }
-
-  /**
-   * Open additional function.
-   * @returns {function}
-   */
-  get openAdditionalFunction() {
-    return (e) => {
-      this.setState({
-        activeValues: e.activeValues,
-      });
-    };
   }
 
   /**
@@ -73,6 +61,16 @@ class BaseFilterDialog extends BaseDialogComponent {
   }
 
   /**
+   * Get values.
+   * @private
+   * @param {Object} choices - Value - name pairs;
+   * @return {string[]} Array of values;
+   */
+  _getValues(choices) {
+    return Object.keys(choices);
+  }
+
+  /**
    * Get item classes.
    * @private
    * @abstract
@@ -103,13 +101,13 @@ class BaseFilterDialog extends BaseDialogComponent {
   _getItemChangeHandler(inputId, value) {
     return (e) => {
       if (!e.target.checked) {
-        this.setState((state, props) => {
+        this.setState(state => {
           let activeValues = state.activeValues.filter(v => v != value);
           this._trigerSetFilterEvent(activeValues);
           return {activeValues: activeValues};
         });
       } else if (!this.state.activeValues.includes(value)) {
-        this.setState((state, props) => {
+        this.setState(state => {
           let activeValues = [...state.activeValues, value];
           this._trigerSetFilterEvent(activeValues);
           return {activeValues: activeValues};

@@ -51,13 +51,11 @@ class Stack extends React.Component {
     this._statusFilterHandler = (e) => {
       $(document).trigger({
         type: 'filterStatusStart',
-        activeValues: this.state.filters[Stack.FILTER_STATUS],
       });
     };
     this._priorityFilterHandler = (e) => {
       $(document).trigger({
         type: 'filterPriorityStart',
-        activeValues: this.state.filters[Stack.FILTER_PRIORITY],
       });
     };
 
