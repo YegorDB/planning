@@ -2,8 +2,8 @@ const $ = require('jquery-browserify');
 const React = require('react');
 
 
-/** Creation button. */
-class CreationButton extends React.Component {
+/** Status filter button. */
+class StatusFilterButton extends React.Component {
 
   /** Creation. */
   constructor(props) {
@@ -18,7 +18,7 @@ class CreationButton extends React.Component {
   render() {
     return <div onClick={ this._handleClick }
                 className="button button-default" >
-             Add task
+             Statuses
            </div>;
   }
 
@@ -29,12 +29,12 @@ class CreationButton extends React.Component {
    */
   _handleClick(event) {
     $(document).trigger({
-      type: 'openCreationDialog',
+      type: 'filterStatusStart',
     });
   }
 }
 
 
 module.exports = {
-  CreationButton: CreationButton,
+  StatusFilterButton: StatusFilterButton,
 };
