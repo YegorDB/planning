@@ -14,6 +14,7 @@ class Status extends React.Component {
   constructor(props) {
     super(props);
     this._id = props.id;
+    this._handleValueClick = this._handleValueClick.bind(this);
   }
 
   /**
@@ -25,23 +26,29 @@ class Status extends React.Component {
       'tasks-stack-item-status',
       `tasks-stack-item-status-${this.props.value.toLowerCase()}`,
     );
-    let valueOnClick = (e) => {
-      $(document).trigger({
-        type: 'changeStatusStart',
-        id: this._id,
-      });
-    };
 
     return (
       <div className="tasks-stack-cell tasks-stack-cell-status" >
         <div className="tasks-stack-cell-data" >
-          <div className={valueClasses}
-               onClick={valueOnClick} >
+          <div className={ valueClasses }
+               onClick={ this._handleValueClick } >
             { CHOISES.task.status[this.props.value] }
           </div>
         </div>
       </div>
     );
+  }
+
+  /**
+   * Value click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleValueClick(event) {
+    $(document).trigger({
+      type: 'changeStatusStart',
+      id: this._id,
+    });
   }
 }
 

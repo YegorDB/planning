@@ -20,8 +20,6 @@ class BaseFilterDialog extends BaseDialogComponent {
       ...this.state,
       activeValues: this._getValues(props.choices),
     };
-
-    $(document).on(this.constructor.FILTER_EVENT_NAME, this.openFunction);
   }
 
   /**
@@ -48,6 +46,16 @@ class BaseFilterDialog extends BaseDialogComponent {
         </div>
       );
     });
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on(this.constructor.FILTER_EVENT_NAME, this._handleOpen);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off(this.constructor.FILTER_EVENT_NAME, this._handleOpen);
   }
 
   /**

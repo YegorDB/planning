@@ -42,15 +42,19 @@ class CreationFormDialog extends BaseDialogComponent {
 
   /** Component did mount logic. */
   componentDidMount() {
-    $(document).on('openCreationDialog', this.openFunction);
+    $(document).on('openCreationDialog', this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    $(document).off('openCreationDialog', this.openFunction);
+    $(document).off('openCreationDialog', this._handleOpen);
   }
 
-  /** Submit handler. */
+  /**
+   * Submit handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
   _handleSubmit(event) {
     event.preventDefault();
     WAIT_SCREEN.enable();

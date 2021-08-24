@@ -27,37 +27,11 @@ class Stack extends React.Component {
       }
     };
 
-    this._changeTaskHandler = (e) => {
-      this.setState(state => {
-        let item = state.items[e.id];
-        if (item) {
-          item[e.name] = e.value;
-        }
-        return {items: state.items};
-      });
-    };
-    this._addTaskHandler = (e) => {
-      this.setState(state => ({
-        items: {
-          ...state.items,
-          [e.taskData.id]: e.taskData,
-        },
-      }));
-    };
-    this._setFilterHandler = (e) => {
-      this._setFilter(e.name, e.values);
-    };
-
-    this._statusFilterHandler = (e) => {
-      $(document).trigger({
-        type: 'filterStatusStart',
-      });
-    };
-    this._priorityFilterHandler = (e) => {
-      $(document).trigger({
-        type: 'filterPriorityStart',
-      });
-    };
+    this._handleChangeTask = this._handleChangeTask.bind(this);
+    this._handleAddTask = this._handleAddTask.bind(this);
+    this._handleSetFilter = this._handleSetFilter.bind(this);
+    this._handleStatusFilter = this._handleStatusFilter.bind(this);
+    this._handlePriorityFilter = this._handlePriorityFilter.bind(this);
 
     this._getTasksData();
   }
@@ -72,20 +46,20 @@ class Stack extends React.Component {
 
   /** Component did mount logic. */
   componentDidMount() {
-    $(document).on('changeTask', this._changeTaskHandler);
-    $(document).on('addTask', this._addTaskHandler);
-    $(document).on('setFilter', this._setFilterHandler);
-    $('#tasks-stack-filter-status').on('click', this._statusFilterHandler);
-    $('#tasks-stack-filter-priority').on('click', this._priorityFilterHandler);
+    $(document).on('changeTask', this._handleChangeTask);
+    $(document).on('addTask', this._handleAddTask);
+    $(document).on('setFilter', this._handleSetFilter);
+    $('#tasks-stack-filter-status').on('click', this._handleStatusFilter);
+    $('#tasks-stack-filter-priority').on('click', this._handlePriorityFilter);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    $(document).off('changeTask', this._changeTaskHandler);
-    $(document).off('addTask', this._addTaskHandler);
-    $(document).off('setFilter', this._setFilterHandler);
-    $('#tasks-stack-filter-status').off('click', this._statusFilterHandler);
-    $('#tasks-stack-filter-priority').off('click', this._priorityFilterHandler);
+    $(document).off('changeTask', this._handleChangeTask);
+    $(document).off('addTask', this._handleAddTask);
+    $(document).off('setFilter', this._handleSetFilter);
+    $('#tasks-stack-filter-status').off('click', this._handleStatusFilter);
+    $('#tasks-stack-filter-priority').off('click', this._handlePriorityFilter);
   }
 
   /**
@@ -102,6 +76,7 @@ class Stack extends React.Component {
 
   /**
    * Filter stack items.
+   * @private
    * @param {Array} items - Tasks stack items array.
    * @return {Array} Filtered stack items.
    */
@@ -114,6 +89,7 @@ class Stack extends React.Component {
 
   /**
    * Sort stack items.
+   * @private
    * @param {Array} items - Tasks stack items array.
    * @return {Array} Sorted stack items.
    */
@@ -125,7 +101,10 @@ class Stack extends React.Component {
     });
   }
 
-  /** Get tasks data. */
+  /**
+   * Get tasks data.
+   * @private
+   */
   _getTasksData() {
     $.ajax({
       url: URLS.user_tasks,
@@ -146,6 +125,7 @@ class Stack extends React.Component {
 
   /**
    * Set filter values by specific stack item data name.
+   * @private
    * @param {string} name - Stack item data name.
    * @param {Array} values - Possible stack item data values.
    */
@@ -162,6 +142,66 @@ class Stack extends React.Component {
         [name]: value,
       },
     }));
+  }
+
+  /**
+   * Change task handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleChangeTask(event) {
+    this.setState(state => {
+      let item = state.items[event.id];
+      if (item) {
+        item[event.name] = event.value;
+      }
+      return {items: state.items};
+    });
+  }
+
+  /**
+   * Add task handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleAddTask(event) {
+    this.setState(state => ({
+      items: {
+        ...state.items,
+        [event.taskData.id]: event.taskData,
+      },
+    }));
+  }
+
+  /**
+   * Set filter handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleSetFilter(event) {
+    this._setFilter(event.name, event.values);
+  }
+
+  /**
+   * Status filter handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleStatusFilter(event) {
+    $(document).trigger({
+      type: 'filterStatusStart',
+    });
+  }
+
+  /**
+   * Priority filter handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handlePriorityFilter(event) {
+    $(document).trigger({
+      type: 'filterPriorityStart',
+    });
   }
 }
 

@@ -54,37 +54,14 @@ class TagsChangingDialog extends BaseDialogComponent {
     );
   }
 
-  /**
-   * Open additional function.
-   * @returns {function}
-   */
-  get openAdditionalFunction() {
-    return (e) => {
-      this.setState({
-        activeTags: e.activeTags,
-        taskId: e.id,
-      });
-    };
-  }
-
-  /**
-   * Close additional function.
-   * @returns {function}
-   */
-  get closeAdditionalFunction() {
-    return (e) => {
-      this.setState(this._initialState);
-    };
-  }
-
   /** Component did mount logic. */
   componentDidMount() {
-    $(document).on('openTasksChangingDialog', this.openFunction);
+    $(document).on('openTasksChangingDialog', this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    $(document).off('openTasksChangingDialog', this.openFunction);
+    $(document).off('openTasksChangingDialog', this._handleOpen);
   }
 
   /** Submit handler. */
@@ -118,6 +95,27 @@ class TagsChangingDialog extends BaseDialogComponent {
       });
       WAIT_SCREEN.disable();
     });
+  }
+
+  /**
+   * Open additional.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _openAdditionalFunction(event) {
+    this.setState({
+      activeTags: event.activeTags,
+      taskId: event.id,
+    });
+  }
+
+  /**
+   * Close additional.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _closeAdditionalFunction(event) {
+    this.setState(this._initialState);
   }
 }
 

@@ -38,36 +38,14 @@ class StatusChangingDialog extends BaseDialogComponent {
     });
   }
 
-  /**
-   * Open additional function.
-   * @returns {function}
-   */
-  get openAdditionalFunction() {
-    return (e) => {
-      this.setState({
-        taskId: e.id,
-      });
-    };
-  }
-
-  /**
-   * Close additional function.
-   * @returns {function}
-   */
-  get closeAdditionalFunction() {
-    return (e) => {
-      this.setState(this._initialState);
-    };
-  }
-
   /** Component did mount logic. */
   componentDidMount() {
-    $(document).on('changeStatusStart', this.openFunction);
+    $(document).on('changeStatusStart', this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    $(document).off('changeStatusStart', this.openFunction);
+    $(document).off('changeStatusStart', this._handleOpen);
   }
 
   /**
@@ -104,6 +82,26 @@ class StatusChangingDialog extends BaseDialogComponent {
       });
       WAIT_SCREEN.disable();
     });
+  }
+
+  /**
+   * Open additional.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _openAdditionalFunction(event) {
+    this.setState({
+      taskId: event.id,
+    });
+  }
+
+  /**
+   * Close additional.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _closeAdditionalFunction(event) {
+    this.setState(this._initialState);
   }
 }
 

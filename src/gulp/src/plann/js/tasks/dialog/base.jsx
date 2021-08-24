@@ -10,6 +10,9 @@ class BaseDialogComponent extends React.Component {
     super(props);
 
     this.state = { opened: false };
+
+    this._handleOpen = this._handleOpen.bind(this);
+    this._handleClose = this._handleClose.bind(this);
   }
 
   /**
@@ -18,44 +21,6 @@ class BaseDialogComponent extends React.Component {
    */
   get items() {
     return [];
-  }
-
-  /**
-   * Open function.
-   * @returns {function}
-   */
-  get openFunction() {
-    return (e) => {
-      this.setState({ opened: true });
-      (this.openAdditionalFunction)(e)
-    }
-  }
-
-  /**
-   * Open additional function.
-   * @returns {function}
-   */
-  get openAdditionalFunction() {
-    return (e) => {};
-  }
-
-  /**
-   * Close function.
-   * @returns {function}
-   */
-  get closeFunction() {
-    return (e) => {
-      this.setState({ opened: false });
-      (this.closeAdditionalFunction)(e)
-    }
-  }
-
-  /**
-   * Close additional function.
-   * @returns {function}
-   */
-  get closeAdditionalFunction() {
-    return (e) => {};
   }
 
   /**
@@ -68,15 +33,49 @@ class BaseDialogComponent extends React.Component {
     });
 
     return (
-      <div className={classes}
-           onClick={this.closeFunction} >
+      <div className={ classes }
+           onClick={ this._handleClose } >
         <div className="dialog-window-content"
              onClick={(e) => { e.stopPropagation(); }} >
-          {this.items}
+          { this.items }
         </div>
       </div>
     );
   }
+
+  /**
+   * Open handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleOpen(event) {
+    this.setState({ opened: true });
+    this._openAdditionalFunction(event);
+  }
+
+  /**
+   * Close handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClose(event) {
+    this.setState({ opened: false });
+    this._closeAdditionalFunction(event);
+  }
+
+  /**
+   * Open additional.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _openAdditionalFunction(event) {}
+
+  /**
+   * Close additional.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _closeAdditionalFunction(event) {}
 }
 
 
