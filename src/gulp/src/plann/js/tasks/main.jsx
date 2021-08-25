@@ -7,6 +7,7 @@ const { TagsChangingDialog } = require('./dialog/changing/tags.jsx');
 const { CreationFormDialog } = require('./dialog/creation.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
 const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
+const { PriorityFilterButton } = require('./priority_filter_button.jsx');
 const { Stack } = require('./stack/main.jsx');
 const { StatusFilterButton } = require('./status_filter_button.jsx');
 const { WaitScreen } = require('./wait_screen.jsx');
@@ -56,6 +57,10 @@ $(document).ready(function() {
   ReactDOM.render(
     <StatusFilterButton />,
     document.getElementById('status-filter-button')
+  );
+  ReactDOM.render(
+    <PriorityFilterButton />,
+    document.getElementById('priority-filter-button')
   );
   ReactDOM.render(
     <CreationFormDialog />,

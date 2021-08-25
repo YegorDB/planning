@@ -30,8 +30,6 @@ class Stack extends React.Component {
     this._handleChangeTask = this._handleChangeTask.bind(this);
     this._handleAddTask = this._handleAddTask.bind(this);
     this._handleSetFilter = this._handleSetFilter.bind(this);
-    this._handleStatusFilter = this._handleStatusFilter.bind(this);
-    this._handlePriorityFilter = this._handlePriorityFilter.bind(this);
 
     this._getTasksData();
   }
@@ -49,8 +47,6 @@ class Stack extends React.Component {
     $(document).on('changeTask', this._handleChangeTask);
     $(document).on('addTask', this._handleAddTask);
     $(document).on('setFilter', this._handleSetFilter);
-    $('#tasks-stack-filter-status').on('click', this._handleStatusFilter);
-    $('#tasks-stack-filter-priority').on('click', this._handlePriorityFilter);
   }
 
   /** Component will unmount logic. */
@@ -58,8 +54,6 @@ class Stack extends React.Component {
     $(document).off('changeTask', this._handleChangeTask);
     $(document).off('addTask', this._handleAddTask);
     $(document).off('setFilter', this._handleSetFilter);
-    $('#tasks-stack-filter-status').off('click', this._handleStatusFilter);
-    $('#tasks-stack-filter-priority').off('click', this._handlePriorityFilter);
   }
 
   /**
@@ -180,28 +174,6 @@ class Stack extends React.Component {
    */
   _handleSetFilter(event) {
     this._setFilter(event.name, event.values);
-  }
-
-  /**
-   * Status filter handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleStatusFilter(event) {
-    $(document).trigger({
-      type: 'filterStatusStart',
-    });
-  }
-
-  /**
-   * Priority filter handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handlePriorityFilter(event) {
-    $(document).trigger({
-      type: 'filterPriorityStart',
-    });
   }
 }
 
