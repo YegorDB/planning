@@ -9,33 +9,6 @@
   }
 }
 
-.tasks-stack-header-name {
-  width: max-content;
-  position: relative;
-  margin: auto;
-}
-
-.tasks-stack-header-filter {
-  width: 12px;
-  height: 12px;
-  position: absolute;
-  top: 0px;
-  right: -12px;
-  cursor: pointer;
-
-  &:hover:before{
-    .pseudo();
-    clip-path: polygon(0% 0%,100% 0%,100% 10%,70% 50%,70% 85%,40% 100%,30% 100%,30% 50%,0% 10%);
-    background-color: #colors[accent-yellow];
-  }
-
-  &:after{
-    .pseudo();
-    clip-path: polygon(10% 10%,90% 10%,60% 50%,60% 80%,40% 90%,40% 50%);
-    background-color: #colors[primary-black];
-  }
-}
-
 
 .tasks-stack-row {
   box-sizing: border-box;

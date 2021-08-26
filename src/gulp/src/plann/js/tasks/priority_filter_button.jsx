@@ -17,7 +17,7 @@ class PriorityFilterButton extends React.Component {
    */
   render() {
     return <div onClick={ this._handleClick }
-                className="button button-default" >
+                className="button button-default filter-button" >
              Priorities
            </div>;
   }
