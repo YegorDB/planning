@@ -2,11 +2,7 @@ const $ = require('jquery-browserify');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
-const { TagsChangingDialog } = require('./dialog/changing/tags.jsx');
-const { CreationFormDialog } = require('./dialog/creation.jsx');
-const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
-const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
+const { Dialogs } = require('./dialogs/main.jsx');
 const { Header } = require('./header/main.jsx');
 const { Stack } = require('./stack/main.jsx');
 const { WaitScreen } = require('./wait_screen.jsx');
@@ -38,23 +34,7 @@ $(document).ready(function() {
   );
 
   ReactDOM.render(
-    <StatusChangingDialog />,
-    document.getElementById('change-status-dialog')
-  );
-  ReactDOM.render(
-    <TagsChangingDialog />,
-    document.getElementById('change-tags-dialog')
-  );
-  ReactDOM.render(
-    <StatusFilterDialog choices={CHOISES.task.status} />,
-    document.getElementById('filter-status-dialog')
-  );
-  ReactDOM.render(
-    <PriorityFilterDialog choices={CHOISES.task.priority} />,
-    document.getElementById('filter-priority-dialog')
-  );
-  ReactDOM.render(
-    <CreationFormDialog />,
-    document.getElementById('creation-dialog')
+    <Dialogs />,
+    document.getElementById('dialogs')
   );
 });
