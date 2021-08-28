@@ -1,15 +1,14 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const { CreationButton } = require('./creation_button.jsx');
+
 const { StatusChangingDialog } = require('./dialog/changing/status.jsx');
 const { TagsChangingDialog } = require('./dialog/changing/tags.jsx');
 const { CreationFormDialog } = require('./dialog/creation.jsx');
 const { PriorityFilterDialog } = require('./dialog/filter/priority.jsx');
 const { StatusFilterDialog } = require('./dialog/filter/status.jsx');
-const { PriorityFilterButton } = require('./priority_filter_button.jsx');
+const { Header } = require('./header/main.jsx');
 const { Stack } = require('./stack/main.jsx');
-const { StatusFilterButton } = require('./status_filter_button.jsx');
 const { WaitScreen } = require('./wait_screen.jsx');
 
 
@@ -26,6 +25,11 @@ $(document).ready(function() {
   window.WAIT_SCREEN = ReactDOM.render(
     <WaitScreen />,
     document.getElementById('wait-screen')
+  );
+
+  ReactDOM.render(
+    <Header />,
+    document.getElementById('header')
   );
 
   ReactDOM.render(
@@ -48,19 +52,6 @@ $(document).ready(function() {
   ReactDOM.render(
     <PriorityFilterDialog choices={CHOISES.task.priority} />,
     document.getElementById('filter-priority-dialog')
-  );
-
-  ReactDOM.render(
-    <CreationButton />,
-    document.getElementById('creation-button')
-  );
-  ReactDOM.render(
-    <StatusFilterButton />,
-    document.getElementById('status-filter-button')
-  );
-  ReactDOM.render(
-    <PriorityFilterButton />,
-    document.getElementById('priority-filter-button')
   );
   ReactDOM.render(
     <CreationFormDialog />,
