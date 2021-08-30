@@ -4,6 +4,10 @@
 {% block styles %}
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.min.css' %}">
   <style type="text/css">
+    .task-items {
+      display: flex;
+    }
+
     .task-item {
       width: 20%;
       height: 200px;
@@ -18,15 +22,26 @@
     }
 
     .task-item-inner-priority {
-      --height-value: 10%;
       width: 100%;
-      height: val(--height-value);
+      height: 10%;
+    }
+
+    .task-item-inner-priority-values {
+      width: max-content;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
     }
 
     .task-item-inner-priority-value {
-      width: val(--height-value);
-      height: val(--height-value);
-      background-color: red;
+      aspect-ratio: 1/1;
+      height: 100%;
+    }
+    .task-item-inner-priority-value > div {
+      border-radius: 50%;
+      width: 50%;
+      height: 50%;
+      margin: 25%;
     }
   </style>
 {% endblock %}
@@ -36,10 +51,93 @@
 {% block content %}
   <div id="header"></div>
 
-  <div class="task-item">
-    <div class="task-item-inner">
-      <div class="task-item-inner-priority">
-        <div class="task-item-inner-priority-value">
+  <div class="task-items">
+    <div class="task-item">
+      <div class="task-item-inner">
+        <div class="task-item-inner-priority">
+          <div class="task-item-inner-priority-values">
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-4"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-4"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-4"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-4"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-item">
+      <div class="task-item-inner">
+        <div class="task-item-inner-priority">
+          <div class="task-item-inner-priority-values">
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-3"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-3"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-3"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-item">
+      <div class="task-item-inner">
+        <div class="task-item-inner-priority">
+          <div class="task-item-inner-priority-values">
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-2"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-2"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-item">
+      <div class="task-item-inner">
+        <div class="task-item-inner-priority">
+          <div class="task-item-inner-priority-values">
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-1"></div>
+            </div>
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-item">
+      <div class="task-item-inner">
+        <div class="task-item-inner-priority">
+          <div class="task-item-inner-priority-values">
+            <div class="task-item-inner-priority-value">
+              <div class="tasks-stack-item-priority-0"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
