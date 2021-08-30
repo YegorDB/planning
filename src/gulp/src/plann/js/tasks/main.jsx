@@ -30,7 +30,7 @@ $(document).ready(function() {
 
   ReactDOM.render(
     <Stack />,
-    document.getElementById('tasks-stack-items')
+    document.getElementById('tasks-stack')
   );
 
   ReactDOM.render(

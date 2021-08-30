@@ -3,6 +3,32 @@
 
 {% block styles %}
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.min.css' %}">
+  <style type="text/css">
+    .task-item {
+      width: 20%;
+      height: 200px;
+      padding: 10px;
+    }
+
+    .task-item-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 5%;
+      background-color: #f9f4d3;
+    }
+
+    .task-item-inner-priority {
+      --height-value: 10%;
+      width: 100%;
+      height: val(--height-value);
+    }
+
+    .task-item-inner-priority-value {
+      width: val(--height-value);
+      height: val(--height-value);
+      background-color: red;
+    }
+  </style>
 {% endblock %}
 
 {% block title %}Tasks{% endblock %}
@@ -10,15 +36,16 @@
 {% block content %}
   <div id="header"></div>
 
-  <div id="tasks-stack">
-    <div id="tasks-stack-header">
-      <div class="tasks-stack-cell tasks-stack-cell-priority">P</div>
-      <div class="tasks-stack-cell tasks-stack-cell-meaning">Meaning</div>
-      <div class="tasks-stack-cell tasks-stack-cell-status">Status</div>
-      <div class="tasks-stack-cell tasks-stack-cell-tags">Tags</div>
+  <div class="task-item">
+    <div class="task-item-inner">
+      <div class="task-item-inner-priority">
+        <div class="task-item-inner-priority-value">
+        </div>
+      </div>
     </div>
-    <div id="tasks-stack-items"></div>
   </div>
+
+  <div id="tasks-stack"></div>
 
   <div id="dialogs"></div>
 
