@@ -5,13 +5,14 @@
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/tasks.min.css' %}">
   <style type="text/css">
     .task-items {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 10px;
     }
 
     .task-item {
-      width: 20%;
-      padding: 10px;
-      box-sizing: border-box;
+      display: inline-grid;
+      width: 100%;
     }
 
     .task-item-inner {
@@ -19,6 +20,7 @@
       height: 100%;
       border-radius: 5px;
       background-color: #f9f4d3;
+      min-width: 0;
     }
 
     .task-item-inner-priority {
