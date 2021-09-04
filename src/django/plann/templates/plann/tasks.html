@@ -14,62 +14,94 @@
     .task-item {
       display: inline-grid;
       width: 100%;
-    }
-
-    .task-item-inner {
-      width: 100%;
       height: 100%;
       border-radius: 5px;
       background-color: #f9f4d3;
       min-width: 0;
     }
 
-    .task-item-inner-priority {
+    .task-item-priority {
       width: 100%;
       height: 1em;
     }
 
-    .task-item-inner-priority-values {
+    .task-item-priority-values {
       width: max-content;
       height: 100%;
       margin: 0 auto;
       display: flex;
     }
 
-    .task-item-inner-priority-value {
+    .task-item-priority-value {
       aspect-ratio: 1/1;
       height: 100%;
     }
-    .task-item-inner-priority-value > div {
+    .task-item-priority-value > div {
       border-radius: 50%;
       width: 50%;
       height: 50%;
       margin: 25%;
     }
 
-    .task-item-inner-meaning {
-      width: 100%;
-      height: 2em;
-      padding: 0.2em 0 10%;
-      box-sizing: border-box;
-      position: relative;
+    .task-item-priority-value-0 {
+      background-color: #ddd;
+    }
+    .task-item-priority-value-1 {
+      background-color: #14b1ab;
+    }
+    .task-item-priority-value-2 {
+      background-color: #f9d56e;
+    }
+    .task-item-priority-value-3 {
+      background-color: #f49ca2;
+    }
+    .task-item-priority-value-4 {
+      background-color: #e8505b;
     }
 
-    .task-item-inner-meaning-name {
+    .task-item-meaning {
+      width: 100%;
+      height: 2em;
+      padding: 0.3em 0 10%;
+      box-sizing: border-box;
+      position: relative;
+      min-width: 0;
+    }
+
+    .task-item-meaning-name {
       width: 100%;
       overflow: hidden;
     }
 
-    .task-item-inner-meaning-name > div {
+    .task-item-meaning-name > div {
       margin: 0 auto;
       width: max-content;
     }
 
-    .task-item-inner-status {
+    .task-item-status {
       width: 100%;
       height: 0.5em;
       border-bottom-left-radius: inherit;
       border-bottom-right-radius: inherit;
+    }
+
+    .task-item-status-ns {
+      background-color: #ddd;
+    }
+
+    .task-item-status-ip {
+      background-color: #f9d56e;
+      clip-path: polygon(0% 0%, 89% 0%, 89% 100%, 90% 100%, 90% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    .task-item-status-dn {
+      background-color: #6fd8d4;
+      clip-path: polygon(0% 0%, 78% 0%, 78% 100%, 79% 100%, 79% 0%, 89% 0%, 89% 100%, 90% 100%, 90% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    .task-item-status-cl {
+      background-color: #f49ca2;
+      clip-path: polygon(0% 0%, 10% 0%, 10% 100%, 11% 100%, 11% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
   </style>
 {% endblock %}
@@ -81,147 +113,142 @@
 
   <div class="task-items">
     <div class="task-item">
-      <div class="task-item-inner">
-        <div class="task-item-inner-priority">
-          <div class="task-item-inner-priority-values">
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-4"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-4"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-4"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-4"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-4"></div>
-            </div>
+      <div class="task-item-priority">
+        <div class="task-item-priority-values">
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-4"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-4"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-4"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-4"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-4"></div>
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-meaning">
-          <div class="task-item-inner-meaning-name">
-            <div>
-              Qwerty
-            </div>
+      <div class="task-item-meaning">
+        <div class="task-item-meaning-name">
+          <div>
+            Qwerty
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-status tasks-stack-item-status-ip">
-        </div>
+      <div class="task-item-status task-item-status-ip"
+           title="In progress">
       </div>
     </div>
 
     <div class="task-item">
-      <div class="task-item-inner">
-        <div class="task-item-inner-priority">
-          <div class="task-item-inner-priority-values">
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-3"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-3"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-3"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-3"></div>
-            </div>
+      <div class="task-item-priority">
+        <div class="task-item-priority-values">
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-3"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-3"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-3"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-3"></div>
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-meaning">
-          <div class="task-item-inner-meaning-name">
-            <div>
-              Qwerty
-            </div>
+      <div class="task-item-meaning">
+        <div class="task-item-meaning-name">
+          <div>
+            Qwerty
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-status tasks-stack-item-status-ns">
-        </div>
+      <div class="task-item-status task-item-status-ns"
+           title="Not started">
       </div>
     </div>
 
     <div class="task-item">
-      <div class="task-item-inner">
-        <div class="task-item-inner-priority">
-          <div class="task-item-inner-priority-values">
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-2"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-2"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-2"></div>
-            </div>
+      <div class="task-item-priority">
+        <div class="task-item-priority-values">
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-2"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-2"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-2"></div>
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-meaning">
-          <div class="task-item-inner-meaning-name">
-            <div>
-              Qwerty
-            </div>
+      <div class="task-item-meaning">
+        <div class="task-item-meaning-name">
+          <div>
+            Qwerty
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-status tasks-stack-item-status-dn">
-        </div>
+      <div class="task-item-status task-item-status-dn"
+           title="Done">
       </div>
     </div>
 
     <div class="task-item">
-      <div class="task-item-inner">
-        <div class="task-item-inner-priority">
-          <div class="task-item-inner-priority-values">
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-1"></div>
-            </div>
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-1"></div>
-            </div>
+      <div class="task-item-priority">
+        <div class="task-item-priority-values">
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-1"></div>
+          </div>
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-1"></div>
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-meaning">
-          <div class="task-item-inner-meaning-name">
-            <div>
-              Qwerty
-            </div>
+      <div class="task-item-meaning">
+        <div class="task-item-meaning-name">
+          <div>
+            Qwerty
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-status tasks-stack-item-status-cl">
-        </div>
+      <div class="task-item-status task-item-status-cl"
+           title="Canceled">
       </div>
     </div>
 
     <div class="task-item">
-      <div class="task-item-inner">
-        <div class="task-item-inner-priority">
-          <div class="task-item-inner-priority-values">
-            <div class="task-item-inner-priority-value">
-              <div class="tasks-stack-item-priority-0"></div>
-            </div>
+      <div class="task-item-priority">
+        <div class="task-item-priority-values">
+          <div class="task-item-priority-value">
+            <div class="task-item-priority-value-0"></div>
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-meaning">
-          <div class="task-item-inner-meaning-name">
-            <div>
-              Qwerty
-            </div>
+      <div class="task-item-meaning">
+        <div class="task-item-meaning-name">
+          <div>
+            Qwerty
           </div>
         </div>
+      </div>
 
-        <div class="task-item-inner-status tasks-stack-item-status-ip">
-        </div>
+      <div class="task-item-status task-item-status-ip"
+           title="In progress">
       </div>
     </div>
   </div>
