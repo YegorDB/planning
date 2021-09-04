@@ -13,14 +13,14 @@ class Tag(models.Model):
 class Task(models.Model):
 
     class Priority(models.IntegerChoices):
-        NOT_SET = 0, _('Not set')
+        NOT_SET = 0, _('Not setted')
         LOW = 1, _('Low')
         NORMAL = 2, _('Normal')
         HIGH = 3, _('High')
         CRITICAL = 4, _('Critical')
 
     class Status(models.TextChoices):
-        NOT_SET = 'NS', _('Not set')
+        NOT_SET = 'NS', _('Not started')
         IN_PROGRESS = 'IP', _('In progress')
         DONE = 'DN', _('Done')
         CANCELED = 'CL', _('Canceled')
