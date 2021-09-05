@@ -55,7 +55,7 @@ class StatusChangingDialog extends BaseDialogComponent {
   _changeValue(value) {
     if (!this.state.taskId) return;
 
-    WAIT_SCREEN.enable();
+    $(document).trigger('enableWaitScreen');
     $.ajax({
       url: URLS.update_task.replace(/\d+\/$/, `${this.state.taskId}/`),
       data: JSON.stringify({
@@ -80,7 +80,7 @@ class StatusChangingDialog extends BaseDialogComponent {
         opened: false,
         ...this._initialState,
       });
-      WAIT_SCREEN.disable();
+      $(document).trigger('disableWaitScreen');
     });
   }
 

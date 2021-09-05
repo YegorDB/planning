@@ -57,7 +57,7 @@ class CreationFormDialog extends BaseDialogComponent {
    */
   _handleSubmit(event) {
     event.preventDefault();
-    WAIT_SCREEN.enable();
+    $(document).trigger('enableWaitScreen');
     let formData = new FormData(event.target);
     let tagsValues = formData.getAll('tags');
     $.ajax({
@@ -85,7 +85,7 @@ class CreationFormDialog extends BaseDialogComponent {
       this.setState({
         opened: false,
       });
-      WAIT_SCREEN.disable();
+      $(document).trigger('disableWaitScreen');
     });
   }
 }

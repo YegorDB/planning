@@ -67,7 +67,7 @@ class TagsChangingDialog extends BaseDialogComponent {
   /** Submit handler. */
   _handleSubmit(event) {
     event.preventDefault();
-    WAIT_SCREEN.enable();
+    $(document).trigger('enableWaitScreen');
     let tagsValues = (new FormData(event.target).getAll('tags'));
     $.ajax({
       url: URLS.update_task.replace(/\d+\/$/, `${this.state.taskId}/`),
@@ -93,7 +93,7 @@ class TagsChangingDialog extends BaseDialogComponent {
         opened: false,
         ...this._initialState,
       });
-      WAIT_SCREEN.disable();
+      $(document).trigger('disableWaitScreen');
     });
   }
 

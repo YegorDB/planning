@@ -13,7 +13,7 @@ class Header extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    return <div>
+    return <div id="header" >
              <CreationButton />
              <PriorityFilterButton />
              <StatusFilterButton />
