@@ -16,10 +16,6 @@ class BaseFilterDialog extends BaseDialogComponent {
   constructor(props) {
     super(props);
     this._entries = this._getEntries(props.choices);
-    this.state = {
-      ...this.state,
-      activeValues: this._getValues(props.choices),
-    };
   }
 
   /**
@@ -31,17 +27,17 @@ class BaseFilterDialog extends BaseDialogComponent {
       let inputId = `filter-checkbox-${this.constructor.FILTER_NAME}-${value.toString().toLowerCase()}`;
 
       return (
-        <div key={value}>
+        <div key={ value } >
           <input type="checkbox"
-                 id={inputId}
-                 value={value}
-                 onChange={this._getItemChangeHandler(inputId, value)}
-                 checked={this.state.activeValues.includes(value)}
+                 id={ inputId }
+                 value={ value }
+                 onChange={ this._getItemChangeHandler(inputId, value) }
+                 checked={ this.props.activeValues.includes(value) }
                  className="styled-checkbox" />
-          <label htmlFor={inputId} />
-          <div className={this._getItemClasses(value)}
-               onClick={this._getItemClickHandler(inputId)} >
-            {name}
+          <label htmlFor={ inputId } />
+          <div className={ this._getItemClasses(value) }
+               onClick={ this._getItemClickHandler(inputId) } >
+            { name }
           </div>
         </div>
       );
@@ -66,16 +62,6 @@ class BaseFilterDialog extends BaseDialogComponent {
    */
   _getEntries(choices) {
     return Object.entries(choices);
-  }
-
-  /**
-   * Get values.
-   * @private
-   * @param {Object} choices - Value - name pairs;
-   * @return {string[]} Array of values;
-   */
-  _getValues(choices) {
-    return Object.keys(choices);
   }
 
   /**
@@ -109,17 +95,12 @@ class BaseFilterDialog extends BaseDialogComponent {
   _getItemChangeHandler(inputId, value) {
     return (e) => {
       if (!e.target.checked) {
-        this.setState(state => {
-          let activeValues = state.activeValues.filter(v => v != value);
-          this._trigerSetFilterEvent(activeValues);
-          return {activeValues: activeValues};
-        });
-      } else if (!this.state.activeValues.includes(value)) {
-        this.setState(state => {
-          let activeValues = [...state.activeValues, value];
-          this._trigerSetFilterEvent(activeValues);
-          return {activeValues: activeValues};
-        });
+        this._trigerSetFilterEvent(
+          this.props.activeValues
+          .filter(v => v != value)
+        );
+      } else if (!this.props.activeValues.includes(value)) {
+        this._trigerSetFilterEvent([...this.props.activeValues, value]);
       }
     };
   }

@@ -6,30 +6,16 @@ const { Item } = require('./item/main.jsx');
 /** Tasks stack. */
 class Stack extends React.Component {
 
-  static FILTER_PRIORITY = 'priority';
-  static FILTER_STATUS = 'status';
-  static ALL_FILTERS = [
-    Stack.FILTER_PRIORITY,
-    Stack.FILTER_STATUS,
-  ];
-
   /** Creation. */
   constructor(props) {
     super(props);
 
     this.state = {
       items: {},
-      filters: {
-        [Stack.FILTER_PRIORITY]: (
-          Object.keys(CHOISES.task.priority).map(p => parseInt(p))
-        ),
-        [Stack.FILTER_STATUS]: Object.keys(CHOISES.task.status),
-      }
     };
 
     this._handleChangeTask = this._handleChangeTask.bind(this);
     this._handleAddTask = this._handleAddTask.bind(this);
-    this._handleSetFilter = this._handleSetFilter.bind(this);
 
     this._getTasksData();
   }
@@ -46,14 +32,12 @@ class Stack extends React.Component {
   componentDidMount() {
     $(document).on('changeTask', this._handleChangeTask);
     $(document).on('addTask', this._handleAddTask);
-    $(document).on('setFilter', this._handleSetFilter);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
     $(document).off('changeTask', this._handleChangeTask);
     $(document).off('addTask', this._handleAddTask);
-    $(document).off('setFilter', this._handleSetFilter);
   }
 
   /**
@@ -75,8 +59,8 @@ class Stack extends React.Component {
    * @return {Array} Filtered stack items.
    */
   _filter(items) {
-    for (let key of Object.keys(this.state.filters)) {
-      items = items.filter(item => this.state.filters[key].includes(item[key]));
+    for (let key of Object.keys(this.props.filters)) {
+      items = items.filter(item => this.props.filters[key].includes(item[key]));
     }
     return items;
   }
@@ -118,27 +102,6 @@ class Stack extends React.Component {
   }
 
   /**
-   * Set filter values by specific stack item data name.
-   * @private
-   * @param {string} name - Stack item data name.
-   * @param {Array} values - Possible stack item data values.
-   */
-  _setFilter(name, value) {
-    if (!Stack.ALL_FILTERS.includes(name)) {
-      throw Error(`Wrong stack item data name "${name}".`);
-    }
-    if (!Array.isArray(value)) {
-      throw Error('Values argument has to be an array.');
-    }
-    this.setState(state => ({
-      filters: {
-        ...state.filters,
-        [name]: value,
-      },
-    }));
-  }
-
-  /**
    * Change task handler.
    * @private
    * @param {Event} event - DOM event.
@@ -165,15 +128,6 @@ class Stack extends React.Component {
         [event.taskData.id]: event.taskData,
       },
     }));
-  }
-
-  /**
-   * Set filter handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleSetFilter(event) {
-    this._setFilter(event.name, event.values);
   }
 }
 

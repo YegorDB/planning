@@ -18,8 +18,10 @@ class Dialogs extends React.Component {
     return <div>
              <StatusChangingDialog />
              <TagsChangingDialog />
-             <StatusFilterDialog choices={CHOISES.task.status} />
-             <PriorityFilterDialog choices={CHOISES.task.priority} />
+             <StatusFilterDialog choices={CHOISES.task.status}
+                                 activeValues={ this.props.filters.status }/>
+             <PriorityFilterDialog choices={CHOISES.task.priority}
+                                   activeValues={ this.props.filters.priority }/>
              <CreationFormDialog />
            </div>;
   }

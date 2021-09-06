@@ -19,16 +19,6 @@ class PriorityFilterDialog extends BaseFilterDialog {
   }
 
   /**
-   * Get values.
-   * @private
-   * @param {Object} choices - Value - name pairs;
-   * @return {number[]} Array of values;
-   */
-  _getValues(choices) {
-    return Object.keys(choices).map(p => parseInt(p));
-  }
-
-  /**
    * Get item classes.
    * @private
    * @param {Object} value - Choice value;
