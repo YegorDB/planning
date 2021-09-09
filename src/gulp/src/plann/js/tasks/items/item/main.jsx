@@ -1,4 +1,5 @@
 const React = require('react');
+const { ItemMeaning } = require('./meaning.jsx');
 const { ItemPriority } = require('./priority.jsx');
 
 
@@ -13,7 +14,7 @@ class Item extends React.Component {
     return (
       <div className="task-item" >
         <ItemPriority value={ this.props.taskData.priority } />
-        { this.props.taskData.name }
+        <ItemMeaning name={ this.props.taskData.name } />
       </div>
     );
   }
