@@ -16,9 +16,8 @@ class StatusFilterDialog extends BaseFilterDialog {
    */
   _getItemClasses(value) {
     return classNames(
-      'tasks-stack-filter-status-dialog-item',
-      'tasks-stack-item-status',
-      `tasks-stack-item-status-${value.toLowerCase()}`,
+      'tasks-filter-status-dialog-item',
+      `tasks-filter-status-${value.toLowerCase()}`,
     );
   }
 }
