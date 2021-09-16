@@ -1,6 +1,7 @@
 import json
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
+from django.db.models import Q
 from django.urls import reverse
 from django.views.generic import TemplateView
 
@@ -31,6 +32,22 @@ class TasksView(LoginRequiredMixin, TemplateView):
         }
 
 
-class TaskView(LoginRequiredMixin, TemplateView):
+class TaskView(AccessMixin, TemplateView):
     login_url = '/admin/login/'
     template_name = "plann/task.html"
+
+    def dispatch(self, request, id):
+        if (not request.user.is_authenticated
+            or not self._has_permission(request.user, id)):
+            return self.handle_no_permission()
+        return super().dispatch(request, id=id)
+
+    def _has_permission(self, user, id):
+        return (
+            Task.objects
+            .filter(
+                Q(creator=user) | Q(responsible=user),
+                id=id,
+            )
+            .exists()
+        )
