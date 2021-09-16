@@ -29,3 +29,8 @@ class TasksView(LoginRequiredMixin, TemplateView):
             }),
             'tags': json.dumps(list(Tag.objects.values('id', 'name'))),
         }
+
+
+class TaskView(LoginRequiredMixin, TemplateView):
+    login_url = '/admin/login/'
+    template_name = "plann/task.html"
