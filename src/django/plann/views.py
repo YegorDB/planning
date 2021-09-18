@@ -15,6 +15,7 @@ class TasksView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         return {
+            **super().get_context_data(*args, **kwargs),
             'choices': json.dumps({
                 'task': {
                     'priority': dict(Task.Priority.choices),
@@ -42,8 +43,27 @@ class TaskView(AccessMixin, TemplateView):
         return super().dispatch(request, id=id)
 
     def get_context_data(self, id):
+        task = Task.objects.select_related('parent').get(id=id)
         return {
-            'task_id': id,
+            **super().get_context_data(id=id),
+            'task_data': json.dumps({
+                'id': task.id,
+                'name': task.name,
+                'description': task.description,
+                'creation_datetime': task.creation_datetime.isoformat(),
+                'priority': task.priority,
+                'status': task.status,
+                'depends_on': list(
+                    task.depends_on
+                    .values('id', 'name', 'priority', 'status')
+                ),
+                'depending': list(
+                    task.depending
+                    .values('id', 'name', 'priority', 'status')
+                ),
+                'parent': task.parent,
+                'tags': list(task.tags.values('id', 'name')),
+            }),
         }
 
     def _has_permission(self, user, id):

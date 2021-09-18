@@ -1,7 +1,15 @@
 {% extends "main/base.html" %}
 
-{% block title %}Task {{ task_id }} {% endblock %}
+{% block title %}{{ task_name }}{% endblock %}
 
 {% block content %}
   123
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    {% autoescape off %}
+      const TASK_DATA = JSON.parse(String.raw`{{ task_data }}`);
+    {% endautoescape %}
+  </script>
 {% endblock %}
