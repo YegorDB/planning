@@ -15,7 +15,6 @@ class TasksView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         return {
-            **super().get_context_data(*args, **kwargs),
             'choices': json.dumps({
                 'task': {
                     'priority': dict(Task.Priority.choices),
@@ -41,6 +40,11 @@ class TaskView(AccessMixin, TemplateView):
             or not self._has_permission(request.user, id)):
             return self.handle_no_permission()
         return super().dispatch(request, id=id)
+
+    def get_context_data(self, id):
+        return {
+            'task_id': id,
+        }
 
     def _has_permission(self, user, id):
         return (
