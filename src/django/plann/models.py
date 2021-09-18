@@ -51,7 +51,12 @@ class Task(models.Model):
         default=Status.NOT_SET
     )
 
-    depends_on = models.ManyToManyField('self')
+    depends_on = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        related_name='depending',
+        related_query_name='depending',
+    )
     parent = models.ForeignKey('self',
         on_delete=models.CASCADE,
         related_name='children',
