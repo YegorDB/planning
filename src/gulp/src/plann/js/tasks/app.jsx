@@ -51,7 +51,7 @@ class App extends React.Component {
   }
 
   /**
-   * Render stack.
+   * Render app.
    * @returns {React.Element}
    */
   render() {

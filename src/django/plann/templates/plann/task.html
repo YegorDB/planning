@@ -1,9 +1,14 @@
 {% extends "main/base.html" %}
+{% load static %}
 
-{% block title %}{{ task_name }}{% endblock %}
+{% block styles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'plann/css/task.min.css' %}">
+{% endblock %}
+
+{% block title %}Task | {{ task_name }}{% endblock %}
 
 {% block content %}
-  123
+  <div id="app"></div>
 {% endblock %}
 
 {% block scripts %}
@@ -12,4 +17,5 @@
       const TASK_DATA = JSON.parse(String.raw`{{ task_data }}`);
     {% endautoescape %}
   </script>
+  <script src="{% static 'plann/js/task.min.js' %}"></script>
 {% endblock %}

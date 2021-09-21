@@ -44,6 +44,7 @@ let tasksCSS = getCSSHandler('plann', 'tasks')
 
 
 exports.default = function() {
+  watch('src/base/js/base/base.jsx', parallel(taskJS, tasksJS));
   watch('src/plann/js/task/**/*.(js|jsx)', taskJS);
   watch('src/plann/less/task/**/*.less', taskCSS);
   watch('src/plann/js/tasks/**/*.(js|jsx)', tasksJS);

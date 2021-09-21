@@ -46,6 +46,7 @@ class TaskView(AccessMixin, TemplateView):
         task = Task.objects.select_related('parent').get(id=id)
         return {
             **super().get_context_data(id=id),
+            'task_name': task.name,
             'task_data': json.dumps({
                 'id': task.id,
                 'name': task.name,
