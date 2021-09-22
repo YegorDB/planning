@@ -1,6 +1,6 @@
 const React = require('react');
 
-const { TaskName } = require('./name.jsx');
+const { TaskMeaning } = require('./meaning.jsx');
 
 
 /** Tasks page app. */
@@ -13,7 +13,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TaskName value={ TASK_DATA.name } />
+        <TaskMeaning name={ TASK_DATA.name }
+                     description={ TASK_DATA.description } />
       </div>
     );
   }
