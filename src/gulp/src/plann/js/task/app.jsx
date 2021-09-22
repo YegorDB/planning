@@ -1,5 +1,7 @@
 const React = require('react');
 
+const { TaskName } = require('./name.jsx');
+
 
 /** Tasks page app. */
 class App extends React.Component {
@@ -9,7 +11,11 @@ class App extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    return <div>321</div>;
+    return (
+      <div>
+        <TaskName value={ TASK_DATA.name } />
+      </div>
+    );
   }
 }
 
