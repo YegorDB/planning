@@ -1,5 +1,7 @@
 const React = require('react');
 
+
+const { TaskDatetimes } = require('./datetimes.jsx');
 const { TaskMeaning } = require('./meaning.jsx');
 
 
@@ -15,6 +17,7 @@ class App extends React.Component {
       <div>
         <TaskMeaning name={ TASK_DATA.name }
                      description={ TASK_DATA.description } />
+        <TaskDatetimes creation={ TASK_DATA.creation_datetime } />
       </div>
     );
   }
