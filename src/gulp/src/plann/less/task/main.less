@@ -1,0 +1,34 @@
+@import "../tasks/base";
+
+
+.task-badge {
+  width: max-content;
+  height: max-content;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 0px 5px;
+  margin: 6px auto;
+  cursor: pointer;
+
+  &-priority {
+    &-0 {
+      background-color: #colors[accent-grey-lighter];
+    }
+
+    &-1 {
+      background-color: #colors[accent-green-lighter];
+    }
+
+    &-2 {
+      background-color: #colors[accent-yellow];
+    }
+
+    &-3 {
+      background-color: #colors[accent-red-lighter];
+    }
+
+    &-4 {
+      background-color: #colors[accent-red-light];
+    }
+  }
+}

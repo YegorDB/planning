@@ -14,6 +14,7 @@
 {% block scripts %}
   <script type="text/javascript">
     {% autoescape off %}
+      const CHOISES = JSON.parse('{{ choices }}');
       const TASK_DATA = JSON.parse(String.raw`{{ task_data }}`);
     {% endautoescape %}
   </script>
