@@ -60,16 +60,21 @@ class TaskView(AccessMixin, TemplateView):
                 'creation_datetime': task.creation_datetime.isoformat(),
                 'priority': task.priority,
                 'status': task.status,
-                'depends_on': list(
-                    task.depends_on
-                    .values('id', 'name', 'priority', 'status')
-                ),
-                'depending': list(
-                    task.depending
-                    .values('id', 'name', 'priority', 'status')
-                ),
-                'parent': task.parent,
                 'tags': list(task.tags.values('id', 'name')),
+                # 'depends_on': list(
+                #     task.depends_on
+                #     .values('id', 'name', 'priority', 'status')
+                # ),
+                # 'depending': list(
+                #     task.depending
+                #     .values('id', 'name', 'priority', 'status')
+                # ),
+                # 'parent': {
+                #     'id': task.parent.id,
+                #     'name': task.parent.name,
+                #     'priority': task.parent.priority,
+                #     'status': task.parent.status,
+                # },
             }),
         }
 
