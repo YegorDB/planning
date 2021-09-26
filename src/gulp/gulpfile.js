@@ -44,10 +44,12 @@ let tasksCSS = getCSSHandler('plann', 'tasks')
 
 
 exports.default = function() {
-  watch('src/base/js/base/base.jsx', parallel(taskJS, tasksJS));
+  watch('src/base/js/base/**/*.(js|jsx)', parallel(taskJS, tasksJS));
   watch('src/plann/js/task/**/*.(js|jsx)', taskJS);
-  watch('src/plann/less/task/**/*.less', taskCSS);
   watch('src/plann/js/tasks/**/*.(js|jsx)', tasksJS);
+
+  watch('src/base/less/base/**/*.less', parallel(taskCSS, tasksCSS));
+  watch('src/plann/less/task/**/*.less', taskCSS);
   watch('src/plann/less/tasks/**/*.less', tasksCSS);
 };
 
