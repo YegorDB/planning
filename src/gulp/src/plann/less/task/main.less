@@ -1,13 +1,19 @@
 @import "../../../base/less/base/main";
 
 
+.task-meaning {
+  border-bottom: 1px solid;
+  margin-bottom: 1em;
+}
+
+
 .task-badge {
   width: max-content;
   height: max-content;
-  border-radius: 4px;
+  border-radius: 1em;
   display: inline-block;
-  padding: 0px 5px;
-  margin: 6px auto;
+  padding: 1em;
+  margin: 6px 0;
   cursor: pointer;
 
   &-priority {
@@ -48,5 +54,21 @@
     &-dn {
       background-color: #colors[accent-green-lighter];;
     }
+  }
+}
+
+
+.task-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+
+  & > div {
+    display: inline-grid;
+    padding-left: 1em;
+  }
+
+  & > div:not(:first-child) {
+    border-left: 1px solid;
   }
 }

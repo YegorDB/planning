@@ -40,10 +40,9 @@ class TaskMeaning extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div className="task-meaning">
         <TaskName value={ this.props.name } />
         <TaskDescription value={ this.props.description } />
-        <hr />
       </div>
     );
   }

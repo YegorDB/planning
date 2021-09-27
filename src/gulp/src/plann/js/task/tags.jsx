@@ -49,7 +49,7 @@ class Tags extends React.Component {
         {
           this.props.values.length > 0
           ? <TagsList values={ this.props.values } />
-          : <p>{ '-' }</p>
+          : <p>{ 'There are no tags yet ...' }</p>
         }
       </div>
     );

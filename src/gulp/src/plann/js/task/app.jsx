@@ -29,10 +29,12 @@ class App extends React.Component {
       <div>
         <TaskMeaning name={ this.state.name }
                      description={ this.state.description } />
-        <TaskDatetimes creation={ this.state.creation_datetime } />
-        <TaskPriority value={ this.state.priority } />
-        <TaskStatus value={ this.state.status } />
-        <Tags values={ this.state.tags } />
+        <div className="task-content" >
+          <TaskDatetimes creation={ this.state.creation_datetime } />
+          <TaskPriority value={ this.state.priority } />
+          <TaskStatus value={ this.state.status } />
+          <Tags values={ this.state.tags } />
+        </div>
       </div>
     );
   }
