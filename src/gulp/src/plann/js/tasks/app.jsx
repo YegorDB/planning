@@ -1,7 +1,7 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 
-const { Dialogs } = require('./dialogs/main.jsx');
+const { TasksDialogs } = require('./dialogs.jsx');
 const { Items } = require('./items/main.jsx');
 const { Header } = require('./header/main.jsx');
 const { WaitScreen } = require('./wait_screen.jsx');
@@ -59,7 +59,7 @@ class App extends React.Component {
       <div>
         <Header />
         <Items filters={ this.state.filters } />
-        <Dialogs filters={ this.state.filters } />
+        <TasksDialogs filters={ this.state.filters } />
         <WaitScreen enabled={ this.state.waitScreen } />
       </div>
     );
