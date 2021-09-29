@@ -16,10 +16,10 @@ class Tag extends React.Component {
 
 
 /** Task tags list. */
-class TagsList extends React.Component {
+class TaskTagsList extends React.Component {
 
   /**
-   * Render task tags.
+   * Render task tags list.
    * @returns {React.Element}
    */
   render() {
@@ -36,7 +36,7 @@ class TagsList extends React.Component {
 
 
 /** Task tags. */
-class Tags extends React.Component {
+class TaskTags extends React.Component {
 
   /**
    * Render task tags.
@@ -48,7 +48,7 @@ class Tags extends React.Component {
         <h2>{ 'Tags' }</h2>
         {
           this.props.values.length > 0
-          ? <TagsList values={ this.props.values } />
+          ? <TaskTagsList values={ this.props.values } />
           : <p>{ 'There are no tags yet ...' }</p>
         }
       </div>
@@ -58,5 +58,5 @@ class Tags extends React.Component {
 
 
 module.exports = {
-  Tags: Tags,
+  TaskTags: TaskTags,
 };

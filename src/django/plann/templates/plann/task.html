@@ -1,5 +1,5 @@
 {% extends "main/base.html" %}
-{% load static %}
+{% load static rest_framework %}
 
 {% block styles %}
   <link rel="stylesheet" type="text/css" href="{% static 'plann/css/task.min.css' %}">
@@ -15,6 +15,9 @@
   <script type="text/javascript">
     {% autoescape off %}
       const CHOISES = JSON.parse('{{ choices }}');
+      const URLS = JSON.parse('{{ urls }}');
+      const CREATE_TASK_RAW_FORM = `{% render_form create_task_serializer %}`;
+      const TAGS = JSON.parse('{{ tags }}');
       const TASK_DATA = JSON.parse(String.raw`{{ task_data }}`);
     {% endautoescape %}
   </script>

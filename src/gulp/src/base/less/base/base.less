@@ -1,0 +1,95 @@
+#colors() {
+  primary-black: #000000;
+  primary-white: #ffffff;
+
+  secondary-darker: #a29443;
+  secondary-dark: #b9b59c;
+  secondary: #f3ecc2;
+  secondary-light: #f9f4d3;
+  secondary-lighter: #f9f5dd;
+
+  accent-red-darker: #9a1c25;
+  accent-red-dark: #b0595f;
+  accent-red: #e8505b;
+  accent-red-light: #f47c85;
+  accent-red-lighter: #f49ca2;
+
+  accent-yellow-darker: #a68426;
+  accent-yellow-dark: #bda86d;
+  accent-yellow: #f9d56e;
+  accent-yellow-light: #dce093;
+  accent-yellow-lighter: #fce8af;
+
+  accent-green-darker: #077672;
+  accent-green-dark: #2c8783;
+  accent-green: #14b1ab;
+  accent-green-light: #48d8d3;
+  accent-green-lighter: #6fd8d4;
+
+  accent-grey-darker: #333333;
+  accent-grey-dark: #555555;
+  accent-grey: #888888;
+  accent-grey-light: #bbbbbb;
+  accent-grey-lighter: #dddddd;
+}
+
+
+body {
+  color: #colors[accent-grey-darker];
+}
+
+
+#wait-screen {
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  cursor: wait;
+
+  &.wait-screen-enabled {
+    display: block
+  }
+}
+
+
+.styled-checkbox {
+  display: none;
+
+  & + label {
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    transform: translate(0, 15%);
+    background-color: #colors[accent-grey-lighter];
+  }
+
+  &:checked + label {
+    background-color: #colors[accent-green];
+  }
+}
+
+
+.task-tag {
+  width: max-content;
+  border: 1px solid #colors[accent-grey];
+  border-radius: 4px;
+  padding: 2px;
+  margin: 2px;
+  display: inline-block;
+}
+
+
+.pseudo {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}

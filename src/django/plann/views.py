@@ -25,10 +25,8 @@ class TasksView(LoginRequiredMixin, TemplateView):
             'create_task_serializer': TaskCreationFormSerializer(),
             'urls': json.dumps({
                 'create_task': reverse('api:create-task'),
-                'update_task': reverse('api:update-task', kwargs={'pk': 1}),
                 'user_tasks': reverse('api:user-tasks'),
             }),
-            'tags': json.dumps(list(Tag.objects.values('id', 'name'))),
         }
 
 
@@ -52,6 +50,12 @@ class TaskView(AccessMixin, TemplateView):
                     'status': dict(Task.Status.choices),
                 },
             }),
+            'create_task_serializer': TaskCreationFormSerializer(),
+            'urls': json.dumps({
+                'create_task': reverse('api:create-task'),
+                'update_task': reverse('api:update-task', kwargs={'pk': 1}),
+            }),
+            'tags': json.dumps(list(Tag.objects.values('id', 'name'))),
             'task_name': task.name,
             'task_data': json.dumps({
                 'id': task.id,

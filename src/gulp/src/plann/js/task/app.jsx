@@ -2,10 +2,11 @@ const React = require('react');
 
 
 const { TaskDatetimes } = require('./datetimes.jsx');
+const { TaskDialogs } = require('./dialogs.jsx');
 const { TaskMeaning } = require('./meaning.jsx');
 const { TaskPriority } = require('./priority.jsx');
 const { TaskStatus } = require('./status.jsx');
-const { Tags } = require('./tags.jsx');
+const { TaskTags } = require('./tags.jsx');
 
 
 /** Tasks page app. */
@@ -27,13 +28,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <TaskDialogs />
         <TaskMeaning name={ this.state.name }
                      description={ this.state.description } />
         <div className="task-content" >
           <TaskDatetimes creation={ this.state.creation_datetime } />
           <TaskPriority value={ this.state.priority } />
           <TaskStatus value={ this.state.status } />
-          <Tags values={ this.state.tags } />
+          <TaskTags values={ this.state.tags } />
         </div>
       </div>
     );
