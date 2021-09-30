@@ -4,7 +4,7 @@ const React = require('react');
 const { TasksDialogs } = require('./dialogs.jsx');
 const { Items } = require('./items/main.jsx');
 const { Header } = require('./header/main.jsx');
-const { WaitScreen } = require('./wait_screen.jsx');
+const { WaitScreen } = require('../../../base/js/base/wait_screen.jsx');
 
 
 /** Tasks page app. */
@@ -22,7 +22,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      waitScreen: false,
       filters: {
         [App.FILTER_PRIORITY]: (
           Object.keys(CHOISES.task.priority).map(p => parseInt(p))
@@ -31,22 +30,16 @@ class App extends React.Component {
       }
     };
 
-    this._handleEnableWaitScreen = this._handleEnableWaitScreen.bind(this);
-    this._handleDisableWaitScreen = this._handleDisableWaitScreen.bind(this);
     this._handleSetFilter = this._handleSetFilter.bind(this);
   }
 
   /** Component did mount logic. */
   componentDidMount() {
-    $(document).on('enableWaitScreen', this._handleEnableWaitScreen);
-    $(document).on('disableWaitScreen', this._handleDisableWaitScreen);
     $(document).on('setFilter', this._handleSetFilter);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    $(document).off('enableWaitScreen', this._handleEnableWaitScreen);
-    $(document).off('disableWaitScreen', this._handleDisableWaitScreen);
     $(document).off('setFilter', this._handleSetFilter);
   }
 
@@ -60,7 +53,7 @@ class App extends React.Component {
         <Header />
         <Items filters={ this.state.filters } />
         <TasksDialogs filters={ this.state.filters } />
-        <WaitScreen enabled={ this.state.waitScreen } />
+        <WaitScreen />
       </div>
     );
   }
@@ -84,28 +77,6 @@ class App extends React.Component {
         [name]: value,
       },
     }));
-  }
-
-  /**
-   * Enable wait screen handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleEnableWaitScreen(event) {
-    this.setState({
-      waitScreen: true,
-    });
-  }
-
-  /**
-   * Disable wait screen handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleDisableWaitScreen(event) {
-    this.setState({
-      waitScreen: false,
-    });
   }
 
   /**

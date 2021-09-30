@@ -7,6 +7,7 @@ const { TaskMeaning } = require('./meaning.jsx');
 const { TaskPriority } = require('./priority.jsx');
 const { TaskStatus } = require('./status.jsx');
 const { TaskTags } = require('./tags.jsx');
+const { WaitScreen } = require('../../../base/js/base/wait_screen.jsx');
 
 
 /** Tasks page app. */
@@ -30,7 +31,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TaskDialogs id={ this.state.id } />
         <TaskMeaning name={ this.state.name }
                      description={ this.state.description } />
         <div className="task-content" >
@@ -39,6 +39,8 @@ class App extends React.Component {
           <TaskStatus value={ this.state.status } />
           <TaskTags values={ this.state.tags } />
         </div>
+        <TaskDialogs id={ this.state.id } />
+        <WaitScreen />
       </div>
     );
   }
