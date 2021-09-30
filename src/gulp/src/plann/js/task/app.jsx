@@ -34,7 +34,8 @@ class App extends React.Component {
         <div className="task-content" >
           <TaskDatetimes creation={ this.state.creation_datetime } />
           <TaskPriority value={ this.state.priority } />
-          <TaskStatus value={ this.state.status } />
+          <TaskStatus id={ this.state.id }
+                      value={ this.state.status } />
           <TaskTags values={ this.state.tags } />
         </div>
       </div>
