@@ -26,8 +26,9 @@ class PriorityFilterDialog extends BaseFilterDialog {
    */
   _getItemClasses(value) {
     return classNames(
-      'tasks-filter-priority-dialog-item',
-      `tasks-filter-priority-${value}`,
+      'task-priority-dialog-item',
+      'task-priority-dialog-item-filter',
+      `task-priority-${value}`,
     );
   }
 }

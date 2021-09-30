@@ -39,8 +39,8 @@ function getCSSHandler(app, path) {
   }
 }
 
-let taskCSS = getCSSHandler('plann', 'task')
-let tasksCSS = getCSSHandler('plann', 'tasks')
+let taskCSS = getCSSHandler('plann', 'task');
+let tasksCSS = getCSSHandler('plann', 'tasks');
 
 
 exports.default = function() {
@@ -50,6 +50,7 @@ exports.default = function() {
   watch('src/plann/js/tasks/**/*.(js|jsx)', tasksJS);
 
   watch('src/base/less/base/**/*.less', parallel(taskCSS, tasksCSS));
+  watch('src/plann/less/base/**/*.less', parallel(taskCSS, tasksCSS));
   watch('src/plann/less/task/**/*.less', taskCSS);
   watch('src/plann/less/tasks/**/*.less', tasksCSS);
 };

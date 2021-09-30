@@ -19,6 +19,8 @@ class App extends React.Component {
     this.state = {
       ...TASK_DATA,
     };
+
+    this._handleChangeStatus = this._handleChangeStatus.bind(this);
   }
 
   /**
@@ -28,18 +30,38 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TaskDialogs />
+        <TaskDialogs id={ this.state.id } />
         <TaskMeaning name={ this.state.name }
                      description={ this.state.description } />
         <div className="task-content" >
           <TaskDatetimes creation={ this.state.creation_datetime } />
           <TaskPriority value={ this.state.priority } />
-          <TaskStatus id={ this.state.id }
-                      value={ this.state.status } />
+          <TaskStatus value={ this.state.status } />
           <TaskTags values={ this.state.tags } />
         </div>
       </div>
     );
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('changeStatus', this._handleChangeStatus);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('changeStatus', this._handleChangeStatus);
+  }
+
+  /**
+   * Change status handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleChangeStatus(event) {
+    this.setState({
+      status: event.value,
+    });
   }
 }
 

@@ -43,6 +43,16 @@ class BaseDialogComponent extends React.Component {
     );
   }
 
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('closeDialogWindow', this._handleClose);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('closeDialogWindow', this._handleClose);
+  }
+
   /**
    * Open handler.
    * @private

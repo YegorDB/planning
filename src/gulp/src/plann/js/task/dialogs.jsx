@@ -15,7 +15,7 @@ class TaskDialogs extends React.Component {
   render() {
     return (
       <div>
-        <StatusChangingDialog />
+        <StatusChangingDialog id={ this.props.id } />
         <TagsChangingDialog />
         <CreationFormDialog />
       </div>
