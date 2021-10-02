@@ -61,8 +61,9 @@ class StatusChangingDialogItem extends React.Component {
       console.log('jqXHR', jqXHR);
     })
     .always(() => {
-      $(document).trigger('closeDialogWindow');
-      $(document).trigger('disableWaitScreen');
+      $(document)
+      .trigger('closeDialogWindow')
+      .trigger('disableWaitScreen');
     });
   }
 }

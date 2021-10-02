@@ -3,46 +3,37 @@ const React = require('react');
 const { BaseDialogComponent } = require('../base.jsx');
 
 
-/** Tags changing dialog. */
-class TagsChangingDialog extends BaseDialogComponent {
+/** Tags form. */
+class TagsForm extends React.Component {
 
   /** Creation. */
   constructor(props) {
     super(props);
-    this._initialState = {
-      activeTags: {},
-      taskId: null,
-    };
-
-    this.state = {
-      ...this.state,
-      ...this._initialState,
-    };
 
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render form.
+   * @returns {React.Element}
    */
-  get items() {
-    let options = TAGS.map(tag => {
-      return (
-        <option value={ tag.id }
-                key={ tag.id }
-                selected={ this.state.activeTags[tag.id] } >
-          { tag.name }
-        </option>
-      );
-    })
-
+  render() {
     return (
       <form id="change-tags-form"
             onSubmit={ this._handleSubmit } >
         <div>
-          <select name="tags" multiple >
-            { options }
+          <select name="tags" defaultValue={ this.props.values } multiple >
+            {
+              Object.keys(TAGS).map(id => {
+                return (
+                  <option
+                    value={ id }
+                    key={ id } >
+                    { TAGS[id] }
+                  </option>
+                );
+              })
+            }
           </select>
         </div>
         <div className="form-submit-button-box">
@@ -54,68 +45,59 @@ class TagsChangingDialog extends BaseDialogComponent {
     );
   }
 
-  /** Component did mount logic. */
-  componentDidMount() {
-    $(document).on('openTasksChangingDialog', this._handleOpen);
-  }
-
-  /** Component will unmount logic. */
-  componentWillUnmount() {
-    $(document).off('openTasksChangingDialog', this._handleOpen);
-  }
-
   /** Submit handler. */
   _handleSubmit(event) {
     event.preventDefault();
     $(document).trigger('enableWaitScreen');
-    let tagsValues = (new FormData(event.target).getAll('tags'));
+    let values = (new FormData(event.target)).getAll('tags');
     $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${this.state.taskId}/`),
+      url: URLS.update_task.replace(/\d+\/$/, `${ this.props.id }/`),
       type: 'PATCH',
       data: JSON.stringify({
-        'tags': tagsValues,
+        'tags': values,
       }),
       contentType: 'application/json',
     })
     .done((taskData) => {
       $(document).trigger({
-        type: 'changeTask',
-        id: this.state.taskId,
-        name: 'tags',
-        value: TAGS.filter(tag => tagsValues.includes(tag.id.toString())),
+        type: 'changeTags',
+        values: values,
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
     })
     .always(() => {
-      this.setState({
-        opened: false,
-        ...this._initialState,
-      });
-      $(document).trigger('disableWaitScreen');
+      $(document)
+      .trigger('closeDialogWindow')
+      .trigger('disableWaitScreen');
     });
   }
+}
+
+
+/** Tags changing dialog. */
+class TagsChangingDialog extends BaseDialogComponent {
 
   /**
-   * Open additional.
-   * @private
-   * @param {Event} event - DOM event.
+   * Dialog items.
+   * @returns {React.Element[]}
    */
-  _openAdditionalFunction(event) {
-    this.setState({
-      activeTags: event.activeTags,
-      taskId: event.id,
-    });
+  get items() {
+    console.log('this.props.values', this.props.values);
+    return <TagsForm id={ this.props.id } values={ this.props.values } />;
   }
 
-  /**
-   * Close additional.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _closeAdditionalFunction(event) {
-    this.setState(this._initialState);
+  /** Component did mount logic. */
+  componentDidMount() {
+    super.componentDidMount();
+    $(document).on('changeTagsStart', this._handleOpen);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    $(document).off('changeTagsStart', this._handleOpen);
   }
 }
 

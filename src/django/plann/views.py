@@ -55,7 +55,10 @@ class TaskView(AccessMixin, TemplateView):
                 'create_task': reverse('api:create-task'),
                 'update_task': reverse('api:update-task', kwargs={'pk': 1}),
             }),
-            'tags': json.dumps(list(Tag.objects.values('id', 'name'))),
+            'tags': json.dumps({
+                id: name
+                for id, name in Tag.objects.values_list('id', 'name')
+            }),
             'task_name': task.name,
             'task_data': json.dumps({
                 'id': task.id,
@@ -64,7 +67,7 @@ class TaskView(AccessMixin, TemplateView):
                 'creation_datetime': task.creation_datetime.isoformat(),
                 'priority': task.priority,
                 'status': task.status,
-                'tags': list(task.tags.values('id', 'name')),
+                'tags': list(task.tags.values_list('id', flat=True)),
                 # 'depends_on': list(
                 #     task.depends_on
                 #     .values('id', 'name', 'priority', 'status')

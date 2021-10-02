@@ -22,6 +22,7 @@ class App extends React.Component {
     };
 
     this._handleChangeStatus = this._handleChangeStatus.bind(this);
+    this._handleChangeTags = this._handleChangeTags.bind(this);
   }
 
   /**
@@ -39,7 +40,7 @@ class App extends React.Component {
           <TaskStatus value={ this.state.status } />
           <TaskTags values={ this.state.tags } />
         </div>
-        <TaskDialogs id={ this.state.id } />
+        <TaskDialogs id={ this.state.id } tags={ this.state.tags } />
         <WaitScreen />
       </div>
     );
@@ -48,11 +49,13 @@ class App extends React.Component {
   /** Component did mount logic. */
   componentDidMount() {
     $(document).on('changeStatus', this._handleChangeStatus);
+    $(document).on('changeTags', this._handleChangeTags);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
     $(document).off('changeStatus', this._handleChangeStatus);
+    $(document).off('changeTags', this._handleChangeTags);
   }
 
   /**
@@ -63,6 +66,17 @@ class App extends React.Component {
   _handleChangeStatus(event) {
     this.setState({
       status: event.value,
+    });
+  }
+
+  /**
+   * Change tags handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleChangeTags(event) {
+    this.setState({
+      tags: event.values,
     });
   }
 }

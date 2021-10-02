@@ -27,7 +27,7 @@ class TaskTagsList extends React.Component {
       <div className="task-tags" >
         {
           this.props.values
-          .map(tag => <Tag value={ tag.name } key={ tag.id } />)
+          .map(id => <Tag value={ TAGS[id] } key={ id } />)
         }
       </div>
     );
@@ -39,6 +39,15 @@ class TaskTagsList extends React.Component {
 class TaskTags extends React.Component {
 
   /**
+   * Creation.
+   * @param {string} props.values - Task tags ids.
+   */
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
+
+  /**
    * Render task tags.
    * @returns {React.Element}
    */
@@ -46,13 +55,24 @@ class TaskTags extends React.Component {
     return (
       <div>
         <h2>{ 'Tags' }</h2>
-        {
-          this.props.values.length > 0
-          ? <TaskTagsList values={ this.props.values } />
-          : <p>{ 'There are no tags yet ...' }</p>
-        }
+        <div onClick={ this._handleClick } >
+          {
+            this.props.values.length > 0
+            ? <TaskTagsList values={ this.props.values } />
+            : <p>{ 'There are no tags yet ...' }</p>
+          }
+        </div>
       </div>
     );
+  }
+
+  /**
+   * Click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClick(event) {
+    $(document).trigger('changeTagsStart');
   }
 }
 
