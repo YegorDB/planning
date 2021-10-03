@@ -21,6 +21,8 @@ class App extends React.Component {
       ...TASK_DATA,
     };
 
+
+    this._handleChangePriority = this._handleChangePriority.bind(this);
     this._handleChangeStatus = this._handleChangeStatus.bind(this);
     this._handleChangeTags = this._handleChangeTags.bind(this);
   }
@@ -48,14 +50,27 @@ class App extends React.Component {
 
   /** Component did mount logic. */
   componentDidMount() {
+    $(document).on('changePriority', this._handleChangePriority);
     $(document).on('changeStatus', this._handleChangeStatus);
     $(document).on('changeTags', this._handleChangeTags);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
+    $(document).off('changePriority', this._handleChangePriority);
     $(document).off('changeStatus', this._handleChangeStatus);
     $(document).off('changeTags', this._handleChangeTags);
+  }
+
+  /**
+   * Change priority handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleChangePriority(event) {
+    this.setState({
+      priority: event.value,
+    });
   }
 
   /**

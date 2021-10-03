@@ -6,6 +6,16 @@ const React = require('react');
 class TaskPriorityBadge extends React.Component {
 
   /**
+   * Creation.
+   * @param {string} props.value - Task status value.
+   * @param {string} props.name - Task status name.
+   */
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
+
+  /**
    * Render.
    * @returns {React.Element}
    */
@@ -16,10 +26,20 @@ class TaskPriorityBadge extends React.Component {
     );
 
     return (
-      <div className={ className } >
+      <div className={ className }
+           onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );
+  }
+
+  /**
+   * Click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClick(event) {
+    $(document).trigger('changePriorityStart');
   }
 }
 

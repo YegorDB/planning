@@ -84,7 +84,6 @@ class TagsChangingDialog extends BaseDialogComponent {
    * @returns {React.Element[]}
    */
   get items() {
-    console.log('this.props.values', this.props.values);
     return <TagsForm id={ this.props.id } values={ this.props.values } />;
   }
 
