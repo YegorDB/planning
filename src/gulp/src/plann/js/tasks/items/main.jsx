@@ -14,6 +14,8 @@ class Items extends React.Component {
       items: {},
     };
 
+    this._handleAddTask = this._handleAddTask.bind(this);
+
     this._getTasksData();
   }
 
@@ -23,6 +25,16 @@ class Items extends React.Component {
    */
   get items() {
     return this._sort(this._filter(Object.values(this.state.items)));
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('addTask', this._handleAddTask);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('addTask', this._handleAddTask);
   }
 
   /**
@@ -84,6 +96,20 @@ class Items extends React.Component {
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
     });
+  }
+
+  /**
+   * Add task handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleAddTask(event) {
+    this.setState(state => ({
+      items: {
+        ...state.items,
+        [event.taskData.id]: event.taskData,
+      },
+    }));
   }
 }
 

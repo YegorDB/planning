@@ -42,11 +42,13 @@ class CreationFormDialog extends BaseDialogComponent {
 
   /** Component did mount logic. */
   componentDidMount() {
+    super.componentDidMount();
     $(document).on('openCreationDialog', this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
+    super.componentWillUnmount();
     $(document).off('openCreationDialog', this._handleOpen);
   }
 
@@ -59,12 +61,11 @@ class CreationFormDialog extends BaseDialogComponent {
     event.preventDefault();
     $(document).trigger('enableWaitScreen');
     let formData = new FormData(event.target);
-    let tagsValues = formData.getAll('tags');
     $.ajax({
       url: URLS.create_task,
       data: JSON.stringify({
         ...Object.fromEntries(formData.entries()),
-        tags: tagsValues,
+        tags: formData.getAll('tags'),
       }),
       type: 'POST',
       contentType: 'application/json',
@@ -72,20 +73,16 @@ class CreationFormDialog extends BaseDialogComponent {
     .done((taskData) => {
       $(document).trigger({
         type: 'addTask',
-        taskData: {
-          ...taskData,
-          tags: TAGS.filter(tag => tagsValues.includes(tag.id.toString())),
-        },
+        taskData: taskData,
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
     })
     .always(() => {
-      this.setState({
-        opened: false,
-      });
-      $(document).trigger('disableWaitScreen');
+      $(document)
+      .trigger('closeDialogWindow')
+      .trigger('disableWaitScreen');
     });
   }
 }

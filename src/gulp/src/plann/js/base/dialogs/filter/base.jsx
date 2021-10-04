@@ -46,11 +46,13 @@ class BaseFilterDialog extends BaseDialogComponent {
 
   /** Component did mount logic. */
   componentDidMount() {
+    super.componentDidMount();
     $(document).on(this.constructor.FILTER_EVENT_NAME, this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
+    super.componentWillUnmount();
     $(document).off(this.constructor.FILTER_EVENT_NAME, this._handleOpen);
   }
 
