@@ -1,6 +1,6 @@
 const React = require('react');
 
-
+const { MeaningChangingDialog } = require('../base/dialogs/changing/meaning.jsx');
 const { PriorityChangingDialog } = require('../base/dialogs/changing/priority.jsx');
 const { StatusChangingDialog } = require('../base/dialogs/changing/status.jsx');
 const { TagsChangingDialog } = require('../base/dialogs/changing/tags.jsx');
@@ -17,6 +17,10 @@ class TaskDialogs extends React.Component {
   render() {
     return (
       <div>
+        <MeaningChangingDialog
+          id={ this.props.id }
+          name={ this.props.name }
+          description={ this.props.description } />
         <PriorityChangingDialog id={ this.props.id } />
         <StatusChangingDialog id={ this.props.id } />
         <TagsChangingDialog id={ this.props.id } values={ this.props.tags } />

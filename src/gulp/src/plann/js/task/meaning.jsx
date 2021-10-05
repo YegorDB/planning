@@ -35,16 +35,35 @@ class TaskDescription extends React.Component {
 class TaskMeaning extends React.Component {
 
   /**
+   * Creation.
+   * @param {string} props.name - Task name.
+   * @param {string} props.description - Task description.
+   */
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
+
+  /**
    * Render.
    * @returns {React.Element}
    */
   render() {
     return (
-      <div className="task-meaning">
+      <div className="task-meaning" onClick={ this._handleClick } >
         <TaskName value={ this.props.name } />
         <TaskDescription value={ this.props.description } />
       </div>
     );
+  }
+
+  /**
+   * Click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClick(event) {
+    $(document).trigger('changeMeaningStart');
   }
 }
 
