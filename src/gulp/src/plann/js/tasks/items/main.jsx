@@ -6,6 +6,13 @@ const { Item } = require('./item/main.jsx');
 /** Tasks items. */
 class Items extends React.Component {
 
+  static STATUS_SORT_DATA = {
+    'IP': 3,
+    'NS': 2,
+    'DN': 1,
+    'CL': 0,
+  };
+
   /** Creation. */
   constructor(props) {
     super(props);
@@ -69,11 +76,21 @@ class Items extends React.Component {
    * @return {Array} Sorted items.
    */
   _sort(items) {
-    return items.sort((a, b) => {
-      if (a.priority > b.priority) return -1;
-      if (a.priority < b.priority) return 1;
-      return 0;
-    });
+    return (
+      items
+      .sort((a, b) => {
+        if (a.priority > b.priority) return -1;
+        if (a.priority < b.priority) return 1;
+        return 0;
+      })
+      .sort((a, b) => {
+        a = Items.STATUS_SORT_DATA[a.status];
+        b = Items.STATUS_SORT_DATA[b.status];
+        if (a > b) return -1;
+        if (a < b) return 1;
+        return 0;
+      })
+    );
   }
 
   /**
