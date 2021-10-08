@@ -21,10 +21,7 @@ class App extends React.Component {
       ...TASK_DATA,
     };
 
-    this._handleChangeMeaning = this._handleChangeMeaning.bind(this);
-    this._handleChangePriority = this._handleChangePriority.bind(this);
-    this._handleChangeStatus = this._handleChangeStatus.bind(this);
-    this._handleChangeTags = this._handleChangeTags.bind(this);
+    this._handleChange = this._handleChange.bind(this);
   }
 
   /**
@@ -54,63 +51,21 @@ class App extends React.Component {
 
   /** Component did mount logic. */
   componentDidMount() {
-    $(document).on('changeMeaning', this._handleChangeMeaning);
-    $(document).on('changePriority', this._handleChangePriority);
-    $(document).on('changeStatus', this._handleChangeStatus);
-    $(document).on('changeTags', this._handleChangeTags);
+    $(document).on('changeTask', this._handleChange);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    $(document).off('changeMeaning', this._handleChangeMeaning);
-    $(document).off('changePriority', this._handleChangePriority);
-    $(document).off('changeStatus', this._handleChangeStatus);
-    $(document).off('changeTags', this._handleChangeTags);
+    $(document).off('changeTask', this._handleChange);
   }
 
   /**
-   * Change priority handler.
+   * Change handler.
    * @private
    * @param {Event} event - DOM event.
    */
-  _handleChangeMeaning(event) {
-    this.setState({
-      name: event.name,
-      description: event.description,
-    });
-  }
-
-  /**
-   * Change priority handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleChangePriority(event) {
-    this.setState({
-      priority: event.value,
-    });
-  }
-
-  /**
-   * Change status handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleChangeStatus(event) {
-    this.setState({
-      status: event.value,
-    });
-  }
-
-  /**
-   * Change tags handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleChangeTags(event) {
-    this.setState({
-      tags: event.values,
-    });
+  _handleChange(event) {
+    this.setState(event.taskData);
   }
 }
 

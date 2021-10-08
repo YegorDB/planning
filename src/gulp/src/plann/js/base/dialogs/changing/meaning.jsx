@@ -51,9 +51,11 @@ class MeaningForm extends React.Component {
     })
     .done((taskData) => {
       $(document).trigger({
-        type: 'changeMeaning',
-        name: taskData.name,
-        description: taskData.description,
+        type: 'changeTask',
+        taskData: {
+          name: taskData.name,
+          description: taskData.description,
+        },
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {

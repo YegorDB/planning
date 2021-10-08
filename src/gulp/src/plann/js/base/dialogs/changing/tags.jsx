@@ -60,8 +60,10 @@ class TagsForm extends React.Component {
     })
     .done((taskData) => {
       $(document).trigger({
-        type: 'changeTags',
-        values: values,
+        type: 'changeTask',
+        taskData: {
+          tags: values,
+        },
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {

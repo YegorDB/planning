@@ -53,8 +53,10 @@ class StatusChangingDialogItem extends React.Component {
     })
     .done((taskData) => {
       $(document).trigger({
-        type: 'changeStatus',
-        value: this.props.value,
+        type: 'changeTask',
+        taskData: {
+          status: this.props.value,
+        },
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {

@@ -53,8 +53,10 @@ class PriorityChangingDialogItem extends React.Component {
     })
     .done((taskData) => {
       $(document).trigger({
-        type: 'changePriority',
-        value: this.props.value,
+        type: 'changeTask',
+        taskData: {
+          priority: this.props.value,
+        },
       });
     })
     .fail((jqXHR, textStatus, errorThrown) => {
