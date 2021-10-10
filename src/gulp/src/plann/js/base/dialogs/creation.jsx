@@ -1,7 +1,7 @@
 const { Parser: HtmlToReactParser } = require('html-to-react');
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent } = require('./base.jsx');
+const { BaseDialogComponent, Dialog } = require('./base.jsx');
 
 
 /** Creation form dialog. */
@@ -15,14 +15,12 @@ class CreationFormDialog extends BaseDialogComponent {
   }
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  get items() {
-    let parser = new HtmlToReactParser;
-
+  render() {
     return (
-      <div>
+      <Dialog opened={ this.state.opened }>
         <div id="tasks-creation-header" >
           <div>Create task</div>
         </div>
@@ -36,19 +34,17 @@ class CreationFormDialog extends BaseDialogComponent {
                    value="Create" />
           </div>
         </form>
-      </div>
+      </Dialog >
     );
   }
 
   /** Component did mount logic. */
   componentDidMount() {
-    super.componentDidMount();
     $(document).on('openCreationDialog', this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
-    super.componentWillUnmount();
     $(document).off('openCreationDialog', this._handleOpen);
   }
 
