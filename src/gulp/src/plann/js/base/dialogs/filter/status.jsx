@@ -1,24 +1,48 @@
 const classNames = require('classnames');
-const { BaseFilterDialog } = require('./base.jsx');
+const React = require('react');
+const { FilterDialogItemBadge, FilterDialog } = require('./base.jsx');
+
+
+/** Task status filter dialog item badge logic. */
+class StatusFilterDialogItemBadge extends React.Component {
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    let className = classNames(
+      'task-status-dialog-item',
+      'task-status-dialog-item-filter',
+      `task-status-${ this.props.value.toLowerCase() }`,
+    );
+
+    return (
+      <FilterDialogItemBadge
+        name={ this.props.name }
+        inputId={ this.props.inputId }
+        className={ className } />
+    );
+  }
+}
 
 
 /** Task status filter dialog window logic. */
-class StatusFilterDialog extends BaseFilterDialog {
-
-  static FILTER_NAME = 'status';
-  static FILTER_EVENT_NAME = 'filterStatusStart';
+class StatusFilterDialog extends React.Component {
 
   /**
-   * Get item classes.
-   * @private
-   * @param {Object} value - Choice value;
-   * @return {string} Classes names;
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  _getItemClasses(value) {
-    return classNames(
-      'task-status-dialog-item',
-      'task-status-dialog-item-filter',
-      `task-status-${value.toLowerCase()}`,
+  render() {
+    return (
+      <FilterDialog
+        filterName="status"
+        filterEventName="filterStatusStart"
+        entries={ Object.entries(this.props.choices) }
+        ItemBadgeClass={ StatusFilterDialogItemBadge }
+        activeValues={ this.props.activeValues }
+      />
     );
   }
 }

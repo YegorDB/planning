@@ -19,8 +19,9 @@ class CreationFormDialog extends BaseDialogComponent {
    * @returns {React.Element}
    */
   render() {
+    let parser = new HtmlToReactParser;
     return (
-      <Dialog opened={ this.state.opened }>
+      <Dialog opened={ this.state.opened } >
         <div id="tasks-creation-header" >
           <div>Create task</div>
         </div>
@@ -40,11 +41,13 @@ class CreationFormDialog extends BaseDialogComponent {
 
   /** Component did mount logic. */
   componentDidMount() {
+    super.componentDidMount();
     $(document).on('openCreationDialog', this._handleOpen);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
+    super.componentWillUnmount();
     $(document).off('openCreationDialog', this._handleOpen);
   }
 

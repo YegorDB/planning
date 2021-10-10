@@ -1,110 +1,53 @@
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent } = require('../base.jsx');
+const { BaseDialogComponent, Dialog } = require('../base.jsx');
 
 
-/** Task status changing dialog window logic. */
-class BaseFilterDialog extends BaseDialogComponent {
-
-  static FILTER_NAME = null;
-  static FILTER_EVENT_NAME = null;
+/** Task filter dialog item input logic. */
+class FilterDialogItemInput extends React.Component {
 
   /**
    * Creation.
-   * @param {Object} props.choices - Data choices (value - name pairs).
+   * @param {string} props.value - Task filter dialog item value.
+   * @param {string} props.inputId - Task filter dialog item input id.
+   * @param {string[]} props.activeValues - Task filter dialog active values.
+   * @param {string[]} props.filterName - Task filter name.
    */
   constructor(props) {
     super(props);
-    this._entries = this._getEntries(props.choices);
+    this._handleChange = this._handleChange.bind(this);
   }
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render dialog item input.
+   * @returns {React.Element}
    */
-  get items() {
-    return this._entries.map(([value, name]) => {
-      let inputId = `filter-checkbox-${this.constructor.FILTER_NAME}-${value.toString().toLowerCase()}`;
+  render() {
+    return (
+      <input
+        type="checkbox"
+        id={ this.props.inputId }
+        value={ this.props.value }
+        onChange={ this._handleChange }
+        checked={ this.props.activeValues.includes(this.props.value) }
+        className="styled-checkbox" />
+    );
+  }
 
-      return (
-        <div key={ value } >
-          <input type="checkbox"
-                 id={ inputId }
-                 value={ value }
-                 onChange={ this._getItemChangeHandler(inputId, value) }
-                 checked={ this.props.activeValues.includes(value) }
-                 className="styled-checkbox" />
-          <label htmlFor={ inputId } />
-          <div className={ this._getItemClasses(value) }
-               onClick={ this._getItemClickHandler(inputId) } >
-            { name }
-          </div>
-        </div>
+  /**
+   * Change handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleChange(event) {
+    if (!event.target.checked) {
+      this._trigerSetFilterEvent(
+        this.props.activeValues
+        .filter(v => v != this.props.value)
       );
-    });
-  }
-
-  /** Component did mount logic. */
-  componentDidMount() {
-    super.componentDidMount();
-    $(document).on(this.constructor.FILTER_EVENT_NAME, this._handleOpen);
-  }
-
-  /** Component will unmount logic. */
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    $(document).off(this.constructor.FILTER_EVENT_NAME, this._handleOpen);
-  }
-
-  /**
-   * Get entries.
-   * @private
-   * @param {Object} choices - Value - name pairs;
-   * @return {Object[][]} Array of value - name pairs;
-   */
-  _getEntries(choices) {
-    return Object.entries(choices);
-  }
-
-  /**
-   * Get item classes.
-   * @private
-   * @abstract
-   * @param {string} value - Choice value;
-   * @return {string} Classes names;
-   */
-  _getItemClasses(value) {}
-
-  /**
-   * Get item click handler.
-   * @private
-   * @param {string} inputId - Item input id;
-   * @return {function} Click handler;
-   */
-  _getItemClickHandler(inputId) {
-    return (e) => {
-      $(`#${inputId} + label`).click();
-    };
-  }
-
-  /**
-   * Get item change handler.
-   * @private
-   * @param {string} inputId - Item input id;
-   * @param {string} value - Choice value;
-   * @return {function} Change handler;
-   */
-  _getItemChangeHandler(inputId, value) {
-    return (e) => {
-      if (!e.target.checked) {
-        this._trigerSetFilterEvent(
-          this.props.activeValues
-          .filter(v => v != value)
-        );
-      } else if (!this.props.activeValues.includes(value)) {
-        this._trigerSetFilterEvent([...this.props.activeValues, value]);
-      }
-    };
+    } else if (!this.props.activeValues.includes(this.props.value)) {
+      this._trigerSetFilterEvent([...this.props.activeValues, this.props.value]);
+    }
   }
 
   /**
@@ -115,13 +58,120 @@ class BaseFilterDialog extends BaseDialogComponent {
   _trigerSetFilterEvent(activeValues) {
     $(document).trigger({
       type: 'setFilter',
-      name: this.constructor.FILTER_NAME,
+      name: this.props.filterName,
       values: activeValues,
     });
   }
 }
 
 
+/** Task filter dialog item badge logic. */
+class FilterDialogItemBadge extends React.Component {
+
+  /**
+   * Creation.
+   * @param {string} props.name - Task filter dialog item name.
+   * @param {string} props.className - Task filter dialog item class name.
+   * @param {string} props.inputId - Task filter dialog item input id.
+   */
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
+
+  /**
+   * Render dialog item badge.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div className={ this.props.className }
+           onClick={ this._handleClick } >
+        { this.props.name }
+      </div>
+    );
+  }
+
+  /**
+   * Click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClick(event) {
+    $(`#${ this.props.inputId } + label`).click();
+  }
+}
+
+
+/** Task filter dialog item logic. */
+class FilterDialogItem extends React.Component {
+
+  /**
+   * Render dialog item.
+   * @returns {React.Element}
+   */
+  render() {
+    let val = this.props.value.toString().toLowerCase();
+    let inputId = `filter-checkbox-${ this.props.filterName }-${ val }`;
+    return (
+      <div>
+        <FilterDialogItemInput
+          value={ this.props.value }
+          inputId={ inputId }
+          activeValues={ this.props.activeValues }
+          filterName={ this.props.filterName } />
+        <label htmlFor={ inputId } />
+        <this.props.ItemBadgeClass
+          name={ this.props.name }
+          value={ this.props.value }
+          inputId={ inputId } />
+      </div>
+    );
+  }
+}
+
+
+/** Task status changing dialog window logic. */
+class FilterDialog extends BaseDialogComponent {
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <Dialog opened={ this.state.opened }>
+        {
+          this.props.entries.map(([value, name]) => (
+            <FilterDialogItem
+              key={ value }
+              name={ name }
+              value={ value }
+              activeValues={ this.props.activeValues }
+              filterName={ this.props.filterName }
+              ItemBadgeClass={ this.props.ItemBadgeClass }
+            />
+          ))
+        }
+      </Dialog >
+    );
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    super.componentDidMount();
+    $(document).on(this.props.filterEventName, this._handleOpen);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    $(document).off(this.props.filterEventName, this._handleOpen);
+  }
+}
+
+
 module.exports = {
-  BaseFilterDialog: BaseFilterDialog,
+  FilterDialogItemBadge: FilterDialogItemBadge,
+  FilterDialog: FilterDialog,
 };

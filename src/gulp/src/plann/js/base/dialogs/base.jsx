@@ -9,10 +9,20 @@ class BaseDialogComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { opened: !!props.opened };
+    this.state = { opened: false };
 
     this._handleOpen = this._handleOpen.bind(this);
     this._handleClose = this._handleClose.bind(this);
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    $(document).on('closeDialogWindow', this._handleClose);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    $(document).off('closeDialogWindow', this._handleClose);
   }
 
   /**
@@ -36,36 +46,41 @@ class BaseDialogComponent extends React.Component {
 
 
 /** Dialog logic. */
-class Dialog extends BaseDialogComponent {
+class Dialog extends React.Component {
+
+  /** Creation. */
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
 
   /**
    * Render dialog window.
    * @returns {React.Element}
    */
   render() {
-    let classes = classNames('dialog-window', {
-      'dialog-window-open': this.state.opened,
+    let className = classNames('dialog-window', {
+      'dialog-window-open': this.props.opened,
     });
 
     return (
-      <div className={ classes }
-           onClick={ this._handleClose } >
+      <div className={ className }
+           onClick={ this._handleClick } >
         <div className="dialog-window-content"
              onClick={(e) => { e.stopPropagation(); }} >
-          { props.children }
+          { this.props.children }
         </div>
       </div>
     );
   }
 
-  /** Component did mount logic. */
-  componentDidMount() {
-    $(document).on('closeDialogWindow', this._handleClose);
-  }
-
-  /** Component will unmount logic. */
-  componentWillUnmount() {
-    $(document).off('closeDialogWindow', this._handleClose);
+  /**
+   * Click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClick(event) {
+    $(document).trigger('closeDialogWindow');
   }
 }
 

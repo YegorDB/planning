@@ -1,34 +1,52 @@
 const classNames = require('classnames');
-const { BaseFilterDialog } = require('./base.jsx');
+const React = require('react');
+const { FilterDialogItemBadge, FilterDialog } = require('./base.jsx');
+
+
+/** Task priority filter dialog item badge logic. */
+class PriorityFilterDialogItemBadge extends React.Component {
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    let className = classNames(
+      'task-priority-dialog-item',
+      'task-priority-dialog-item-filter',
+      `task-priority-${ this.props.value }`,
+    );
+
+    return (
+      <FilterDialogItemBadge
+        name={ this.props.name }
+        inputId={ this.props.inputId }
+        className={ className } />
+    );
+  }
+}
 
 
 /** Task priority filter dialog window logic. */
-class PriorityFilterDialog extends BaseFilterDialog {
-
-  static FILTER_NAME = 'priority';
-  static FILTER_EVENT_NAME = 'filterPriorityStart';
+class PriorityFilterDialog extends React.Component {
 
   /**
-   * Get entries.
-   * @private
-   * @param {Object} choices - Value - name pairs;
-   * @return {Object[][]} Array of value - name pairs;
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  _getEntries(choices) {
-    return Object.entries(choices).reverse().map(([v, n]) => [parseInt(v), n]);
-  }
-
-  /**
-   * Get item classes.
-   * @private
-   * @param {Object} value - Choice value;
-   * @return {string} Classes names;
-   */
-  _getItemClasses(value) {
-    return classNames(
-      'task-priority-dialog-item',
-      'task-priority-dialog-item-filter',
-      `task-priority-${value}`,
+  render() {
+    return (
+      <FilterDialog
+        filterName="priority"
+        filterEventName="filterPriorityStart"
+        entries={
+          Object.entries(this.props.choices)
+          .reverse()
+          .map(([v, n]) => [parseInt(v), n])
+        }
+        ItemBadgeClass={ PriorityFilterDialogItemBadge }
+        activeValues={ this.props.activeValues }
+      />
     );
   }
 }
