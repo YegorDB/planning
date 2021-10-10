@@ -9,19 +9,34 @@ class BaseDialogComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { opened: false };
+    this.state = { opened: !!props.opened };
 
     this._handleOpen = this._handleOpen.bind(this);
     this._handleClose = this._handleClose.bind(this);
   }
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Open handler.
+   * @private
+   * @param {Event} event - DOM event.
    */
-  get items() {
-    return [];
+  _handleOpen(event) {
+    this.setState({ opened: true });
   }
+
+  /**
+   * Close handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClose(event) {
+    this.setState({ opened: false });
+  }
+}
+
+
+/** Dialog logic. */
+class Dialog extends BaseDialogComponent {
 
   /**
    * Render dialog window.
@@ -37,7 +52,7 @@ class BaseDialogComponent extends React.Component {
            onClick={ this._handleClose } >
         <div className="dialog-window-content"
              onClick={(e) => { e.stopPropagation(); }} >
-          { this.items }
+          { props.children }
         </div>
       </div>
     );
@@ -52,43 +67,10 @@ class BaseDialogComponent extends React.Component {
   componentWillUnmount() {
     $(document).off('closeDialogWindow', this._handleClose);
   }
-
-  /**
-   * Open handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleOpen(event) {
-    this.setState({ opened: true });
-    this._openAdditionalFunction(event);
-  }
-
-  /**
-   * Close handler.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _handleClose(event) {
-    this.setState({ opened: false });
-    this._closeAdditionalFunction(event);
-  }
-
-  /**
-   * Open additional.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _openAdditionalFunction(event) {}
-
-  /**
-   * Close additional.
-   * @private
-   * @param {Event} event - DOM event.
-   */
-  _closeAdditionalFunction(event) {}
 }
 
 
 module.exports = {
   BaseDialogComponent: BaseDialogComponent,
+  Dialog: Dialog,
 };
