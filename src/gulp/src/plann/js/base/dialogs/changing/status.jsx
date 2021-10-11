@@ -1,11 +1,12 @@
 const classNames = require('classnames');
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent } = require('../base.jsx');
+const { ChangingDialogItem } = require('./base.jsx');
+const { BaseDialog, DialogWrapper } = require('../base.jsx');
 
 
 /** Task status changing dialog item. */
-class StatusChangingDialogItem extends React.Component {
+class StatusChangingDialogItem extends ChangingDialogItem {
 
   /**
    * Creation.
@@ -42,50 +43,35 @@ class StatusChangingDialogItem extends React.Component {
    * @param {Event} event - DOM event.
    */
   _handleClick(event) {
-    $(document).trigger('enableWaitScreen');
-    $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${ this.props.id }/`),
-      data: JSON.stringify({
-        'status': this.props.value,
-      }),
-      type: 'PATCH',
-      contentType: 'application/json',
-    })
-    .done((taskData) => {
-      $(document).trigger({
-        type: 'changeTask',
-        taskData: {
-          status: this.props.value,
-        },
-      });
-    })
-    .fail((jqXHR, textStatus, errorThrown) => {
-      console.log('jqXHR', jqXHR);
-    })
-    .always(() => {
-      $(document)
-      .trigger('closeDialogWindow')
-      .trigger('disableWaitScreen');
+    this._changeTask({
+      'status': this.props.value,
     });
   }
 }
 
 
 /** Task status changing dialog window logic. */
-class StatusChangingDialog extends BaseDialogComponent {
+class StatusChangingDialog extends BaseDialog {
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  get items() {
-    return Object.entries(CHOISES.task.status).map(([value, name]) => {
-      return <StatusChangingDialogItem
-              id={ this.props.id }
-              value={ value }
-              name={ name }
-              key={ value } />;
-    });
+  render() {
+    return (
+      <DialogWrapper opened={ this.state.opened } >
+        {
+          Object.entries(CHOISES.task.status)
+          .map(([value, name]) => {
+            return <StatusChangingDialogItem
+                    id={ this.props.id }
+                    value={ value }
+                    name={ name }
+                    key={ value } />;
+          })
+        }
+      </DialogWrapper >
+    );
   }
 
   /** Component did mount logic. */

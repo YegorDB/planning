@@ -1,11 +1,11 @@
 const { Parser: HtmlToReactParser } = require('html-to-react');
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent, Dialog } = require('./base.jsx');
+const { BaseDialog, DialogWrapper } = require('./base.jsx');
 
 
 /** Creation form dialog. */
-class CreationFormDialog extends BaseDialogComponent {
+class CreationFormDialog extends BaseDialog {
 
   /** Creation. */
   constructor(props) {
@@ -21,7 +21,7 @@ class CreationFormDialog extends BaseDialogComponent {
   render() {
     let parser = new HtmlToReactParser;
     return (
-      <Dialog opened={ this.state.opened } >
+      <DialogWrapper opened={ this.state.opened } >
         <div id="tasks-creation-header" >
           <div>Create task</div>
         </div>
@@ -35,7 +35,7 @@ class CreationFormDialog extends BaseDialogComponent {
                    value="Create" />
           </div>
         </form>
-      </Dialog >
+      </DialogWrapper >
     );
   }
 

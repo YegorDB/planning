@@ -1,11 +1,12 @@
 const classNames = require('classnames');
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent } = require('../base.jsx');
+const { ChangingDialogItem } = require('./base.jsx');
+const { BaseDialog, DialogWrapper } = require('../base.jsx');
 
 
 /** Task priority changing dialog item. */
-class PriorityChangingDialogItem extends React.Component {
+class PriorityChangingDialogItem extends ChangingDialogItem {
 
   /**
    * Creation.
@@ -15,6 +16,7 @@ class PriorityChangingDialogItem extends React.Component {
    */
   constructor(props) {
     super(props);
+
     this._handleClick = this._handleClick.bind(this);
   }
 
@@ -42,50 +44,35 @@ class PriorityChangingDialogItem extends React.Component {
    * @param {Event} event - DOM event.
    */
   _handleClick(event) {
-    $(document).trigger('enableWaitScreen');
-    $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${ this.props.id }/`),
-      data: JSON.stringify({
-        'priority': this.props.value,
-      }),
-      type: 'PATCH',
-      contentType: 'application/json',
-    })
-    .done((taskData) => {
-      $(document).trigger({
-        type: 'changeTask',
-        taskData: {
-          priority: this.props.value,
-        },
-      });
-    })
-    .fail((jqXHR, textStatus, errorThrown) => {
-      console.log('jqXHR', jqXHR);
-    })
-    .always(() => {
-      $(document)
-      .trigger('closeDialogWindow')
-      .trigger('disableWaitScreen');
+    this._changeTask({
+      'priority': this.props.value,
     });
   }
 }
 
 
 /** Task priority changing dialog window logic. */
-class PriorityChangingDialog extends BaseDialogComponent {
+class PriorityChangingDialog extends BaseDialog {
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  get items() {
-    return Object.entries(CHOISES.task.priority).map(([value, name]) => {
-      return <PriorityChangingDialogItem
-              id={ this.props.id }
-              value={ value }
-              name={ name }
-              key={ value } />;
-    });
+  render() {
+    return (
+      <DialogWrapper opened={ this.state.opened } >
+        {
+          Object.entries(CHOISES.task.priority)
+          .map(([value, name]) => {
+            return <PriorityChangingDialogItem
+                    id={ this.props.id }
+                    value={ value }
+                    name={ name }
+                    key={ value } />;
+          })
+        }
+      </DialogWrapper >
+    );
   }
 
   /** Component did mount logic. */

@@ -1,6 +1,6 @@
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent, Dialog } = require('../base.jsx');
+const { BaseDialog, DialogWrapper } = require('../base.jsx');
 
 
 /** Task filter dialog item input logic. */
@@ -132,7 +132,7 @@ class FilterDialogItem extends React.Component {
 
 
 /** Task status changing dialog window logic. */
-class FilterDialog extends BaseDialogComponent {
+class FilterDialog extends BaseDialog {
 
   /**
    * Render dialog window.
@@ -140,7 +140,7 @@ class FilterDialog extends BaseDialogComponent {
    */
   render() {
     return (
-      <Dialog opened={ this.state.opened }>
+      <DialogWrapper opened={ this.state.opened } >
         {
           this.props.entries.map(([value, name]) => (
             <FilterDialogItem
@@ -153,7 +153,7 @@ class FilterDialog extends BaseDialogComponent {
             />
           ))
         }
-      </Dialog >
+      </DialogWrapper >
     );
   }
 

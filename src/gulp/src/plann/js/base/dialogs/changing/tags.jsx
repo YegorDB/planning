@@ -1,10 +1,11 @@
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent } = require('../base.jsx');
+const { ChangingDialogItem } = require('./base.jsx');
+const { BaseDialog, DialogWrapper } = require('../base.jsx');
 
 
 /** Tags form. */
-class TagsForm extends React.Component {
+class TagsForm extends ChangingDialogItem {
 
   /** Creation. */
   constructor(props) {
@@ -48,45 +49,28 @@ class TagsForm extends React.Component {
   /** Submit handler. */
   _handleSubmit(event) {
     event.preventDefault();
-    $(document).trigger('enableWaitScreen');
-    let values = (new FormData(event.target)).getAll('tags');
-    $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${ this.props.id }/`),
-      type: 'PATCH',
-      data: JSON.stringify({
-        'tags': values,
-      }),
-      contentType: 'application/json',
-    })
-    .done((taskData) => {
-      $(document).trigger({
-        type: 'changeTask',
-        taskData: {
-          tags: values,
-        },
-      });
-    })
-    .fail((jqXHR, textStatus, errorThrown) => {
-      console.log('jqXHR', jqXHR);
-    })
-    .always(() => {
-      $(document)
-      .trigger('closeDialogWindow')
-      .trigger('disableWaitScreen');
+    this._changeTask({
+      'tags': (new FormData(event.target)).getAll('tags'),
     });
   }
 }
 
 
 /** Tags changing dialog. */
-class TagsChangingDialog extends BaseDialogComponent {
+class TagsChangingDialog extends BaseDialog {
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  get items() {
-    return <TagsForm id={ this.props.id } values={ this.props.values } />;
+  render() {
+    return (
+      <DialogWrapper opened={ this.state.opened } >
+        <TagsForm
+          id={ this.props.id }
+          values={ this.props.values } />
+      </DialogWrapper >
+    );
   }
 
   /** Component did mount logic. */

@@ -3,7 +3,7 @@ const React = require('react');
 
 
 /** Base dialog logic. */
-class BaseDialogComponent extends React.Component {
+class BaseDialog extends React.Component {
 
   /** Creation. */
   constructor(props) {
@@ -45,8 +45,8 @@ class BaseDialogComponent extends React.Component {
 }
 
 
-/** Dialog logic. */
-class Dialog extends React.Component {
+/** Dialog wrapper logic. */
+class DialogWrapper extends React.Component {
 
   /** Creation. */
   constructor(props) {
@@ -86,6 +86,6 @@ class Dialog extends React.Component {
 
 
 module.exports = {
-  BaseDialogComponent: BaseDialogComponent,
-  Dialog: Dialog,
+  BaseDialog: BaseDialog,
+  DialogWrapper: DialogWrapper,
 };

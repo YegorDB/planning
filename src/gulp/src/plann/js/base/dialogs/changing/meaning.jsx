@@ -1,10 +1,11 @@
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialogComponent } = require('../base.jsx');
+const { ChangingDialogItem } = require('./base.jsx');
+const { BaseDialog, DialogWrapper } = require('../base.jsx');
 
 
 /** Meaning form. */
-class MeaningForm extends React.Component {
+class MeaningForm extends ChangingDialogItem {
 
   /** Creation. */
   constructor(props) {
@@ -40,48 +41,28 @@ class MeaningForm extends React.Component {
   /** Submit handler. */
   _handleSubmit(event) {
     event.preventDefault();
-    $(document).trigger('enableWaitScreen');
-    $.ajax({
-      url: URLS.update_task.replace(/\d+\/$/, `${ this.props.id }/`),
-      type: 'PATCH',
-      data: JSON.stringify(
-        Object.fromEntries((new FormData(event.target)).entries())
-      ),
-      contentType: 'application/json',
-    })
-    .done((taskData) => {
-      $(document).trigger({
-        type: 'changeTask',
-        taskData: {
-          name: taskData.name,
-          description: taskData.description,
-        },
-      });
-    })
-    .fail((jqXHR, textStatus, errorThrown) => {
-      console.log('jqXHR', jqXHR);
-    })
-    .always(() => {
-      $(document)
-      .trigger('closeDialogWindow')
-      .trigger('disableWaitScreen');
-    });
+    this._changeTask(
+      Object.fromEntries((new FormData(event.target)).entries()));
   }
 }
 
 
 /** Meaning changing dialog. */
-class MeaningChangingDialog extends BaseDialogComponent {
+class MeaningChangingDialog extends BaseDialog {
 
   /**
-   * Dialog items.
-   * @returns {React.Element[]}
+   * Render dialog window.
+   * @returns {React.Element}
    */
-  get items() {
-    return <MeaningForm
-            id={ this.props.id }
-            name={ this.props.name }
-            description={ this.props.description } />;
+  render() {
+    return (
+      <DialogWrapper opened={ this.state.opened } >
+        <MeaningForm
+          id={ this.props.id }
+          name={ this.props.name }
+          description={ this.props.description } />
+      </DialogWrapper >
+    );
   }
 
   /** Component did mount logic. */
