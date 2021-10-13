@@ -7,30 +7,19 @@ const { ItemStatus } = require('./status.jsx');
 /** Tasks item. */
 class Item extends React.Component {
 
-  /** Creation. */
-  constructor(props) {
-    super(props);
-
-    this._handleClick = this._handleClick.bind(this);
-  }
-
   /**
    * Render.
    * @returns {React.Element}
    */
   render() {
     return (
-      <div className="task-item"
-           onClick={ this._handleClick } >
+      <a className="task-item"
+         href={ `/task/${this.props.taskData.id}/` } >
         <ItemPriority value={ this.props.taskData.priority } />
         <ItemMeaning name={ this.props.taskData.name } />
         <ItemStatus value={ this.props.taskData.status } />
-      </div>
+      </a>
     );
-  }
-
-  _handleClick() {
-    document.location.assign(`/task/${this.props.taskData.id}/`);
   }
 }
 
