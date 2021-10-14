@@ -49,6 +49,7 @@ class UserTasks(generics.ListAPIView):
     '''
 
     serializer_class = TaskListSerializer
+    filterset_fields = ['priority', 'status']
 
     def get_queryset(self):
         return self.request.user.tasks.order_by('-priority')

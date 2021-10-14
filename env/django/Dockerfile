@@ -1,4 +1,4 @@
-FROM python:3.9.1
+FROM python:3.9.7
 
 ADD ./requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip && \
