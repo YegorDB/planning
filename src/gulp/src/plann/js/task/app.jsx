@@ -31,8 +31,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TaskMeaning name={ this.state.name }
-                     description={ this.state.description } />
+        <TaskMeaning
+          name={ this.state.name }
+          description={ this.state.description } />
         <div className="task-content" >
           <TaskDatetimes creation={ this.state.creation_datetime } />
           <TaskPriority value={ this.state.priority } />
@@ -40,10 +41,10 @@ class App extends React.Component {
           <TaskTags values={ this.state.tags } />
         </div>
         <TaskDialogs
-         id={ this.state.id }
-         name={ this.state.name }
-         description={ this.state.description }
-         tags={ this.state.tags } />
+          id={ this.state.id }
+          name={ this.state.name }
+          description={ this.state.description }
+          tags={ this.state.tags } />
         <WaitScreen />
       </div>
     );

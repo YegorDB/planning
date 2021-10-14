@@ -1,6 +1,6 @@
 const React = require('react');
 
-const { CreationFormDialog } = require('../base/dialogs/creation.jsx');
+const { CreationDialog } = require('../base/dialogs/creation.jsx');
 const { PriorityFilterDialog } = require('../base/dialogs/filter/priority.jsx');
 const { StatusFilterDialog } = require('../base/dialogs/filter/status.jsx');
 
@@ -15,11 +15,13 @@ class TasksDialogs extends React.Component {
   render() {
     return (
       <div>
-        <StatusFilterDialog choices={ CHOISES.task.status }
-                            activeValues={ this.props.filters.status }/>
-        <PriorityFilterDialog choices={ CHOISES.task.priority }
-                              activeValues={ this.props.filters.priority }/>
-        <CreationFormDialog />
+        <StatusFilterDialog
+          choices={ CHOISES.task.status }
+          activeValues={ this.props.filters.status } />
+        <PriorityFilterDialog
+          choices={ CHOISES.task.priority }
+          activeValues={ this.props.filters.priority } />
+        <CreationDialog />
       </div>
     );
   }

@@ -20,27 +20,32 @@ class TagsForm extends ChangingDialogItem {
    */
   render() {
     return (
-      <form id="change-tags-form"
-            onSubmit={ this._handleSubmit } >
+      <form
+        id="change-tags-form"
+        onSubmit={ this._handleSubmit } >
         <div>
-          <select name="tags" defaultValue={ this.props.values } multiple >
+          <select
+            name="tags"
+            defaultValue={ this.props.values }
+            multiple >
             {
-              Object.keys(TAGS).map(id => {
-                return (
-                  <option
-                    value={ id }
-                    key={ id } >
-                    { TAGS[id] }
-                  </option>
-                );
-              })
+              Object.keys(TAGS)
+              .map(id =>
+                <option
+                  value={ id }
+                  key={ id } >
+                  { TAGS[id] }
+                </option>
+              )
             }
           </select>
         </div>
-        <div className="form-submit-button-box">
-          <input className="button-default"
-                 type="submit"
-                 value="Change" />
+        <div
+          className="form-submit-button-box">
+          <input
+            className="button-default"
+            type="submit"
+            value="Change" />
         </div>
       </form>
     );

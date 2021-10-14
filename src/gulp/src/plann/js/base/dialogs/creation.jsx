@@ -5,7 +5,7 @@ const { BaseDialog, DialogWrapper } = require('./base.jsx');
 
 
 /** Creation form dialog. */
-class CreationFormDialog extends BaseDialog {
+class CreationForm extends React.Component {
 
   /** Creation. */
   constructor(props) {
@@ -21,34 +21,21 @@ class CreationFormDialog extends BaseDialog {
   render() {
     let parser = new HtmlToReactParser;
     return (
-      <DialogWrapper opened={ this.state.opened } >
-        <div id="tasks-creation-header" >
-          <div>Create task</div>
+      <form
+        id="tasks-creation-form"
+        onSubmit={ this._handleSubmit } >
+
+        { parser.parse(CREATE_TASK_RAW_FORM) }
+
+        <div className="form-submit-button-box">
+          <input
+            id="tasks-creation-form-button"
+            className="button-default"
+            type="submit"
+            value="Create" />
         </div>
-        <form id="tasks-creation-form"
-              onSubmit={ this._handleSubmit } >
-          { parser.parse(CREATE_TASK_RAW_FORM) }
-          <div className="form-submit-button-box">
-            <input id="tasks-creation-form-button"
-                   className="button-default"
-                   type="submit"
-                   value="Create" />
-          </div>
-        </form>
-      </DialogWrapper >
+      </form>
     );
-  }
-
-  /** Component did mount logic. */
-  componentDidMount() {
-    super.componentDidMount();
-    $(document).on('openCreationDialog', this._handleOpen);
-  }
-
-  /** Component will unmount logic. */
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    $(document).off('openCreationDialog', this._handleOpen);
   }
 
   /**
@@ -87,6 +74,39 @@ class CreationFormDialog extends BaseDialog {
 }
 
 
+/** Creation form dialog. */
+class CreationDialog extends BaseDialog {
+
+  /**
+   * Render dialog window.
+   * @returns {React.Element}
+   */
+  render() {
+    let parser = new HtmlToReactParser;
+    return (
+      <DialogWrapper opened={ this.state.opened } >
+        <div id="tasks-creation-header" >
+          <div>Create task</div>
+        </div>
+        <CreationForm />
+      </DialogWrapper >
+    );
+  }
+
+  /** Component did mount logic. */
+  componentDidMount() {
+    super.componentDidMount();
+    $(document).on('openCreationDialog', this._handleOpen);
+  }
+
+  /** Component will unmount logic. */
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    $(document).off('openCreationDialog', this._handleOpen);
+  }
+}
+
+
 module.exports = {
-  CreationFormDialog: CreationFormDialog,
+  CreationDialog: CreationDialog,
 };

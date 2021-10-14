@@ -85,8 +85,9 @@ class FilterDialogItemBadge extends React.Component {
    */
   render() {
     return (
-      <div className={ this.props.className }
-           onClick={ this._handleClick } >
+      <div
+        className={ this.props.className }
+        onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );
@@ -142,7 +143,8 @@ class FilterDialog extends BaseDialog {
     return (
       <DialogWrapper opened={ this.state.opened } >
         {
-          this.props.entries.map(([value, name]) => (
+          this.props.entries
+          .map(([value, name]) =>
             <FilterDialogItem
               key={ value }
               name={ name }
@@ -151,7 +153,7 @@ class FilterDialog extends BaseDialog {
               filterName={ this.props.filterName }
               ItemBadgeClass={ this.props.ItemBadgeClass }
             />
-          ))
+          )
         }
       </DialogWrapper >
     );

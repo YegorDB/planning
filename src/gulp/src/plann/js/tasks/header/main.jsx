@@ -13,11 +13,13 @@ class Header extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    return <div id="header" >
-             <CreationButton />
-             <PriorityFilterButton />
-             <StatusFilterButton />
-           </div>;
+    return (
+      <div id="header" >
+        <CreationButton />
+        <PriorityFilterButton />
+        <StatusFilterButton />
+      </div>
+    );
   }
 }
 

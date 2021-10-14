@@ -26,8 +26,9 @@ class TaskPriorityBadge extends React.Component {
     );
 
     return (
-      <div className={ className }
-           onClick={ this._handleClick } >
+      <div
+        className={ className }
+        onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );
@@ -55,8 +56,9 @@ class TaskPriority extends React.Component {
     return (
       <div>
         <h2>{ 'Priority' }</h2>
-        <TaskPriorityBadge name={ CHOISES.task.priority[this.props.value] }
-                           value={ this.props.value } />
+        <TaskPriorityBadge
+          name={ CHOISES.task.priority[this.props.value] }
+          value={ this.props.value } />
       </div>
     );
   }

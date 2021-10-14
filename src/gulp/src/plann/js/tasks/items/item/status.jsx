@@ -16,8 +16,9 @@ class ItemStatus extends React.Component {
     );
 
     return (
-      <div className={ className }
-           title={ CHOISES.task.status[this.props.value] }>
+      <div
+        className={ className }
+        title={ CHOISES.task.status[this.props.value] } >
       </div>
     );
   }

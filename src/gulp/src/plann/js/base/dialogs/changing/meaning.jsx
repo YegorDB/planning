@@ -20,19 +20,25 @@ class MeaningForm extends ChangingDialogItem {
    */
   render() {
     return (
-      <form id="change-meaning-form"
-            onSubmit={ this._handleSubmit } >
+      <form
+        id="change-meaning-form"
+        onSubmit={ this._handleSubmit } >
         <div>
-          <input name="name" defaultValue={ this.props.name } />
+          <input
+            name="name"
+            defaultValue={ this.props.name } />
         </div>
         <div>
-          <textarea name="description" defaultValue={ this.props.description } >
+          <textarea
+            name="description"
+            defaultValue={ this.props.description } >
           </textarea>
         </div>
         <div className="form-submit-button-box">
-          <input className="button-default"
-                 type="submit"
-                 value="Change" />
+          <input
+            className="button-default"
+            type="submit"
+            value="Change" />
         </div>
       </form>
     );

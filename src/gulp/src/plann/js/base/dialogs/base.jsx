@@ -64,10 +64,12 @@ class DialogWrapper extends React.Component {
     });
 
     return (
-      <div className={ className }
-           onClick={ this._handleClick } >
-        <div className="dialog-window-content"
-             onClick={(e) => { e.stopPropagation(); }} >
+      <div
+        className={ className }
+        onClick={ this._handleClick } >
+        <div
+          className="dialog-window-content"
+          onClick={(e) => { e.stopPropagation(); }} >
           { this.props.children }
         </div>
       </div>

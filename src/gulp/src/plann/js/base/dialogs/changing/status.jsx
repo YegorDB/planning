@@ -30,8 +30,9 @@ class StatusChangingDialogItem extends ChangingDialogItem {
     );
 
     return (
-      <div className={ classes }
-           onClick={ this._handleClick } >
+      <div
+        className={ classes }
+        onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );
@@ -62,13 +63,13 @@ class StatusChangingDialog extends BaseDialog {
       <DialogWrapper opened={ this.state.opened } >
         {
           Object.entries(CHOISES.task.status)
-          .map(([value, name]) => {
-            return <StatusChangingDialogItem
-                    id={ this.props.id }
-                    value={ value }
-                    name={ name }
-                    key={ value } />;
-          })
+          .map(([value, name]) =>
+            <StatusChangingDialogItem
+              id={ this.props.id }
+              value={ value }
+              name={ name }
+              key={ value } />
+          )
         }
       </DialogWrapper >
     );

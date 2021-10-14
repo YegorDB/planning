@@ -16,10 +16,13 @@ class PriorityFilterButton extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    return <div onClick={ this._handleClick }
-                className="button button-default filter-button" >
-             Priorities
-           </div>;
+    return (
+      <div
+        onClick={ this._handleClick }
+        className="button button-default filter-button" >
+        Priorities
+      </div>
+    );
   }
 
   /**

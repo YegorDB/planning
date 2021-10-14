@@ -26,8 +26,9 @@ class TaskStatusBadge extends React.Component {
     );
 
     return (
-      <div className={ className }
-           onClick={ this._handleClick } >
+      <div
+        className={ className }
+        onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );
@@ -55,8 +56,9 @@ class TaskStatus extends React.Component {
     return (
       <div>
         <h2>{ 'Status' }</h2>
-        <TaskStatusBadge name={ CHOISES.task.status[this.props.value] }
-                         value={ this.props.value } />
+        <TaskStatusBadge
+          name={ CHOISES.task.status[this.props.value] }
+          value={ this.props.value } />
       </div>
     );
   }

@@ -11,7 +11,8 @@ class ItemPriorityValue extends React.Component {
   render() {
     return (
       <div className="task-item-priority-value" >
-        <div className={ `task-item-priority-value-${this.props.value}` } ></div>
+        <div className={ `task-item-priority-value-${this.props.value}` } >
+        </div>
       </div>
     );
   }
@@ -33,8 +34,9 @@ class ItemPriority extends React.Component {
 
     return (
       <div className="task-item-priority">
-        <div className="task-item-priority-values"
-             title={ CHOISES.task.priority[this.props.value] } >
+        <div
+          className="task-item-priority-values"
+          title={ CHOISES.task.priority[this.props.value] } >
           { values }
         </div>
       </div>
