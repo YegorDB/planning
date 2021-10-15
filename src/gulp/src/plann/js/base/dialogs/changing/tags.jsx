@@ -1,7 +1,7 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 const { ChangingDialogItem } = require('./base.jsx');
-const { BaseDialog, DialogWrapper } = require('../base.jsx');
+const { BaseDialog, DialogWrapper, FormSubmit } = require('../base.jsx');
 
 
 /** Tags form. */
@@ -20,33 +20,20 @@ class TagsForm extends ChangingDialogItem {
    */
   render() {
     return (
-      <form
-        id="change-tags-form"
-        onSubmit={ this._handleSubmit } >
+      <form id="change-tags-form" onSubmit={ this._handleSubmit } >
         <div>
-          <select
-            name="tags"
-            defaultValue={ this.props.values }
-            multiple >
+          <select name="tags" defaultValue={ this.props.values } multiple >
             {
               Object.keys(TAGS)
               .map(id =>
-                <option
-                  value={ id }
-                  key={ id } >
+                <option value={ id } key={ id } >
                   { TAGS[id] }
                 </option>
               )
             }
           </select>
         </div>
-        <div
-          className="form-submit-button-box">
-          <input
-            className="button-default"
-            type="submit"
-            value="Change" />
-        </div>
+        <FormSubmit value="Change" />
       </form>
     );
   }
@@ -71,9 +58,7 @@ class TagsChangingDialog extends BaseDialog {
   render() {
     return (
       <DialogWrapper opened={ this.state.opened } >
-        <TagsForm
-          id={ this.props.id }
-          values={ this.props.values } />
+        <TagsForm id={ this.props.id } values={ this.props.values } />
       </DialogWrapper >
     );
   }

@@ -85,9 +85,7 @@ class FilterDialogItemBadge extends React.Component {
    */
   render() {
     return (
-      <div
-        className={ this.props.className }
-        onClick={ this._handleClick } >
+      <div className={ this.props.className } onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );

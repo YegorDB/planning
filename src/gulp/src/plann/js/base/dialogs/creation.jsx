@@ -1,7 +1,7 @@
 const { Parser: HtmlToReactParser } = require('html-to-react');
 const $ = require('jquery-browserify');
 const React = require('react');
-const { BaseDialog, DialogWrapper } = require('./base.jsx');
+const { BaseDialog, DialogWrapper, FormSubmit } = require('./base.jsx');
 
 
 /** Creation form dialog. */
@@ -21,19 +21,9 @@ class CreationForm extends React.Component {
   render() {
     let parser = new HtmlToReactParser;
     return (
-      <form
-        id="tasks-creation-form"
-        onSubmit={ this._handleSubmit } >
-
+      <form id="tasks-creation-form" onSubmit={ this._handleSubmit } >
         { parser.parse(CREATE_TASK_RAW_FORM) }
-
-        <div className="form-submit-button-box">
-          <input
-            id="tasks-creation-form-button"
-            className="button-default"
-            type="submit"
-            value="Create" />
-        </div>
+        <FormSubmit value="Create" />
       </form>
     );
   }

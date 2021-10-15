@@ -50,9 +50,7 @@ class TaskMeaning extends React.Component {
    */
   render() {
     return (
-      <div
-        className="task-meaning"
-        onClick={ this._handleClick } >
+      <div className="task-meaning" onClick={ this._handleClick } >
         <TaskName value={ this.props.name } />
         <TaskDescription value={ this.props.description } />
       </div>

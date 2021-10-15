@@ -1,7 +1,7 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 const { ChangingDialogItem } = require('./base.jsx');
-const { BaseDialog, DialogWrapper } = require('../base.jsx');
+const { BaseDialog, DialogWrapper, FormSubmit } = require('../base.jsx');
 
 
 /** Meaning form. */
@@ -20,26 +20,15 @@ class MeaningForm extends ChangingDialogItem {
    */
   render() {
     return (
-      <form
-        id="change-meaning-form"
-        onSubmit={ this._handleSubmit } >
+      <form id="change-meaning-form" onSubmit={ this._handleSubmit } >
         <div>
-          <input
-            name="name"
-            defaultValue={ this.props.name } />
+          <input name="name" defaultValue={ this.props.name } />
         </div>
         <div>
-          <textarea
-            name="description"
-            defaultValue={ this.props.description } >
+          <textarea name="description" defaultValue={ this.props.description } >
           </textarea>
         </div>
-        <div className="form-submit-button-box">
-          <input
-            className="button-default"
-            type="submit"
-            value="Change" />
-        </div>
+        <FormSubmit value="Change" />
       </form>
     );
   }

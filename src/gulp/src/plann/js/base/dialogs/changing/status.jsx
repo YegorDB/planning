@@ -30,9 +30,7 @@ class StatusChangingDialogItem extends ChangingDialogItem {
     );
 
     return (
-      <div
-        className={ classes }
-        onClick={ this._handleClick } >
+      <div className={ classes } onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );

@@ -26,9 +26,7 @@ class TaskStatusBadge extends React.Component {
     );
 
     return (
-      <div
-        className={ className }
-        onClick={ this._handleClick } >
+      <div className={ className } onClick={ this._handleClick } >
         { this.props.name }
       </div>
     );

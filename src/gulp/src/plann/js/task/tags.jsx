@@ -28,9 +28,7 @@ class TaskTagsList extends React.Component {
         {
           this.props.values
           .map(id =>
-            <Tag
-              value={ TAGS[id] }
-              key={ id } />
+            <Tag value={ TAGS[id] } key={ id } />
           )
         }
       </div>

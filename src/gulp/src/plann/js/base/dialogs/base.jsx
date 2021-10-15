@@ -64,9 +64,7 @@ class DialogWrapper extends React.Component {
     });
 
     return (
-      <div
-        className={ className }
-        onClick={ this._handleClick } >
+      <div className={ className } onClick={ this._handleClick } >
         <div
           className="dialog-window-content"
           onClick={(e) => { e.stopPropagation(); }} >
@@ -87,7 +85,28 @@ class DialogWrapper extends React.Component {
 }
 
 
+/** Form submit. */
+class FormSubmit extends React.Component {
+
+  /**
+   * Render.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div className="form-submit-button-box">
+        <input
+          className="button button-default"
+          type="submit"
+          value={ this.props.value } />
+      </div>
+    );
+  }
+}
+
+
 module.exports = {
   BaseDialog: BaseDialog,
   DialogWrapper: DialogWrapper,
+  FormSubmit: FormSubmit,
 };
