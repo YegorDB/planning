@@ -1,5 +1,6 @@
 from rest_framework import generics
 
+from plann.filters import TaskFilterSet
 from plann.serializers import TaskSerializer, TaskListSerializer
 
 
@@ -49,7 +50,7 @@ class UserTasks(generics.ListAPIView):
     '''
 
     serializer_class = TaskListSerializer
-    filterset_fields = ['priority', 'status']
+    filterset_class = TaskFilterSet
 
     def get_queryset(self):
         return self.request.user.tasks.order_by('-status', '-priority')
