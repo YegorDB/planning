@@ -19,14 +19,6 @@ class Items extends React.Component {
     this._getTasksData();
   }
 
-  /**
-   * Items.
-   * @returns {Object[]} Stack items data.
-   */
-  get items() {
-    return this._filter(this.state.items);
-  }
-
   /** Component did mount logic. */
   componentDidMount() {
     $(document).on('addTask', this._handleAddTask);
@@ -37,6 +29,16 @@ class Items extends React.Component {
     $(document).off('addTask', this._handleAddTask);
   }
 
+  /** Component did update logic. */
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    for (let k of Object.keys(this.props.filters)) {
+      if (this.props.filters[k].join() !== prevProps.filters[k].join()) {
+        this._getTasksData();
+        return;
+      }
+    }
+  }
+
   /**
    * Render.
    * @returns {React.Element}
@@ -44,22 +46,14 @@ class Items extends React.Component {
   render() {
     return (
       <div className="task-items" >
-        { this.items.map(data => <Item taskData={ data } key={ data.id } />) }
+        {
+          this.state.items
+          .map(data =>
+            <Item taskData={ data } key={ data.id } />
+          )
+        }
       </div>
     );
-  }
-
-  /**
-   * Filter items.
-   * @private
-   * @param {Array} items - Tasks items array.
-   * @return {Array} Filtered items.
-   */
-  _filter(items) {
-    for (let key of Object.keys(this.props.filters)) {
-      items = items.filter(item => this.props.filters[key].includes(item[key]));
-    }
-    return items;
   }
 
   /**
@@ -69,6 +63,10 @@ class Items extends React.Component {
   _getTasksData() {
     $.ajax({
       url: URLS.user_tasks,
+      data: {
+        priority__in: this.props.filters.priority,
+        status__in: this.props.filters.status,
+      },
     })
     .done((data) => {
       this.setState({
