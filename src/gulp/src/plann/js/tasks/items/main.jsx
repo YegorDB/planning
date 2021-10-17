@@ -6,19 +6,12 @@ const { Item } = require('./item/main.jsx');
 /** Tasks items. */
 class Items extends React.Component {
 
-  static STATUS_SORT_DATA = {
-    'IP': 3,
-    'NS': 2,
-    'DN': 1,
-    'CL': 0,
-  };
-
   /** Creation. */
   constructor(props) {
     super(props);
 
     this.state = {
-      items: {},
+      items: [],
     };
 
     this._handleAddTask = this._handleAddTask.bind(this);
@@ -31,7 +24,7 @@ class Items extends React.Component {
    * @returns {Object[]} Stack items data.
    */
   get items() {
-    return this._sort(this._filter(Object.values(this.state.items)));
+    return this._filter(this.state.items);
   }
 
   /** Component did mount logic. */
@@ -70,30 +63,6 @@ class Items extends React.Component {
   }
 
   /**
-   * Sort items.
-   * @private
-   * @param {Array} items - Tasks items array.
-   * @return {Array} Sorted items.
-   */
-  _sort(items) {
-    return (
-      items
-      .sort((a, b) => {
-        if (a.priority > b.priority) return -1;
-        if (a.priority < b.priority) return 1;
-        return 0;
-      })
-      .sort((a, b) => {
-        a = Items.STATUS_SORT_DATA[a.status];
-        b = Items.STATUS_SORT_DATA[b.status];
-        if (a > b) return -1;
-        if (a < b) return 1;
-        return 0;
-      })
-    );
-  }
-
-  /**
    * Get tasks data.
    * @private
    */
@@ -102,12 +71,8 @@ class Items extends React.Component {
       url: URLS.user_tasks,
     })
     .done((data) => {
-      let items = {};
-      for (let item of data) {
-        items[item.id] = item;
-      }
       this.setState({
-        items: items,
+        items: data,
       });
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
@@ -121,12 +86,7 @@ class Items extends React.Component {
    * @param {Event} event - DOM event.
    */
   _handleAddTask(event) {
-    this.setState(state => ({
-      items: {
-        ...state.items,
-        [event.taskData.id]: event.taskData,
-      },
-    }));
+    this._getTasksData();
   }
 }
 

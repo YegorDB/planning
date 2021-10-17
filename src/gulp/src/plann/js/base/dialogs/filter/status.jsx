@@ -14,7 +14,7 @@ class StatusFilterDialogItemBadge extends React.Component {
     let className = classNames(
       'task-status-dialog-item',
       'task-status-dialog-item-filter',
-      `task-status-${ this.props.value.toLowerCase() }`,
+      `task-status-${ this.props.value }`,
     );
 
     return (
@@ -39,7 +39,10 @@ class StatusFilterDialog extends React.Component {
       <FilterDialog
         filterName="status"
         filterEventName="filterStatusStart"
-        entries={ Object.entries(this.props.choices) }
+        entries={
+          Object.entries(this.props.choices)
+          .map(([v, n]) => [parseInt(v), n])
+        }
         ItemBadgeClass={ StatusFilterDialogItemBadge }
         activeValues={ this.props.activeValues }
       />

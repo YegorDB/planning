@@ -41,7 +41,6 @@ class PriorityFilterDialog extends React.Component {
         filterEventName="filterPriorityStart"
         entries={
           Object.entries(this.props.choices)
-          .reverse()
           .map(([v, n]) => [parseInt(v), n])
         }
         ItemBadgeClass={ PriorityFilterDialogItemBadge }

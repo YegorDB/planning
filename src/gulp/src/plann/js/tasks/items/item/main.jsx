@@ -14,7 +14,7 @@ class Item extends React.Component {
   render() {
     return (
       <a className="task-item"
-         href={ `/task/${this.props.taskData.id}/` } >
+         href={ `/task/${ this.props.taskData.id }/` } >
         <ItemPriority value={ this.props.taskData.priority } />
         <ItemMeaning name={ this.props.taskData.name } />
         <ItemStatus value={ this.props.taskData.status } />

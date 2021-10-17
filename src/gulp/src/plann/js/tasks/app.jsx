@@ -26,7 +26,9 @@ class App extends React.Component {
         [App.FILTER_PRIORITY]: (
           Object.keys(CHOISES.task.priority).map(p => parseInt(p))
         ),
-        [App.FILTER_STATUS]: Object.keys(CHOISES.task.status),
+        [App.FILTER_STATUS]: (
+          Object.keys(CHOISES.task.status).map(p => parseInt(p))
+        ),
       }
     };
 

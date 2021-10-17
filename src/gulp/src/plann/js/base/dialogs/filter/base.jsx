@@ -110,8 +110,9 @@ class FilterDialogItem extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    let val = this.props.value.toString().toLowerCase();
-    let inputId = `filter-checkbox-${ this.props.filterName }-${ val }`;
+    let inputId = (
+      `filter-checkbox-${ this.props.filterName }-${ this.props.value }`
+    );
     return (
       <div>
         <FilterDialogItemInput

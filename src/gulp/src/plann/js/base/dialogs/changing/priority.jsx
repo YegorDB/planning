@@ -27,7 +27,7 @@ class PriorityChangingDialogItem extends ChangingDialogItem {
   render() {
     let classes = classNames(
       'task-priority-dialog-item',
-      `task-priority-${ this.props.value.toLowerCase() }`,
+      `task-priority-${ this.props.value }`,
     );
 
     return (

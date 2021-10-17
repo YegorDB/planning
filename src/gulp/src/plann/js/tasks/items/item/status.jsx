@@ -12,7 +12,7 @@ class ItemStatus extends React.Component {
   render() {
     let className = classNames(
       'task-item-status',
-      `task-item-status-${this.props.value.toLowerCase()}`,
+      `task-item-status-${ this.props.value }`,
     );
 
     return (

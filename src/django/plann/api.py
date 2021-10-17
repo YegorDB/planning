@@ -52,7 +52,7 @@ class UserTasks(generics.ListAPIView):
     filterset_fields = ['priority', 'status']
 
     def get_queryset(self):
-        return self.request.user.tasks.order_by('-priority')
+        return self.request.user.tasks.order_by('-status', '-priority')
 
 
 class CreateTask(generics.CreateAPIView):

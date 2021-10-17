@@ -19,11 +19,11 @@ class Task(models.Model):
         HIGH = 3, _('High')
         CRITICAL = 4, _('Critical')
 
-    class Status(models.TextChoices):
-        NOT_SET = 'NS', _('Not started')
-        IN_PROGRESS = 'IP', _('In progress')
-        DONE = 'DN', _('Done')
-        CANCELED = 'CL', _('Canceled')
+    class Status(models.IntegerChoices):
+        CANCELED = 0, _('Canceled')
+        DONE = 1, _('Done')
+        NOT_STARTED = 2, _('Not started')
+        IN_PROGRESS = 3, _('In progress')
 
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, default='')
@@ -45,10 +45,9 @@ class Task(models.Model):
         choices=Priority.choices,
         default=Priority.NOT_SET
     )
-    status = models.CharField(
-        max_length=2,
+    status = models.SmallIntegerField(
         choices=Status.choices,
-        default=Status.NOT_SET
+        default=Status.NOT_STARTED
     )
 
     depends_on = models.ManyToManyField(

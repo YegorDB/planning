@@ -26,7 +26,7 @@ class StatusChangingDialogItem extends ChangingDialogItem {
   render() {
     let classes = classNames(
       'task-status-dialog-item',
-      `task-status-${ this.props.value.toLowerCase() }`,
+      `task-status-${ this.props.value }`,
     );
 
     return (

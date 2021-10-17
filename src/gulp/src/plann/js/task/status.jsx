@@ -22,7 +22,7 @@ class TaskStatusBadge extends React.Component {
   render() {
     let className = classNames(
       'task-badge',
-      `task-badge-status-${this.props.value.toLowerCase()}`,
+      `task-badge-status-${this.props.value}`,
     );
 
     return (

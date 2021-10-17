@@ -47,7 +47,7 @@ class TasksTests(APITestCase):
         task = Task.objects.get(id=json.loads(response.content)['id'])
         self.assertEqual(task.name, name)
         self.assertEqual(task.priority, Task.Priority.CRITICAL)
-        self.assertEqual(task.status, Task.Status.NOT_SET)
+        self.assertEqual(task.status, Task.Status.NOT_STARTED)
 
     def test_user_tasks(self):
         task_ids = []

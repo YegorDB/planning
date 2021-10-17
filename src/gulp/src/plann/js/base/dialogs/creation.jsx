@@ -47,10 +47,7 @@ class CreationForm extends React.Component {
       contentType: 'application/json',
     })
     .done((taskData) => {
-      $(document).trigger({
-        type: 'addTask',
-        taskData: taskData,
-      });
+      $(document).trigger('addTask');
     })
     .fail((jqXHR, textStatus, errorThrown) => {
       console.log('jqXHR', jqXHR);
