@@ -57,7 +57,7 @@ class TaskTags extends React.Component {
     return (
       <div>
         <h2>{ 'Tags' }</h2>
-        <div onClick={ this._handleClick } >
+        <div onClick={ this._handleClick } className="task-changeble-item" >
           {
             this.props.values.length > 0
             ? <TaskTagsList values={ this.props.values } />

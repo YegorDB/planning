@@ -9,7 +9,7 @@ class TaskName extends React.Component {
    * @returns {React.Element}
    */
   render() {
-    return <h1>{ this.props.value }</h1>;
+    return <h1 className="task-meaning-value" >{ this.props.value }</h1>;
   }
 }
 
@@ -24,7 +24,7 @@ class TaskDescription extends React.Component {
   render() {
     return (
       <div>
-        <p>{ this.props.value }</p>
+        <p className="task-meaning-value" >{ this.props.value }</p>
       </div>
     );
   }
@@ -50,9 +50,11 @@ class TaskMeaning extends React.Component {
    */
   render() {
     return (
-      <div className="task-meaning" onClick={ this._handleClick } >
-        <TaskName value={ this.props.name } />
-        <TaskDescription value={ this.props.description } />
+      <div className="task-meaning" >
+        <div className="task-changeble-item" onClick={ this._handleClick } >
+          <TaskName value={ this.props.name } />
+          <TaskDescription value={ this.props.description } />
+        </div>
       </div>
     );
   }
