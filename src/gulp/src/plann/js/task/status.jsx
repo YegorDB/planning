@@ -52,8 +52,10 @@ class TaskStatus extends React.Component {
    */
   render() {
     return (
-      <div>
-        <h2>{ 'Status' }</h2>
+      <div className="task-content-item-line" >
+        <div>
+          <h2>{ 'Status' }</h2>
+        </div>
         <TaskStatusBadge
           name={ CHOISES.task.status[this.props.value] }
           value={ this.props.value } />

@@ -2,9 +2,31 @@
 @import "../../../base/less/base/main";
 
 
+#app {
+  width: 50%;
+  margin: 0 auto;
+}
+
+
 .task-meaning {
   border-bottom: 1px solid;
   margin-bottom: 1em;
+}
+
+
+.task-content {
+  & > div {
+    padding: 1em;
+  }
+
+  &-item-line {
+    display: flex;
+    align-items: center;
+
+    & > div * {
+      margin: 0;
+    }
+  }
 }
 
 
@@ -67,21 +89,5 @@
     &-3 {
       background-color: #colors[accent-yellow];
     }
-  }
-}
-
-
-.task-content {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-
-  & > div {
-    display: inline-grid;
-    padding-left: 1em;
-  }
-
-  & > div:not(:first-child) {
-    border-left: 1px solid;
   }
 }

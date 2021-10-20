@@ -10,8 +10,10 @@ class TaskCreationDatetime extends React.Component {
    */
   render() {
     return (
-      <div>
-        <h3>{ 'Creation' }</h3>
+      <div className="task-content-item-line" >
+        <div>
+          <h3>{ 'Creation' }</h3>
+        </div>
         <div>
           <p>{ this.props.value }</p>
         </div>
