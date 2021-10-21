@@ -56,9 +56,11 @@ class TaskPriority extends React.Component {
         <div>
           <h2>{ 'Priority' }</h2>
         </div>
-        <TaskPriorityBadge
-          name={ CHOISES.task.priority[this.props.value] }
-          value={ this.props.value } />
+        <div>
+          <TaskPriorityBadge
+            name={ CHOISES.task.priority[this.props.value] }
+            value={ this.props.value } />
+        </div>
       </div>
     );
   }

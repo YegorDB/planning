@@ -21,10 +21,14 @@
 
   &-item-line {
     display: flex;
-    align-items: center;
+    align-items: end;
 
-    & > div * {
-      margin: 0;
+    & > div {
+      width: 50%;
+
+      & * {
+        margin: 0;
+      }
     }
   }
 }
@@ -45,11 +49,7 @@
 .task-badge {
   width: max-content;
   height: max-content;
-  border-radius: 1em;
-  display: inline-block;
-  padding: 1em;
-  margin: 6px 0;
-  cursor: pointer;
+  padding: 5px;
 
   &-priority {
     &-0 {

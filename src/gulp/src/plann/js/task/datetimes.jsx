@@ -15,7 +15,7 @@ class TaskCreationDatetime extends React.Component {
           <h3>{ 'Creation' }</h3>
         </div>
         <div>
-          <p>{ this.props.value }</p>
+          <p>{ (new Date(this.props.value)).toLocaleString() }</p>
         </div>
       </div>
     );
