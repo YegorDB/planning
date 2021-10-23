@@ -1,6 +1,8 @@
 const React = require('react');
 
-const { TaskContentLine } = require('./content.jsx');
+const {
+  TaskContentLine, TaskContentWrapper, TaskContentLineTitleSecond,
+} = require('./content.jsx');
 
 
 /** Task dates. */
@@ -14,9 +16,13 @@ class TaskDatetimes extends React.Component {
     return (
       <div>
         <TaskContentLine title="Datetimes" />
-        <TaskContentLine title="Creation" >
-          <p>{ (new Date(this.props.creation)).toLocaleString() }</p>
-        </TaskContentLine>
+        <TaskContentWrapper>
+          <TaskContentLine
+            title="Creation2"
+            TaskContentLineTitleClass={ TaskContentLineTitleSecond } >
+            <p>{ (new Date(this.props.creation)).toLocaleString() }</p>
+          </TaskContentLine>
+        </TaskContentWrapper>
       </div>
     );
   }

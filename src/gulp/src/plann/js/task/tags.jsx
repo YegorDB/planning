@@ -1,7 +1,7 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 
-const { TaskContentLine } = require('./content.jsx');
+const { TaskContentLine, TaskContentWrapper } = require('./content.jsx');
 
 
 /** Task tag. */
@@ -59,13 +59,15 @@ class TaskTags extends React.Component {
     return (
       <div>
         <TaskContentLine title="Tags" />
-        <div onClick={ this._handleClick } >
-          {
-            this.props.values.length > 0
-            ? <TaskTagsList values={ this.props.values } />
-            : <p>{ 'There are no tags yet ...' }</p>
-          }
-        </div>
+        <TaskContentWrapper>
+          <div onClick={ this._handleClick } >
+            {
+              this.props.values.length > 0
+              ? <TaskTagsList values={ this.props.values } />
+              : <p>{ 'There are no tags yet ...' }</p>
+            }
+          </div>
+        </TaskContentWrapper>
       </div>
     );
   }
