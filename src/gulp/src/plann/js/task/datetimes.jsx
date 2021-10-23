@@ -1,26 +1,6 @@
 const React = require('react');
 
-
-/** Task creation datetime. */
-class TaskCreationDatetime extends React.Component {
-
-  /**
-   * Render.
-   * @returns {React.Element}
-   */
-  render() {
-    return (
-      <div className="task-content-item-line" >
-        <div>
-          <h3>{ 'Creation' }</h3>
-        </div>
-        <div>
-          <p>{ (new Date(this.props.value)).toLocaleString() }</p>
-        </div>
-      </div>
-    );
-  }
-}
+const { TaskContentLine } = require('./content.jsx');
 
 
 /** Task dates. */
@@ -33,8 +13,10 @@ class TaskDatetimes extends React.Component {
   render() {
     return (
       <div>
-        <h2>{ 'Datetimes' }</h2>
-        <TaskCreationDatetime value={ this.props.creation } />
+        <TaskContentLine title="Datetimes" />
+        <TaskContentLine title="Creation" >
+          <p>{ (new Date(this.props.creation)).toLocaleString() }</p>
+        </TaskContentLine>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 const classNames = require('classnames');
 const React = require('react');
 
+const { TaskContentLine } = require('./content.jsx');
+
 
 /** Task priority badge. */
 class TaskPriorityBadge extends React.Component {
@@ -52,16 +54,11 @@ class TaskPriority extends React.Component {
    */
   render() {
     return (
-      <div className="task-content-item-line" >
-        <div>
-          <h2>{ 'Priority' }</h2>
-        </div>
-        <div>
-          <TaskPriorityBadge
-            name={ CHOISES.task.priority[this.props.value] }
-            value={ this.props.value } />
-        </div>
-      </div>
+      <TaskContentLine title="Priority" >
+        <TaskPriorityBadge
+          name={ CHOISES.task.priority[this.props.value] }
+          value={ this.props.value } />
+      </TaskContentLine>
     );
   }
 }

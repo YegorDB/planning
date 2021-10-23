@@ -1,6 +1,8 @@
 const classNames = require('classnames');
 const React = require('react');
 
+const { TaskContentLine } = require('./content.jsx');
+
 
 /** Task status badge. */
 class TaskStatusBadge extends React.Component {
@@ -52,16 +54,11 @@ class TaskStatus extends React.Component {
    */
   render() {
     return (
-      <div className="task-content-item-line" >
-        <div>
-          <h2>{ 'Status' }</h2>
-        </div>
-        <div>
-          <TaskStatusBadge
-            name={ CHOISES.task.status[this.props.value] }
-            value={ this.props.value } />
-        </div>
-      </div>
+      <TaskContentLine title="Status" >
+        <TaskStatusBadge
+          name={ CHOISES.task.status[this.props.value] }
+          value={ this.props.value } />
+      </TaskContentLine>
     );
   }
 }

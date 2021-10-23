@@ -1,6 +1,8 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 
+const { TaskContentLine } = require('./content.jsx');
+
 
 /** Task tag. */
 class Tag extends React.Component {
@@ -56,11 +58,7 @@ class TaskTags extends React.Component {
   render() {
     return (
       <div>
-        <div className="task-content-item-line" >
-          <div>
-            <h2>{ 'Tags' }</h2>
-          </div>
-        </div>
+        <TaskContentLine title="Tags" />
         <div onClick={ this._handleClick } >
           {
             this.props.values.length > 0
