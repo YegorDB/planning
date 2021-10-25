@@ -19,7 +19,7 @@ class StatusFilterButton extends React.Component {
     return (
       <div
         onClick={ this._handleClick }
-        className="button button-default filter-button" >
+        className="button button-default filter-button header-item" >
         Statuses
       </div>
     );

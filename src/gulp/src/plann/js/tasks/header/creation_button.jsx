@@ -17,7 +17,9 @@ class CreationButton extends React.Component {
    */
   render() {
     return (
-      <div onClick={ this._handleClick } className="button button-default" >
+      <div
+        onClick={ this._handleClick }
+        className="button button-default header-item" >
         Add task
       </div>
     );

@@ -52,7 +52,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header withFilters={ true } />
         <Items filters={ this.state.filters } />
         <TasksDialogs filters={ this.state.filters } />
         <WaitScreen />

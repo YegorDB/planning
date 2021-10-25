@@ -5,6 +5,24 @@ const { PriorityFilterButton } = require('./priority_filter_button.jsx');
 const { StatusFilterButton } = require('./status_filter_button.jsx');
 
 
+/** Header filers. */
+class HeaderFilers extends React.Component {
+
+  /**
+   * Render.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div id="header-filters" >
+        <PriorityFilterButton />
+        <StatusFilterButton />
+      </div>
+    );
+  }
+}
+
+
 /** Header. */
 class Header extends React.Component {
 
@@ -16,8 +34,11 @@ class Header extends React.Component {
     return (
       <div id="header" >
         <CreationButton />
-        <PriorityFilterButton />
-        <StatusFilterButton />
+        {
+          this.props.withFilters ?
+          <HeaderFilers /> :
+          <div></div>
+        }
       </div>
     );
   }
