@@ -1,12 +1,12 @@
 const React = require('react');
 
-
 const { TaskDatetimes } = require('./datetimes.jsx');
 const { TaskDialogs } = require('./dialogs.jsx');
 const { TaskMeaning } = require('./meaning.jsx');
 const { TaskPriority } = require('./priority.jsx');
 const { TaskStatus } = require('./status.jsx');
 const { TaskTags } = require('./tags.jsx');
+const { Header } = require('../base/header/main.jsx');
 const { WaitScreen } = require('../../../base/js/base/wait_screen.jsx');
 
 
@@ -31,6 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Header />
         <TaskMeaning
           name={ this.state.name }
           description={ this.state.description } />

@@ -3,7 +3,7 @@ const React = require('react');
 
 const { TasksDialogs } = require('./dialogs.jsx');
 const { Items } = require('./items/main.jsx');
-const { Header } = require('./header/main.jsx');
+const { Header } = require('../base/header/main.jsx');
 const { WaitScreen } = require('../../../base/js/base/wait_screen.jsx');
 
 
