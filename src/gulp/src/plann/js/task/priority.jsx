@@ -23,6 +23,7 @@ class TaskPriorityBadge extends React.Component {
    */
   render() {
     let className = classNames(
+      'interactive',
       'task-badge',
       `task-badge-priority-${this.props.value}`,
     );

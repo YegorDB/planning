@@ -60,7 +60,7 @@ class TaskTags extends React.Component {
       <div>
         <TaskContentLine title="Tags" />
         <TaskContentWrapper>
-          <div onClick={ this._handleClick } >
+          <div onClick={ this._handleClick } className="interactive" >
             {
               this.props.values.length > 0
               ? <TaskTagsList values={ this.props.values } />

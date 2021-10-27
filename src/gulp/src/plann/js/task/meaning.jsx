@@ -51,7 +51,7 @@ class TaskMeaning extends React.Component {
   render() {
     return (
       <div className="task-meaning" >
-        <div className="task-changeble-item" onClick={ this._handleClick } >
+        <div onClick={ this._handleClick } className="interactive" >
           <TaskName value={ this.props.name } />
           <TaskDescription value={ this.props.description } />
         </div>
