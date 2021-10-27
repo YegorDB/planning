@@ -53,7 +53,9 @@ class App extends React.Component {
     return (
       <div>
         <Header withFilters={ true } />
-        <Items filters={ this.state.filters } />
+        <div id="content" >
+          <Items filters={ this.state.filters } />
+        </div>
         <TasksDialogs filters={ this.state.filters } />
         <WaitScreen />
       </div>

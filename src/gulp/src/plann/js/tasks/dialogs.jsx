@@ -14,7 +14,7 @@ class TasksDialogs extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div id="dialogs" >
         <StatusFilterDialog
           choices={ CHOISES.task.status }
           activeValues={ this.props.filters.status } />

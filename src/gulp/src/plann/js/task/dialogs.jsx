@@ -16,7 +16,7 @@ class TaskDialogs extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div id="dialogs" >
         <MeaningChangingDialog
           id={ this.props.id }
           name={ this.props.name }
