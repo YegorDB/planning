@@ -2,13 +2,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
-from plann.api import CreateTask, UpdateTask, UserTasks
+from plann.api import CreateTask, UpdateTask, UserTasks, SearchUserTasks
 
 
 api_urlpatterns = ([
     path('1.0/create_task/', CreateTask.as_view(), name='create-task'),
     path('1.0/update_task/<int:pk>/', UpdateTask.as_view(), name='update-task'),
     path('1.0/user_tasks/', UserTasks.as_view(), name='user-tasks'),
+    path('1.0/search_user_tasks/', SearchUserTasks.as_view(), name='search-user-tasks'),
 ], 'api')
 
 
