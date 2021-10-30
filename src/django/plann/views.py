@@ -26,6 +26,7 @@ class TasksView(LoginRequiredMixin, TemplateView):
             'urls': json.dumps({
                 'create_task': reverse('api:create-task'),
                 'user_tasks': reverse('api:user-tasks'),
+                'search_user_tasks': reverse('api:search-user-tasks'),
             }),
         }
 

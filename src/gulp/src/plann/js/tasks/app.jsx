@@ -29,20 +29,24 @@ class App extends React.Component {
         [App.FILTER_STATUS]: (
           Object.keys(CHOISES.task.status).map(p => parseInt(p))
         ),
-      }
+      },
+      search: '',
     };
 
     this._handleSetFilter = this._handleSetFilter.bind(this);
+    this._handleSetSearch = this._handleSetSearch.bind(this);
   }
 
   /** Component did mount logic. */
   componentDidMount() {
     $(document).on('setFilter', this._handleSetFilter);
+    $(document).on('setSearch', this._handleSetSearch);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
     $(document).off('setFilter', this._handleSetFilter);
+    $(document).off('setSearch', this._handleSetSearch);
   }
 
   /**
@@ -54,7 +58,9 @@ class App extends React.Component {
       <div>
         <Header withFilters={ true } withSearch={ true } />
         <div id="content" >
-          <Items filters={ this.state.filters } />
+          <Items
+            filters={ this.state.filters }
+            search={ this.state.search } />
         </div>
         <TasksDialogs filters={ this.state.filters } />
         <WaitScreen />
@@ -90,6 +96,17 @@ class App extends React.Component {
    */
   _handleSetFilter(event) {
     this._setFilter(event.name, event.values);
+  }
+
+  /**
+   * Set search handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleSetSearch(event) {
+    this.setState({
+      search: event.value,
+    });
   }
 }
 

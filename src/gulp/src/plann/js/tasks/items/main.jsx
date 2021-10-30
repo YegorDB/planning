@@ -31,6 +31,10 @@ class Items extends React.Component {
 
   /** Component did update logic. */
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.search != prevProps.search) {
+      this._getTasksData();
+      return;
+    }
     for (let k of Object.keys(this.props.filters)) {
       if (this.props.filters[k].join() !== prevProps.filters[k].join()) {
         this._getTasksData();
@@ -61,12 +65,23 @@ class Items extends React.Component {
    * @private
    */
   _getTasksData() {
-    $.ajax({
-      url: URLS.user_tasks,
-      data: {
+    let url, data;
+    if (this.props.search == '') {
+      url = URLS.user_tasks;
+      data = {
         priority__in: this.props.filters.priority,
         status__in: this.props.filters.status,
-      },
+      };
+    } else {
+      url = URLS.search_user_tasks;
+      data = {
+        search: this.props.search,
+      };
+    }
+
+    $.ajax({
+      url: url,
+      data: data,
     })
     .done((data) => {
       this.setState({

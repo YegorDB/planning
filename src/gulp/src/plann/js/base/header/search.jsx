@@ -31,7 +31,10 @@ class Search extends React.Component {
    * @param {Event} event - DOM event.
    */
   _handleChange(event) {
-    console.log('text', $(event.target).val());
+    $(document).trigger({
+      type: 'setSearch',
+      value: $(event.target).val(),
+    });
   }
 }
 
