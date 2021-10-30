@@ -52,7 +52,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header withFilters={ true } />
+        <Header withFilters={ true } withSearch={ true } />
         <div id="content" >
           <Items filters={ this.state.filters } />
         </div>
