@@ -8,6 +8,7 @@ class Search extends React.Component {
   /** Creation. */
   constructor(props) {
     super(props);
+    this._searchTimeout = null;
     this._handleChange = this._handleChange.bind(this);
   }
 
@@ -31,10 +32,13 @@ class Search extends React.Component {
    * @param {Event} event - DOM event.
    */
   _handleChange(event) {
-    $(document).trigger({
-      type: 'setSearch',
-      value: $(event.target).val(),
-    });
+    clearTimeout(this._searchTimeout);
+    this._searchTimeout = setTimeout(() => {
+      $(document).trigger({
+        type: 'setSearch',
+        value: $(event.target).val(),
+      });
+    }, 200);
   }
 }
 
