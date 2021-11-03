@@ -21,7 +21,8 @@ class Search extends React.Component {
       <div>
         <input
           onChange={ this._handleChange }
-          className="header-item" />
+          placeholder="Search"
+          className="search-input header-item" />
       </div>
     );
   }
