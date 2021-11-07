@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  postgres:
+    restart: always
+
+  django:
+    volumes:
+      - "./data/django/logs:/logs"
+    restart: always
+
+  nginx:
+    restart: always

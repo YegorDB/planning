@@ -120,6 +120,39 @@ MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'users.User'
 
 
+if not DEVELOPMENT:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'request': {
+                'format': (
+                    '\n'
+                    '{status_code}\n'
+                    '{asctime}\n'
+                    '{message}\n'
+                ),
+                'style': '{',
+            },
+        },
+        'handlers': {
+            'request': {
+                'level': 'WARNING',
+                'class': 'logging.FileHandler',
+                'filename': '/logs/request.log',
+                'formatter': 'request',
+            },
+        },
+        'loggers': {
+            'django.request': {
+                'handlers': ['request'],
+                'level': 'WARNING',
+                'propagate': True,
+            },
+        },
+    }
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
