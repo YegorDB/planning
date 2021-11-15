@@ -23,7 +23,7 @@ services:
       - postgres
 
   nginx:
-    image: nginx:1.20
+    image: planning/nginx:${VERSION}
     volumes:
       - "./src/django/media:/media:ro"
       - "./src/django/static:/static:ro"

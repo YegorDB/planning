@@ -15,3 +15,8 @@ services:
     image: planning/django:dev
     environment:
       DEVELOPMENT: "1"
+
+  nginx:
+    build:
+      context: ./env/nginx
+    image: planning/nginx:dev
