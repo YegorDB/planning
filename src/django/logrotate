@@ -1,0 +1,12 @@
+/logs/*.log {
+        size=100M
+        missingok
+        rotate 7
+        compress
+        notifempty
+        sharedscripts
+        postrotate
+                kill -HUP `cat /code/app.pid`
+        endscript
+        create 644 root root
+}
