@@ -11,5 +11,5 @@ python manage.py collectstatic --noinput
 if [ "${DEVELOPMENT}" ]; then
 	python manage.py runserver 0.0.0.0:8000;
 else
-	gunicorn -p app.pid -b 0.0.0.0:8000 main.wsgi:application;
+	gunicorn -p app.pid -b 0.0.0.0:8000 --workers="$((`nproc` * 2 + 1))" main.wsgi:application;
 fi
