@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
+  postgres:
+    command: ["postgres", "-c", "log_statement=all"]
+
   gulp:
     build:
       context: ./env/gulp
