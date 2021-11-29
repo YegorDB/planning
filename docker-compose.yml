@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:12.4
+    image: planning/postgres:${VERSION}
     environment:
       POSTGRES_DB: main_db
       POSTGRES_USER: root
