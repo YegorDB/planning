@@ -5,6 +5,8 @@ services:
     build:
       context: ./env/postgres
   #   command: ["postgres", "-c", "log_statement=all"]
+    environment:
+      DEVELOPMENT: "1"
 
   gulp:
     build:

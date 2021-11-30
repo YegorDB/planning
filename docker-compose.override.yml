@@ -4,6 +4,9 @@ services:
   postgres:
     command: ["postgres", "-c", "logging_collector=on", "-c", "log_directory='/logs'"]
     volumes:
+      - "./code/postgres/crontab:/etc/cron.d/custom"
+      - "./code/postgres/dump_db.sh:/usr/local/bin/dump_db.sh"
+      - "./data/postgres/dumps:/dumps"
       - "./data/postgres/logs:/logs"
     restart: always
 
