@@ -4,14 +4,17 @@ services:
   postgres:
     command: ["postgres", "-c", "logging_collector=on", "-c", "log_directory='/logs'"]
     volumes:
-      - "./code/postgres/crontab:/etc/cron.d/custom"
-      - "./code/postgres/dump_db.sh:/usr/local/bin/dump_db.sh"
+      - "./src/cron_start.sh:/usr/local/bin/cron_start.sh"
+      - "./src/postgres/crontab:/etc/cron.d/custom"
+      - "./src/postgres/dump_db.sh:/usr/local/bin/dump_db.sh"
       - "./data/postgres/dumps:/dumps"
       - "./data/postgres/logs:/logs"
     restart: always
 
   django:
     volumes:
+      - "./src/cron_start_django.sh:/usr/local/bin/cron_start_django.sh"
+      - "./src/django/crontab:/etc/cron.d/custom"
       - "./data/django/logs:/logs"
     restart: always
 
