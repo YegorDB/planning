@@ -27,3 +27,5 @@ services:
     build:
       context: ./env/nginx
     image: planning/nginx:dev
+    environment:
+      DEVELOPMENT: "1"

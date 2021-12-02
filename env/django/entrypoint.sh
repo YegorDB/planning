@@ -12,7 +12,7 @@ python manage.py collectstatic --noinput;
 if [ "${DEVELOPMENT}" ]; then
 	python manage.py runserver 0.0.0.0:8000;
 else
-  /usr/local/bin/cron_start.sh;
+	/usr/local/bin/cron_start.sh;
 	gunicorn -p app.pid \
            -b 0.0.0.0:8000 \
            --workers="$((`nproc` * 2 + 1))" \

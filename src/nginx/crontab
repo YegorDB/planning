@@ -11,6 +11,3 @@ SHELL=/bin/sh
 
 # logs rotation
 5 0 * * * root logrotate /etc/logrotate.d/custom
-
-# remove old sessions
-10 0 * * * root /usr/local/bin/python /code/manage.py clearsessions

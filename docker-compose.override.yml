@@ -13,12 +13,16 @@ services:
 
   django:
     volumes:
-      - "./src/cron_start_django.sh:/usr/local/bin/cron_start_django.sh"
+      - "./src/cron_start_django.sh:/usr/local/bin/cron_start.sh"
       - "./src/django/crontab:/etc/cron.d/custom"
+      - "./src/django/logrotate:/etc/logrotate.d/custom"
       - "./data/django/logs:/logs"
     restart: always
 
   nginx:
     volumes:
+      - "./src/cron_start.sh:/usr/local/bin/cron_start.sh"
+      - "./src/nginx/crontab:/etc/cron.d/custom"
+      - "./src/nginx/logrotate:/etc/logrotate.d/custom"
       - "./src/nginx/nginx.override.logs.conf:/etc/nginx/nginx.override.logs.conf"
     restart: always
