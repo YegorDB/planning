@@ -15,7 +15,11 @@ class DocsCreator:
             '## {url}\n\n{text}'.format(
                 url=reverse(
                     f'api:{urlpattern.name}',
-                    **({'kwargs': {'pk': 1}} if '<pk>' in str(urlpattern.pattern.regex) else {})
+                    **(
+                        {'kwargs': {'pk': 1}}
+                        if '<pk>' in str(urlpattern.pattern.regex) else
+                        {}
+                    )
                 ),
                 text=inspect.getdoc(urlpattern.callback.cls()),
             )

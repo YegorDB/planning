@@ -57,6 +57,57 @@ class UserTasks(generics.ListAPIView):
 
 
 class SearchUserTasks(UserTasks):
+    '''
+    > Search user tasks by search string in name and description
+
+    ### Method
+    GET
+
+    ### GET params
+    ```
+    {
+        "search": string
+    }
+    ```
+
+    ### Response json data
+    ```
+    [
+        {
+            "id": integer,
+            "creator": {
+                "id": integer,
+                "username": string,
+                "first_name": string,
+                "last_name": string,
+            },
+            "responsible": {
+                "id": integer,
+                "username": string,
+                "first_name": string,
+                "last_name": string,
+            },
+            "name": string,
+            "description": string,
+            "priority": integer,
+            "status": string,
+            "creation_datetime": ISO 8601 datetime string,
+            "tags": [
+                {
+                    "id": integer,
+                    "name": string
+                },
+                ...
+            ]
+        }
+        ...
+    ]
+    ```
+
+    ### Authorization header
+    `Authorization: Token ${api_token_value}`
+    '''
+
     filter_backends = [filters.SearchFilter]
     filterset_class = None
     search_fields = ['name', 'description']
