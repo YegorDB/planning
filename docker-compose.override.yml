@@ -21,7 +21,7 @@ services:
 
   nginx:
     volumes:
-      - "./src/cron_start.sh:/usr/local/bin/cron_start.sh"
+      - "./src/cron_start.sh:/docker-entrypoint.d/cron_start.sh"
       - "./src/nginx/crontab:/etc/cron.d/custom"
       - "./src/nginx/logrotate:/etc/logrotate.d/custom"
       - "./src/nginx/nginx.override.logs.conf:/etc/nginx/nginx.override.logs.conf"

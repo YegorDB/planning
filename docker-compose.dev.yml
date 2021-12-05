@@ -4,6 +4,7 @@ services:
   postgres:
     build:
       context: ./env/postgres
+    image: planning/postgres:dev
   #   command: ["postgres", "-c", "log_statement=all"]
     environment:
       DEVELOPMENT: "1"
