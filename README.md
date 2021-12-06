@@ -40,10 +40,12 @@
 
 ### Pages
 - Tasks page `/tasks/`
+- Task page `/task/${pk}/`
 
 ### API
 - Create task `/api/1.0/create_task/`
 - User tasks `/api/1.0/user_tasks/`
+- Search user tasks `/api/1.0/search_user_tasks/`
 - Update task `/api/1.0/update_task/${pk}/`
 
 > More information about API in project docs

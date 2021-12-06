@@ -6,12 +6,12 @@
 ## Pages
 
 ### Tasks
-- Show user tasks with filters by priority and status
-- Change task status functuional
-- Create task form
+- Added show user tasks functional with filters by priority and status
+- Added change task status functional
+- Added create task functional
 
 
 ## API
-- Create task
-- User tasks
-- Update task
+- Added create task API
+- Added user tasks API
+- Added update task API

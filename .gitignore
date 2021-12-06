@@ -3,3 +3,4 @@ src/django/static/*
 src/django/media/*
 **/node_modules/**
 **/__pycache__/**
+*.pid
