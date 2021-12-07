@@ -3,16 +3,16 @@
 
 ## Pages
 
+### Task
+- Added show task information functional
+- Added change task information functional
+- Added create task functional
+
 ### Tasks
 - Removed change task functuional
-- Added search task functional
+- Added search tasks functional
 - Changed tasks items visualization from table to grid
 - Made filters by requests
-
-### Task
-- Added show task information
-- Added change task information
-- Added create task functional
 
 
 ## API
