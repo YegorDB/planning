@@ -1,6 +1,7 @@
 const React = require('react');
 
 const { CreationButton } = require('./creation_button.jsx');
+const { Logo } = require('./logo.jsx');
 const { PriorityFilterButton } = require('./priority_filter_button.jsx');
 const { StatusFilterButton } = require('./status_filter_button.jsx');
 const { Search } = require('./search.jsx');
@@ -34,6 +35,7 @@ class Header extends React.Component {
   render() {
     return (
       <div id="header" >
+        <Logo />
         <CreationButton />
         {
           this.props.withFilters ?
