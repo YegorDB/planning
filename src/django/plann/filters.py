@@ -6,12 +6,14 @@ from plann.models import Task
 class ListFilter(filters.Filter):
 
     def filter(self, queryset, value):
+        if not value:
+            return queryset
         return queryset.filter(**{
             self.field_name: self._get_value(),
         })
 
     def _get_value(self):
-        return self.parent.request.query_params.getlist(f'{self.field_name}[]')
+        return self.parent.request.query_params.get(self.field_name).split(',')
 
 
 class IntListFilter(ListFilter):
@@ -26,4 +28,4 @@ class TaskFilterSet(filters.FilterSet):
 
     class Meta:
         model = Task
-        fields = ['priority', 'status__in']
+        fields = ['priority', 'status']

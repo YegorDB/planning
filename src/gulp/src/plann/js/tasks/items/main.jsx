@@ -69,8 +69,8 @@ class Items extends React.Component {
     if (this.props.search == '') {
       url = URLS.user_tasks;
       data = {
-        priority__in: this.props.filters.priority,
-        status__in: this.props.filters.status,
+        priority__in: this.props.filters.priority.join(','),
+        status__in: this.props.filters.status.join(','),
       };
     } else {
       url = URLS.search_user_tasks;
