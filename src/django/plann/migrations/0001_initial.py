@@ -13,6 +13,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Tag',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100, unique=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Task',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -31,20 +38,20 @@ class Migration(migrations.Migration):
                     ],
                     default=0
                 )),
-                ('status', models.CharField(
+                ('status', models.SmallIntegerField(
                     choices=[
-                        ('NS', 'Not started'),
-                        ('IP', 'In progress'),
-                        ('DN', 'Done'),
-                        ('CL', 'Canceled')
+                        (0, 'Canceled'),
+                        (1, 'Done'),
+                        (2, 'Not started'),
+                        (3, 'In progress')
                     ],
-                    default='NS',
-                    max_length=2
+                    default=2
                 )),
                 ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='created_tasks', to=settings.AUTH_USER_MODEL)),
-                ('depends_on', models.ManyToManyField(related_name='_task_depends_on_+', to='plann.Task')),
+                ('depends_on', models.ManyToManyField(related_name='depending', related_query_name='depending', to='plann.Task')),
                 ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='plann.task')),
                 ('responsible', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tasks', to=settings.AUTH_USER_MODEL)),
+                ('tags', models.ManyToManyField(to='plann.Tag')),
             ],
         ),
     ]
