@@ -8,6 +8,7 @@ class ListFilter(filters.Filter):
     def filter(self, queryset, value):
         if not value:
             return queryset
+
         return queryset.filter(**{
             self.field_name: self._get_value(),
         })
@@ -22,10 +23,27 @@ class IntListFilter(ListFilter):
         return list(map(int, super()._get_value()))
 
 
+class SearchFilter(filters.Filter):
+
+    def __init__(self, fields, *args, **kwargs):
+        self._fields = fields
+        super().__init__(*args, **kwargs)
+
+    def filter(self, queryset, value):
+        if not value:
+            return queryset
+
+        return queryset.filter(**{
+            f'{field}__startswith': value
+            for field in self._fields
+        })
+
+
 class TaskFilterSet(filters.FilterSet):
     priority__in = IntListFilter()
     status__in = IntListFilter()
+    search = SearchFilter(('name',))
 
     class Meta:
         model = Task
-        fields = ['priority', 'status']
+        fields = ['priority', 'status', 'name']

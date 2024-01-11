@@ -44,8 +44,7 @@
 
 ### API
 - Create task `/api/1.0/create_task/`
-- User tasks `/api/1.0/user_tasks/`
-- Search user tasks `/api/1.0/search_user_tasks/`
 - Update task `/api/1.0/update_task/${pk}/`
+- User tasks `/api/1.0/user_tasks/`
 
 > More information about API in project docs

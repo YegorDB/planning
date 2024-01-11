@@ -65,23 +65,13 @@ class Items extends React.Component {
    * @private
    */
   _getTasksData() {
-    let url, data;
-    if (this.props.search == '') {
-      url = URLS.user_tasks;
-      data = {
+    $.ajax({
+      url: URLS.user_tasks,
+      data: {
         priority__in: this.props.filters.priority.join(','),
         status__in: this.props.filters.status.join(','),
-      };
-    } else {
-      url = URLS.search_user_tasks;
-      data = {
         search: this.props.search,
-      };
-    }
-
-    $.ajax({
-      url: url,
-      data: data,
+      },
     })
     .done((data) => {
       this.setState({
