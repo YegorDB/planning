@@ -3,6 +3,7 @@ const React = require('react');
 const { CreationButton } = require('./creation_button.jsx');
 const { Logo } = require('./logo.jsx');
 const { PriorityFilterButton } = require('./priority_filter_button.jsx');
+const { ResetButton } = require('./reset_button.jsx');
 const { StatusFilterButton } = require('./status_filter_button.jsx');
 const { Search } = require('./search.jsx');
 
@@ -40,12 +41,17 @@ class Header extends React.Component {
         {
           this.props.withFilters ?
           <HeaderFilers /> :
-          <div></div>
+          null
         }
         {
           this.props.withSearch ?
           <Search /> :
-          <div></div>
+          null
+        }
+        {
+          this.props.withFilters || this.props.withSearch ?
+          <ResetButton /> :
+          null
         }
       </div>
     );

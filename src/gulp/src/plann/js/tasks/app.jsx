@@ -22,31 +22,27 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      filters: {
-        [App.FILTER_PRIORITY]: (
-          Object.keys(CHOISES.task.priority).map(p => parseInt(p))
-        ),
-        [App.FILTER_STATUS]: (
-          Object.keys(CHOISES.task.status).map(p => parseInt(p))
-        ),
-      },
+      filters: this._getInitialFiltersData(),
       search: '',
     };
 
     this._handleSetFilter = this._handleSetFilter.bind(this);
     this._handleSetSearch = this._handleSetSearch.bind(this);
+    this._handleResetFiltersAndSearch = this._handleResetFiltersAndSearch.bind(this);
   }
 
   /** Component did mount logic. */
   componentDidMount() {
     $(document).on('setFilter', this._handleSetFilter);
     $(document).on('setSearch', this._handleSetSearch);
+    $(document).on('resetFiltersAndSearch', this._handleResetFiltersAndSearch);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
     $(document).off('setFilter', this._handleSetFilter);
     $(document).off('setSearch', this._handleSetSearch);
+    $(document).off('resetFiltersAndSearch', this._handleResetFiltersAndSearch);
   }
 
   /**
@@ -76,7 +72,7 @@ class App extends React.Component {
    */
   _setFilter(name, value) {
     if (!App.ALL_FILTERS.includes(name)) {
-      throw Error(`Wrong stack item data name "${name}".`);
+      throw Error(`Wrong filter item data name "${name}".`);
     }
     if (!Array.isArray(value)) {
       throw Error('Values argument has to be an array.');
@@ -107,6 +103,34 @@ class App extends React.Component {
     this.setState({
       search: event.value,
     });
+  }
+
+  /**
+   * Reset filters and search data.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleResetFiltersAndSearch(event) {
+    this.setState({
+      filters: this._getInitialFiltersData(),
+      search: '',
+    });
+  }
+
+  /**
+   * Get initial filters data.
+   * @private
+   * @returns {Object}
+   */
+  _getInitialFiltersData() {
+    return {
+      [App.FILTER_PRIORITY]: (
+        Object.keys(CHOISES.task.priority).map(p => parseInt(p))
+      ),
+      [App.FILTER_STATUS]: (
+        Object.keys(CHOISES.task.status).map(p => parseInt(p))
+      ),
+    };
   }
 }
 
