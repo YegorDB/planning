@@ -43,7 +43,8 @@ class TaskFilterSet(filters.FilterSet):
     priority__in = IntListFilter()
     status__in = IntListFilter()
     search = SearchFilter(('name',))
+    tags__id__in = IntListFilter()
 
     class Meta:
         model = Task
-        fields = ['priority', 'status', 'name']
+        fields = ['priority', 'status', 'name', 'tags']
