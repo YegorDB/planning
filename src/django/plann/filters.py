@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 
-from plann.models import Task
+from plann.models import Tag, Task
 
 
 class ListFilter(filters.Filter):
@@ -37,6 +37,14 @@ class SearchFilter(filters.Filter):
             f'{field}__startswith': value
             for field in self._fields
         })
+
+
+class TagFilterSet(filters.FilterSet):
+    search = SearchFilter(('name',))
+
+    class Meta:
+        model = Tag
+        fields = ['name']
 
 
 class TaskFilterSet(filters.FilterSet):

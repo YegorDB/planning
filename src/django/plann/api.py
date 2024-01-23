@@ -1,7 +1,35 @@
 from rest_framework import filters, generics
 
-from plann.filters import TaskFilterSet
-from plann.serializers import TaskSerializer, TaskListSerializer
+from plann.filters import TagFilterSet, TaskFilterSet
+from plann.models import Tag
+from plann.serializers import TagSerializer, TaskSerializer, TaskListSerializer
+
+
+class Tags(generics.ListAPIView):
+    '''
+    > Tags list
+
+    ### Method
+    GET
+
+    ### Response json data
+    ```
+    [
+        {
+            "id": integer,
+            "name": string
+        }
+        ...
+    ]
+    ```
+
+    ### Authorization header
+    `Authorization: Token ${api_token_value}`
+    '''
+
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    filterset_class = TagFilterSet
 
 
 class UserTasks(generics.ListAPIView):
