@@ -3,6 +3,7 @@ const React = require('react');
 const { CreationDialog } = require('../base/dialogs/creation.jsx');
 const { PriorityFilterDialog } = require('../base/dialogs/filter/priority.jsx');
 const { StatusFilterDialog } = require('../base/dialogs/filter/status.jsx');
+const { TagsFilterDialog } = require('../base/dialogs/filter/tags.jsx');
 
 
 /** Tasks page dialogs. */
@@ -21,6 +22,7 @@ class TasksDialogs extends React.Component {
         <PriorityFilterDialog
           choices={ CHOISES.task.priority }
           activeValues={ this.props.filters.priority } />
+        <TagsFilterDialog />
         <CreationDialog />
       </div>
     );
