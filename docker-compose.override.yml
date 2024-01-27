@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   postgres:
+    image: planning/postgres:${VERSION}
     command: ["postgres", "-c", "logging_collector=on", "-c", "log_directory='/logs'"]
     volumes:
       - "./src/cron_start.sh:/usr/local/bin/cron_start.sh"
@@ -12,6 +13,7 @@ services:
     restart: always
 
   django:
+    image: planning/django:${VERSION}
     volumes:
       - "./src/cron_start_django.sh:/usr/local/bin/cron_start.sh"
       - "./src/django/crontab:/etc/cron.d/custom"
@@ -20,6 +22,7 @@ services:
     restart: always
 
   nginx:
+    image: planning/nginx:${VERSION}
     volumes:
       - "./src/cron_start.sh:/docker-entrypoint.d/cron_start.sh"
       - "./src/nginx/crontab:/etc/cron.d/custom"

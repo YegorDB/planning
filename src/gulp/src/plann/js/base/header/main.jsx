@@ -4,8 +4,9 @@ const { CreationButton } = require('./creation_button.jsx');
 const { Logo } = require('./logo.jsx');
 const { PriorityFilterButton } = require('./priority_filter_button.jsx');
 const { ResetButton } = require('./reset_button.jsx');
-const { StatusFilterButton } = require('./status_filter_button.jsx');
 const { Search } = require('./search.jsx');
+const { StatusFilterButton } = require('./status_filter_button.jsx');
+const { TagsFilterButton } = require('./tags_filter_button.jsx');
 
 
 /** Header filers. */
@@ -20,6 +21,7 @@ class HeaderFilers extends React.Component {
       <div id="header-filters" >
         <PriorityFilterButton />
         <StatusFilterButton />
+        <TagsFilterButton />
       </div>
     );
   }

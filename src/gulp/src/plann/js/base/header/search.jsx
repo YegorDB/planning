@@ -53,7 +53,7 @@ class Search extends React.Component {
         type: 'setSearch',
         value: $(event.target).val(),
       });
-    }, 200);
+    }, 500);
   }
 
   /**

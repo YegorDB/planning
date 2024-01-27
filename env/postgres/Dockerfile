@@ -1,4 +1,4 @@
-FROM postgres:12.9
+FROM postgres:14.8
 
 RUN apt-get update && \
     apt-get -y install cron

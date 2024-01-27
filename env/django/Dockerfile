@@ -1,4 +1,4 @@
-FROM python:3.10.0
+FROM python:3.10
 
 RUN apt-get update && \
     apt-get -y install logrotate
