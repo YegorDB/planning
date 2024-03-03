@@ -204,6 +204,66 @@ class TagsSearch extends React.Component {
 }
 
 
+/** Selected tags item. */
+class SelectedTagsItem extends React.Component {
+
+  /** Creation. */
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
+
+  /**
+   * Render.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div
+        onClick={ this._handleClick }
+        className="selected-tags-item" >
+        { this.props.tagName }
+      </div>
+    );
+  }
+
+  /**
+   * Click handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleClick(event) {
+    $(document).trigger({
+      type: 'removeFilterTag',
+      tagId: this.props.tagId,
+    });
+  }
+}
+
+
+/** Selected tags. */
+class SelectedTags extends React.Component {
+
+  /**
+   * Render.
+   * @returns {React.Element}
+   */
+  render() {
+    return (
+      <div className="selected-tags" >
+        {Object.entries(this.props.values).map(([tagId, tagName]) =>
+          <SelectedTagsItem
+            tagId={ tagId }
+            tagName={ tagName }
+            key={ tagId }
+          />
+        )}
+      </div>
+    );
+  }
+}
+
+
 /** Tags filter dialog window logic. */
 class TagsFilterDialog extends BaseDialog {
 
@@ -215,6 +275,7 @@ class TagsFilterDialog extends BaseDialog {
     return (
       <DialogWrapper opened={ this.state.opened } >
         <TagsSearch />
+        <SelectedTags values={ this.props.values }/>
       </DialogWrapper >
     );
   }

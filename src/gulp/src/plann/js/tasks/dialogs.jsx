@@ -22,7 +22,7 @@ class TasksDialogs extends React.Component {
         <PriorityFilterDialog
           choices={ CHOISES.task.priority }
           activeValues={ this.props.filters.priority } />
-        <TagsFilterDialog />
+        <TagsFilterDialog values={ this.props.filters.tags } />
         <CreationDialog />
       </div>
     );

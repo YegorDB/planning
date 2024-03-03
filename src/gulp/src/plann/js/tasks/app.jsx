@@ -12,9 +12,11 @@ class App extends React.Component {
 
   static FILTER_PRIORITY = 'priority';
   static FILTER_STATUS = 'status';
+  static FILTER_TAGS = 'tags';
   static ALL_FILTERS = [
     App.FILTER_PRIORITY,
     App.FILTER_STATUS,
+    App.FILTER_TAGS,
   ];
 
   /** Creation. */
@@ -28,6 +30,8 @@ class App extends React.Component {
 
     this._handleSetFilter = this._handleSetFilter.bind(this);
     this._handleSetSearch = this._handleSetSearch.bind(this);
+    this._handleAddFilterTag = this._handleAddFilterTag.bind(this);
+    this._handleRemoveFilterTag = this._handleRemoveFilterTag.bind(this);
     this._handleResetFiltersAndSearch = this._handleResetFiltersAndSearch.bind(this);
   }
 
@@ -35,6 +39,8 @@ class App extends React.Component {
   componentDidMount() {
     $(document).on('setFilter', this._handleSetFilter);
     $(document).on('setSearch', this._handleSetSearch);
+    $(document).on('addFilterTag', this._handleAddFilterTag);
+    $(document).on('removeFilterTag', this._handleRemoveFilterTag);
     $(document).on('resetFiltersAndSearch', this._handleResetFiltersAndSearch);
   }
 
@@ -42,6 +48,8 @@ class App extends React.Component {
   componentWillUnmount() {
     $(document).off('setFilter', this._handleSetFilter);
     $(document).off('setSearch', this._handleSetSearch);
+    $(document).off('addFilterTag', this._handleAddFilterTag);
+    $(document).off('removeFilterTag', this._handleRemoveFilterTag);
     $(document).off('resetFiltersAndSearch', this._handleResetFiltersAndSearch);
   }
 
@@ -106,6 +114,40 @@ class App extends React.Component {
   }
 
   /**
+   * Add filter tag handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleAddFilterTag(event) {
+    this.setState(state => ({
+      filters: {
+        ...state.filters,
+        tags: {
+          ...state.filters.tags,
+          [event.tagId]: event.tagName,
+        },
+      },
+    }));
+  }
+
+  /**
+   * Remove filter tag handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleRemoveFilterTag(event) {
+    this.setState(state => ({
+      filters: {
+        ...state.filters,
+        tags: Object.fromEntries(
+          Object.entries(state.filters.tags)
+          .filter(([tag_id, _]) => tag_id != event.tagId)
+        ),
+      },
+    }));
+  }
+
+  /**
    * Reset filters and search data.
    * @private
    * @param {Event} event - DOM event.
@@ -130,6 +172,7 @@ class App extends React.Component {
       [App.FILTER_STATUS]: (
         Object.keys(CHOISES.task.status).map(p => parseInt(p))
       ),
+      [App.FILTER_TAGS]: {},
     };
   }
 }

@@ -35,11 +35,17 @@ class Items extends React.Component {
       this._getTasksData();
       return;
     }
-    for (let k of Object.keys(this.props.filters)) {
-      if (this.props.filters[k].join() !== prevProps.filters[k].join()) {
-        this._getTasksData();
-        return;
-      }
+    if (this.props.filters.priority.join() !== prevProps.filters.priority.join()) {
+      this._getTasksData();
+      return;
+    }
+    if (this.props.filters.status.join() !== prevProps.filters.status.join()) {
+      this._getTasksData();
+      return;
+    }
+    if (Object.keys(this.props.filters.tags).join() !== Object.keys(prevProps.filters.tags).join()) {
+      this._getTasksData();
+      return;
     }
   }
 
@@ -70,6 +76,7 @@ class Items extends React.Component {
       data: {
         priority__in: this.props.filters.priority.join(','),
         status__in: this.props.filters.status.join(','),
+        tags__id__in: Object.keys(this.props.filters.tags).join(','),
         search: this.props.search,
       },
     })
