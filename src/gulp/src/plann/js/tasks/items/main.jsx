@@ -11,6 +11,7 @@ class Items extends React.Component {
     super(props);
 
     this.state = {
+      count: 0,
       items: [],
     };
 
@@ -82,7 +83,8 @@ class Items extends React.Component {
     })
     .done((data) => {
       this.setState({
-        items: data,
+        count: data.count,
+        items: data.items,
       });
     })
     .fail(function(jqXHR, textStatus, errorThrown) {

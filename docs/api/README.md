@@ -85,84 +85,57 @@ GET
 
 ### Response json data
 ```
-[
-    {
-        "id": integer,
-        "creator": {
+{
+    "count": integer,
+    "results": [
+        {
             "id": integer,
-            "username": string,
-            "first_name": string,
-            "last_name": string,
-        },
-        "responsible": {
-            "id": integer,
-            "username": string,
-            "first_name": string,
-            "last_name": string,
-        },
-        "name": string,
-        "description": string,
-        "priority": integer,
-        "status": string,
-        "creation_datetime": ISO 8601 datetime string,
-        "tags": [
-            {
+            "creator": {
                 "id": integer,
-                "name": string
+                "username": string,
+                "first_name": string,
+                "last_name": string,
             },
-            ...
-        ]
-    }
-    ...
-]
+            "responsible": {
+                "id": integer,
+                "username": string,
+                "first_name": string,
+                "last_name": string,
+            },
+            "name": string,
+            "description": string,
+            "priority": integer,
+            "status": string,
+            "creation_datetime": ISO 8601 datetime string,
+            "tags": [
+                {
+                    "id": integer,
+                    "name": string
+                },
+                ...
+            ]
+        }
+        ...
+    ]
+}
 ```
 
 ### Authorization header
 `Authorization: Token ${api_token_value}`
 
-## /api/1.0/search_user_tasks/
+## /api/1.0/tags/
 
-> Search user tasks by search string in name and description
+> Tags list
 
 ### Method
 GET
-
-### GET params
-```
-{
-    "search": string
-}
-```
 
 ### Response json data
 ```
 [
     {
         "id": integer,
-        "creator": {
-            "id": integer,
-            "username": string,
-            "first_name": string,
-            "last_name": string,
-        },
-        "responsible": {
-            "id": integer,
-            "username": string,
-            "first_name": string,
-            "last_name": string,
-        },
-        "name": string,
-        "description": string,
-        "priority": integer,
-        "status": string,
-        "creation_datetime": ISO 8601 datetime string,
-        "tags": [
-            {
-                "id": integer,
-                "name": string
-            },
-            ...
-        ]
+        "name": string
     }
     ...
 ]

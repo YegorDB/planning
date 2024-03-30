@@ -2,6 +2,7 @@ from rest_framework import filters, generics
 
 from plann.filters import TagFilterSet, TaskFilterSet
 from plann.models import Tag
+from plann.pagination import UserTasksPagination
 from plann.serializers import TagSerializer, TaskSerializer, TaskListSerializer
 
 
@@ -41,36 +42,39 @@ class UserTasks(generics.ListAPIView):
 
     ### Response json data
     ```
-    [
-        {
-            "id": integer,
-            "creator": {
+    {
+        "count": integer,
+        "results": [
+            {
                 "id": integer,
-                "username": string,
-                "first_name": string,
-                "last_name": string,
-            },
-            "responsible": {
-                "id": integer,
-                "username": string,
-                "first_name": string,
-                "last_name": string,
-            },
-            "name": string,
-            "description": string,
-            "priority": integer,
-            "status": string,
-            "creation_datetime": ISO 8601 datetime string,
-            "tags": [
-                {
+                "creator": {
                     "id": integer,
-                    "name": string
+                    "username": string,
+                    "first_name": string,
+                    "last_name": string,
                 },
-                ...
-            ]
-        }
-        ...
-    ]
+                "responsible": {
+                    "id": integer,
+                    "username": string,
+                    "first_name": string,
+                    "last_name": string,
+                },
+                "name": string,
+                "description": string,
+                "priority": integer,
+                "status": string,
+                "creation_datetime": ISO 8601 datetime string,
+                "tags": [
+                    {
+                        "id": integer,
+                        "name": string
+                    },
+                    ...
+                ]
+            }
+            ...
+        ]
+    }
     ```
 
     ### Authorization header
@@ -79,6 +83,7 @@ class UserTasks(generics.ListAPIView):
 
     serializer_class = TaskListSerializer
     filterset_class = TaskFilterSet
+    pagination_class = UserTasksPagination
 
     def get_queryset(self):
         return self.request.user.tasks.order_by('-priority', '-status', 'id')
