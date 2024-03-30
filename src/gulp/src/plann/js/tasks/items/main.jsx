@@ -1,10 +1,13 @@
 const $ = require('jquery-browserify');
 const React = require('react');
 const { Item } = require('./item/main.jsx');
+const { ShowMoreTasksButton } = require('./show_more_tasks_button.jsx');
 
 
 /** Tasks items. */
 class Items extends React.Component {
+
+  static PAGINATION_STEP = 10;
 
   /** Creation. */
   constructor(props) {
@@ -12,10 +15,12 @@ class Items extends React.Component {
 
     this.state = {
       count: 0,
+      offset: 0,
       items: [],
     };
 
     this._handleAddTask = this._handleAddTask.bind(this);
+    this._handleShowMoreTasksStart = this._handleShowMoreTasksStart.bind(this);
 
     this._getTasksData();
   }
@@ -23,11 +28,13 @@ class Items extends React.Component {
   /** Component did mount logic. */
   componentDidMount() {
     $(document).on('addTask', this._handleAddTask);
+    $(document).on('showMoreTasksStart', this._handleShowMoreTasksStart);
   }
 
   /** Component will unmount logic. */
   componentWillUnmount() {
     $(document).off('addTask', this._handleAddTask);
+    $(document).off('showMoreTasksStart', this._handleShowMoreTasksStart);
   }
 
   /** Component did update logic. */
@@ -58,20 +65,24 @@ class Items extends React.Component {
     return (
       <div className="task-items" >
         {
-          this.state.items
-          .map(data =>
+          this.state.items.map(data =>
             <Item taskData={ data } key={ data.id } />
           )
         }
+        { this.state.offset < this.state.count && <ShowMoreTasksButton/> }
       </div>
     );
   }
 
   /**
    * Get tasks data.
+   * @param {Object} options - Options.
+   * @param {boolean} options.showMore - Show more items or not.
    * @private
    */
-  _getTasksData() {
+  _getTasksData(options) {
+    options = options || {};
+
     $.ajax({
       url: URLS.user_tasks,
       data: {
@@ -79,13 +90,16 @@ class Items extends React.Component {
         status__in: this.props.filters.status.join(','),
         tags__id__in: Object.keys(this.props.filters.tags).join(','),
         search: this.props.search,
+        limit: Items.PAGINATION_STEP,
+        offset: options.showMore ? this.state.offset : 0,
       },
     })
     .done((data) => {
-      this.setState({
+      this.setState(state => ({
         count: data.count,
-        items: data.items,
-      });
+        offset: state.offset + Items.PAGINATION_STEP,
+        items: options.showMore ? [...state.items, ...data.items] : data.items,
+      }));
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log('jqXHR', jqXHR);
@@ -99,6 +113,17 @@ class Items extends React.Component {
    */
   _handleAddTask(event) {
     this._getTasksData();
+  }
+
+  /**
+   * Show more tasks handler.
+   * @private
+   * @param {Event} event - DOM event.
+   */
+  _handleShowMoreTasksStart(event) {
+    this._getTasksData({
+      showMore: true,
+    });
   }
 }
 
