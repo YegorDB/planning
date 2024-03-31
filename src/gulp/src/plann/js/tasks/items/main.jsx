@@ -97,7 +97,7 @@ class Items extends React.Component {
     .done((data) => {
       this.setState(state => ({
         count: data.count,
-        offset: state.offset + Items.PAGINATION_STEP,
+        offset: (options.showMore ? state.offset : 0) + Items.PAGINATION_STEP,
         items: options.showMore ? [...state.items, ...data.items] : data.items,
       }));
     })
